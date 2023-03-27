@@ -11,6 +11,8 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
+    private ProfileFormGUI registerInput;
+    LoginViewerGUI3 register;
 
     public LoginViewerGUI() {
         super("Login Viewer");
@@ -86,6 +88,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
         }
 
         JOptionPane.showMessageDialog(this, "Logged in successfully!");
+        new ProfileFormGUI();
     }
 
     public static void main(String[] args) {
