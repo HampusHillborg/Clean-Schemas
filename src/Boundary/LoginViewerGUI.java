@@ -1,4 +1,4 @@
-package src;
+package src.Boundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,6 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
     private JPasswordField passwordField;
     private JButton loginButton;
     private ProfileFormGUI registerInput;
-    LoginViewerGUI3 register;
 
     public LoginViewerGUI() {
         super("Login Viewer");
