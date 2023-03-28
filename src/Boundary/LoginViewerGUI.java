@@ -12,6 +12,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
     private JPasswordField passwordField;
     private JButton loginButton;
     private ProfileFormGUI registerInput;
+    private LandingPage landingPage;
 
     public LoginViewerGUI() {
         super("Login Viewer");
@@ -70,6 +71,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
 
         this.users.put(username, password);
         JOptionPane.showMessageDialog(this, "Account created successfully!");
+        new ProfileFormGUI();
     }
 
     public void login() {
@@ -87,7 +89,8 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
         }
 
         JOptionPane.showMessageDialog(this, "Logged in successfully!");
-        new ProfileFormGUI();
+        new LandingPage();
+
     }
 
     public static void main(String[] args) {
