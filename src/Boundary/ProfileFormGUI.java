@@ -1,5 +1,7 @@
-package src;
+package src.Boundary;
 
+
+import src.Entity.Profile;
 
 import java.awt.*;
 import java.awt.event.*;
