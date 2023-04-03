@@ -26,7 +26,6 @@ public class UserDatabase {
         return emailRegistered;
     }
 
-    // ToDo: Test this method
     /*
     * Creates a new user with the given email, first name, last name, age, sex, and password
     * in the database. Also creates a corresponding row in the user_data table.
@@ -74,10 +73,10 @@ public class UserDatabase {
      * If successful, returns true.
      */
     public boolean addWeight(int userId, double weight) throws SQLException {
-        String sql = "INSERT INTO user_data (user_id, current_weight) VALUES (?, ?)";
+        String sql = "UPDATE user_data SET current_weight = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setInt(1, userId);
-        stmt.setDouble(2, weight);
+        stmt.setInt(1, weight);
+        stmt.setDouble(2, userId);
         int rowsInserted = stmt.executeUpdate();
         stmt.close();
         return rowsInserted == 1;
@@ -112,7 +111,6 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
-    // ToDo: Test this method
     /*
      * Adds how many meals a user eats per day to a given user in the database.
      * If successful, returns true.
@@ -127,7 +125,6 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
-    // ToDo: Test this method
     /*
      * Adds how many meals a user eats per day to a given user in the database.
      * If successful, returns true.
@@ -136,6 +133,20 @@ public class UserDatabase {
         String sql = "UPDATE user_data SET exercise_per_week = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setDouble(1, excercise);
+        stmt.setInt(2, userId);
+        int rowsUpdated = stmt.executeUpdate();
+        stmt.close();
+        return rowsUpdated == 1;
+    }
+
+    /*
+     * Adds how many carbs a user eats per day to a given user in the database.
+     * If successful, returns true.
+     */
+    public boolean addAmountOfCarbs(int userId, int cals) throws SQLException {
+        String sql = "UPDATE user_data SET carbs = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setDouble(1, cals);
         stmt.setInt(2, userId);
         int rowsUpdated = stmt.executeUpdate();
         stmt.close();
@@ -170,7 +181,14 @@ public class UserDatabase {
         UserDatabase ud = new UserDatabase();
         
         try {
-            ud.addGoalWeight(1, 70);
+            //ud.createUser("hampushillborg@gmail.com", "Hampus", "Hillborg", 23, 'M', "King123");
+            //ud.addGoalWeight(1, 70);
+            //ud.addExcercisePerWeek(1, 5);
+            //ud.addMealsPerDay(1, 3);
+            //ud.addHeight(1, 173);
+            ud.addWeight(1, 61.0); // not working
+            //ud.addGoalWeight(1,70);
+            //ud.addAmountOfCarbs(1, 1000);
         } catch (SQLException e) {
             e.printStackTrace();
         }
