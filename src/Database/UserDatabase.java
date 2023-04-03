@@ -1,4 +1,4 @@
-package src;
+package src.Database;
 import java.sql.*;
 
 
@@ -26,21 +26,46 @@ public class UserDatabase {
         return emailRegistered;
     }
 
-
     /*
-     * Creates an User with email, firstname and lastname in the database.
-     * If successful, returns true.
-     */
-    public boolean createUser(String email, String firstName, String lastName) throws SQLException {
-        String sql = "INSERT INTO users (email, first_name, last_name) VALUES (?, ?, ?)";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, email);
-        stmt.setString(2, firstName);
-        stmt.setString(3, lastName);
-        int rowsInserted = stmt.executeUpdate();
-        stmt.close();
-        return rowsInserted == 1;
-    }
+    * Creates a new user with the given email, first name, last name, age, sex, and password
+    * in the database. Also creates a corresponding row in the user_data table.
+    * Returns true if the operation was successful, false otherwise.
+    */
+    public boolean createUser(String email, String firstName, String lastName, int age, char sex, String password) throws SQLException {
+        // Insert new user into users table
+        String usersSql = "INSERT INTO users (email, first_name, last_name, password) VALUES (?, ?, ?, ?)";
+        PreparedStatement usersStmt = conn.prepareStatement(usersSql);
+        usersStmt.setString(1, email);
+        usersStmt.setString(2, firstName);
+        usersStmt.setString(3, lastName);
+        usersStmt.setString(4, password);
+        int rowsInserted = usersStmt.executeUpdate();
+        usersStmt.close();
+        if (rowsInserted != 1) {
+            return false;
+        }
+
+    // Get the user ID of the newly created user
+    String userIdSql = "SELECT id FROM users WHERE email = ?";
+    PreparedStatement userIdStmt = conn.prepareStatement(userIdSql);
+    userIdStmt.setString(1, email);
+    ResultSet userIdResult = userIdStmt.executeQuery();
+    userIdResult.next();
+    int userId = userIdResult.getInt("id");
+    userIdStmt.close();
+
+    // Insert corresponding row into user_data table
+    String userDataSql = "INSERT INTO user_data (user_id, age, sex) VALUES (?, ?, ?)";
+    PreparedStatement userDataStmt = conn.prepareStatement(userDataSql);
+    userDataStmt.setInt(1, userId);
+    userDataStmt.setInt(2, age);
+    userDataStmt.setString(3, String.valueOf(sex));
+    rowsInserted = userDataStmt.executeUpdate();
+    userDataStmt.close();
+
+    return rowsInserted == 1;
+}
+
 
 
     /*
@@ -48,10 +73,10 @@ public class UserDatabase {
      * If successful, returns true.
      */
     public boolean addWeight(int userId, double weight) throws SQLException {
-        String sql = "INSERT INTO user_data (user_id, current_weight) VALUES (?, ?)";
+        String sql = "UPDATE user_data SET current_weight = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setInt(1, userId);
-        stmt.setDouble(2, weight);
+        stmt.setInt(1, weight);
+        stmt.setDouble(2, userId);
         int rowsInserted = stmt.executeUpdate();
         stmt.close();
         return rowsInserted == 1;
@@ -85,7 +110,50 @@ public class UserDatabase {
         stmt.close();
         return rowsUpdated == 1;
     }
-    
+
+    /*
+     * Adds how many meals a user eats per day to a given user in the database.
+     * If successful, returns true.
+     */
+    public boolean addMealsPerDay(int userId, int meals) throws SQLException {
+        String sql = "UPDATE user_data SET meals_per_day = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setDouble(1, meals);
+        stmt.setInt(2, userId);
+        int rowsUpdated = stmt.executeUpdate();
+        stmt.close();
+        return rowsUpdated == 1;
+    }
+
+    /*
+     * Adds how many meals a user eats per day to a given user in the database.
+     * If successful, returns true.
+     */
+    public boolean addExcercisePerWeek(int userId, int excercise) throws SQLException {
+        String sql = "UPDATE user_data SET exercise_per_week = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setDouble(1, excercise);
+        stmt.setInt(2, userId);
+        int rowsUpdated = stmt.executeUpdate();
+        stmt.close();
+        return rowsUpdated == 1;
+    }
+
+    /*
+     * Adds how many carbs a user eats per day to a given user in the database.
+     * If successful, returns true.
+     */
+    public boolean addAmountOfCarbs(int userId, int cals) throws SQLException {
+        String sql = "UPDATE user_data SET carbs = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setDouble(1, cals);
+        stmt.setInt(2, userId);
+        int rowsUpdated = stmt.executeUpdate();
+        stmt.close();
+        return rowsUpdated == 1;
+    }
+
+
     /*
      * Connects to the database and
      * prints connected if successful.
@@ -113,7 +181,14 @@ public class UserDatabase {
         UserDatabase ud = new UserDatabase();
         
         try {
-            ud.addGoalWeight(1, 70);
+            //ud.createUser("hampushillborg@gmail.com", "Hampus", "Hillborg", 23, 'M', "King123");
+            //ud.addGoalWeight(1, 70);
+            //ud.addExcercisePerWeek(1, 5);
+            //ud.addMealsPerDay(1, 3);
+            //ud.addHeight(1, 173);
+            ud.addWeight(1, 61.0); // not working
+            //ud.addGoalWeight(1,70);
+            //ud.addAmountOfCarbs(1, 1000);
         } catch (SQLException e) {
             e.printStackTrace();
         }
