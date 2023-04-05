@@ -180,18 +180,5 @@ public class UserDatabase {
     public static void main(String[] args) {
         UserDatabase ud = new UserDatabase();
         
-        try {
-            //ud.createUser("hampushillborg@gmail.com", "Hampus", "Hillborg", 23, 'M', "King123");
-            //ud.addGoalWeight(1, 70);
-            //ud.addExercisePerWeek(1, 5);
-            //ud.addMealsPerDay(1, 3);
-            //ud.addHeight(1, 173);
-            ud.addWeight(1, 61.0); // not working
-            //ud.addGoalWeight(1,70);
-            //ud.addAmountOfCarbs(1, 1000);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 }
