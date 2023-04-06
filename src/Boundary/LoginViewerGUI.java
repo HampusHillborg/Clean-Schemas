@@ -32,18 +32,35 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
         this.loginButton.addActionListener(this);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 2));
-        panel.add(usernameLabel);
-        panel.add(this.usernameField);
-        panel.add(passwordLabel);
-        panel.add(this.passwordField);
-        panel.add(createButton);
-        panel.add(this.loginButton);
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        panel.add(usernameLabel, gbc);
+        gbc.gridx = 1;
+        panel.add(this.usernameField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(passwordLabel, gbc);
+        gbc.gridx = 1;
+        panel.add(this.passwordField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        panel.add(createButton, gbc);
+        gbc.gridy = 3;
+        panel.add(this.loginButton, gbc);
 
-        this.add(panel);
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(panel, BorderLayout.CENTER);
+
+        this.add(mainPanel);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
@@ -97,4 +114,5 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
         new LoginViewerGUI();
     }
 }
+
 
