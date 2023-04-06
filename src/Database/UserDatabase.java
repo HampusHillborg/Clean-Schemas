@@ -127,12 +127,12 @@ public class UserDatabase {
 
     /*
      * Adds how many meals a user eats per day to a given user in the database.
-     * If successful, returns true.
+     * If successful, returns true. exercise
      */
-    public boolean addExcercisePerWeek(int userId, int excercise) throws SQLException {
+    public boolean addExercisePerWeek(int userId, int exercise) throws SQLException {
         String sql = "UPDATE user_data SET exercise_per_week = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setDouble(1, excercise);
+        stmt.setDouble(1, exercise);
         stmt.setInt(2, userId);
         int rowsUpdated = stmt.executeUpdate();
         stmt.close();
@@ -180,18 +180,5 @@ public class UserDatabase {
     public static void main(String[] args) {
         UserDatabase ud = new UserDatabase();
         
-        try {
-            //ud.createUser("hampushillborg@gmail.com", "Hampus", "Hillborg", 23, 'M', "King123");
-            //ud.addGoalWeight(1, 70);
-            //ud.addExcercisePerWeek(1, 5);
-            //ud.addMealsPerDay(1, 3);
-            //ud.addHeight(1, 173);
-            ud.addWeight(1, 61.0); // not working
-            //ud.addGoalWeight(1,70);
-            //ud.addAmountOfCarbs(1, 1000);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 }

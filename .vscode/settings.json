@@ -1,6 +1,6 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\hampu\\OneDrive\\Skrivbord\\postgresql-42.6.0.jar"
+        "c:\\Users\\hampu\\Documents\\GitHub\\Clean-Schemas\\src\\postgresql-42.6.0.jar"
     ]
 }
