@@ -7,11 +7,10 @@ public class UserDatabase {
     Connection conn;
 
     public UserDatabase(){
-        conn = getDatabaseConnection();
     }
     
 
-    /*
+    /**
      * Checks if the user is already registered in the database.
      * Returns true if user is already registered.
      */
@@ -26,7 +25,7 @@ public class UserDatabase {
         return emailRegistered;
     }
 
-    /*
+    /**
     * Creates a new user with the given email, first name, last name, age, sex, and password
     * in the database. Also creates a corresponding row in the user_data table.
     * Returns true if the operation was successful, false otherwise.
@@ -68,7 +67,7 @@ public class UserDatabase {
 
 
 
-    /*
+    /**
      * Adds current weight to a user_id in the database.
      * If successful, returns true.
      */
@@ -83,7 +82,7 @@ public class UserDatabase {
     }
 
 
-    /*
+    /**
      * Adds the goal weight to a given user in the database.
      * If successful, returns true.
      */
@@ -97,7 +96,7 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
-    /*
+    /**
      * Adds the height to a given user in the database.
      * If successful, returns true.
      */
@@ -111,7 +110,7 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
-    /*
+    /**
      * Adds how many meals a user eats per day to a given user in the database.
      * If successful, returns true.
      */
@@ -125,7 +124,7 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
-    /*
+    /**
      * Adds how many meals a user eats per day to a given user in the database.
      * If successful, returns true. exercise
      */
@@ -139,7 +138,7 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
-    /*
+    /**
      * Adds how many carbs a user eats per day to a given user in the database.
      * If successful, returns true.
      */
@@ -154,31 +153,9 @@ public class UserDatabase {
     }
 
 
-    /*
-     * Connects to the database and
-     * prints connected if successful.
-     * Returns a connection that can be used to send statements to the database.
-     */
-    public Connection getDatabaseConnection() {
-
-        String url = "jdbc:postgresql://pgserver.mau.se:5432/cleanschemas";
-        String user = "an6020";
-        String password = "te36iale";
-        try {
-            Connection conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Connected");
-            return conn;
-            
-
-        } catch (Exception e) {
-            System.out.println(e);
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public static void main(String[] args) {
         UserDatabase ud = new UserDatabase();
-        
+
+
     }
 }
