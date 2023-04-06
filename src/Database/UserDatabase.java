@@ -5,8 +5,10 @@ import java.sql.*;
 public class UserDatabase {
 
     Connection conn;
+    ConnectToDatabase connect = new ConnectToDatabase();
 
     public UserDatabase(){
+        conn = connect.getUserDatabaseConnection();
     }
     
 
