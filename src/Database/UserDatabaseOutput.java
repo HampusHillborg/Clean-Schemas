@@ -119,18 +119,18 @@ public class UserDatabaseOutput {
      * @param userId
      * @return
      */
-    public Double getGoalWeight(int userId) {
+    public String getGoal(int userId) {
         PreparedStatement stmt = null;
-        Double goalWeight = null;
+        String goal = null;
 
         try {
-            String sql = "SELECT goal_weight FROM user_data WHERE user_id = ?";
+            String sql = "SELECT goal FROM user_data WHERE user_id = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                goalWeight = rs.getDouble("goal_weight");
+                goal = rs.getString("goal");
             }
 
             // Clean-up environment
@@ -144,7 +144,7 @@ public class UserDatabaseOutput {
             e.printStackTrace();
         }
 
-        return goalWeight;
+        return goal;
     }
 
     /**
@@ -242,9 +242,9 @@ public class UserDatabaseOutput {
      * @param userId
      * @return
      */
-    public int getCarbs(int userId) {
+    public String getCarbs(int userId) {
         PreparedStatement stmt = null;
-        int carbs = 0;
+        String carbs = null;
 
         try {
             String sql = "SELECT carbs FROM user_data WHERE user_id = ?";
@@ -253,7 +253,7 @@ public class UserDatabaseOutput {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                carbs = rs.getInt("carbs");
+                carbs = rs.getString("carbs");
             }
 
             // Clean-up environment
@@ -275,18 +275,18 @@ public class UserDatabaseOutput {
      * @param userId
      * @return
      */
-    public Double getExercisePerWeek(int userId) {
+    public String getActivityValue(int userId) {
         PreparedStatement stmt = null;
-        Double exercisePerWeek = 0.0;
+        String activityValue = null;
 
         try {
-            String sql = "SELECT exercise_per_week FROM user_data WHERE user_id = ?";
+            String sql = "SELECT activityValue FROM user_data WHERE user_id = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                exercisePerWeek = rs.getDouble("exercise_per_week");
+                activityValue = rs.getString("activityValue");
             }
 
             // Clean-up environment
@@ -299,13 +299,15 @@ public class UserDatabaseOutput {
             // Handle other errors
             e.printStackTrace();
         }
-        return exercisePerWeek;
+        return activityValue;
     }
 
 
     public static void main(String[] args) {
         UserDatabaseOutput udbo = new UserDatabaseOutput();
-        System.out.println(udbo.getExercisePerWeek(1));
+        System.out.println(udbo.getActivityValue(1));
+        System.out.println(udbo.getCarbs(1));
+        System.out.println(udbo.getGoal(1));
     }
 
 
