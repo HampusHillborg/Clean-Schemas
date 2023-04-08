@@ -5,8 +5,10 @@ import java.sql.*;
 public class UserDatabase {
 
     Connection conn;
+    ConnectToDatabase connect = new ConnectToDatabase();
 
     public UserDatabase(){
+        conn = connect.getUserDatabaseConnection();
     }
     
 
@@ -86,10 +88,10 @@ public class UserDatabase {
      * Adds the goal weight to a given user in the database.
      * If successful, returns true.
      */
-    public boolean addGoalWeight(int userId, double goalWeight) throws SQLException {
-        String sql = "UPDATE user_data SET goal_weight = ? WHERE user_id = ?";
+    public boolean addGoal(int userId, String goal) throws SQLException {
+        String sql = "UPDATE user_data SET goal = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setDouble(1, goalWeight);
+        stmt.setString(1, goal);
         stmt.setInt(2, userId);
         int rowsUpdated = stmt.executeUpdate();
         stmt.close();
@@ -125,13 +127,13 @@ public class UserDatabase {
     }
 
     /**
-     * Adds how many meals a user eats per day to a given user in the database.
+     * Adds activityValue to a given user in the database.
      * If successful, returns true. exercise
      */
-    public boolean addExercisePerWeek(int userId, int exercise) throws SQLException {
-        String sql = "UPDATE user_data SET exercise_per_week = ? WHERE user_id = ?";
+    public boolean addActivityValue(int userId, String activityValue) throws SQLException {
+        String sql = "UPDATE user_data SET activityValue = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setDouble(1, exercise);
+        stmt.setString(1, activityValue);
         stmt.setInt(2, userId);
         int rowsUpdated = stmt.executeUpdate();
         stmt.close();
@@ -142,10 +144,10 @@ public class UserDatabase {
      * Adds how many carbs a user eats per day to a given user in the database.
      * If successful, returns true.
      */
-    public boolean addAmountOfCarbs(int userId, int cals) throws SQLException {
+    public boolean addAmountOfCarbs(int userId, String carbs) throws SQLException {
         String sql = "UPDATE user_data SET carbs = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setDouble(1, cals);
+        stmt.setString(1, carbs);
         stmt.setInt(2, userId);
         int rowsUpdated = stmt.executeUpdate();
         stmt.close();
@@ -156,6 +158,11 @@ public class UserDatabase {
     public static void main(String[] args) {
         UserDatabase ud = new UserDatabase();
 
+        try {
+            ud.addActivityValue(1, "mycket");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
