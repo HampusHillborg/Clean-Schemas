@@ -78,22 +78,8 @@ public class ProfileFormGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String activity = (String) activityField.getSelectedItem();
-                double activityValue;
-                if (activity.equals("Sedentary")) {
-                    activityValue = 1.19633658;
-                } else if (activity.equals("Light Exercise(1-2/Week)")) {
-                    activityValue = 1.3750718;
-                } else if (activity.equals("Moderate Exercise(3-5/Week)")) {
-                    activityValue = 1.55025847;
-                } else if (activity.equals("Heavy Exercise(6-7/Week)")) {
-                    activityValue = 1.72544515;
-                } else if (activity.equals("Athlete(2x/Day)")) {
-                    activityValue = 1.90005744;
-                } else {
-                    activityValue = 0;
-                }
                 // Get user input from fields
+                String activityValue = (String) activityField.getSelectedItem();
                 int height = Integer.parseInt(heightField.getText());
                 int weight = Integer.parseInt(weightField.getText());
                 int age = Integer.parseInt(ageField.getText());

@@ -40,7 +40,7 @@ public class RegistrationController {
             stmt.setInt(3, userProfile.getAge());
             stmt.setString(4, userProfile.getSex());
             stmt.setString(5, userProfile.getGoal());
-            stmt.setDouble(6, userProfile.getActivityValue());
+            stmt.setString(6, userProfile.getActivityValue());
             stmt.setString(7, userProfile.getCarbAmount());
             stmt.setInt(8, userProfile.getMealsPerDay());
             stmt.executeUpdate();

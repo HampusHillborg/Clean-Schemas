@@ -8,11 +8,12 @@ public class Profile {
     private int age;
     private String sex;
     private String goal;
+
     private String activityValue;
+
     private String carbAmount;
     private int mealsPerDay;
     private List<String> favoriteFoods;
-
     private List<String> dislikedFoods;
 
     public Profile(double height, double weight, int age, String sex, String goal, String activityValue, String carbAmount, int mealsPerDay) {
@@ -28,6 +29,14 @@ public class Profile {
         this.dislikedFoods = dislikedFoods;
 
  */
+    }
+
+    public String getActivityValue() {
+        return activityValue;
+    }
+
+    public void setActivityValue(String activityValue) {
+        this.activityValue = activityValue;
     }
 
     public void setHeight(double height) {
