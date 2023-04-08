@@ -3,6 +3,33 @@ package src.Entity;
 import java.util.List;
 
 public class Profile {
+    private double height;
+    private double weight;
+    private int age;
+    private String sex;
+    private String goal;
+    private String activityValue;
+    private String carbAmount;
+    private int mealsPerDay;
+    private List<String> favoriteFoods;
+
+    private List<String> dislikedFoods;
+
+    public Profile(double height, double weight, int age, String sex, String goal, String activityValue, String carbAmount, int mealsPerDay) {
+        this.height = height;
+        this.weight = weight;
+        this.age = age;
+        this.sex = sex;
+        this.goal = goal;
+        this.activityValue = activityValue;
+        this.carbAmount = carbAmount;
+        this.mealsPerDay = mealsPerDay;
+/*        this.favoriteFoods = favoriteFoods;
+        this.dislikedFoods = dislikedFoods;
+
+ */
+    }
+
     public void setHeight(double height) {
         this.height = height;
     }
@@ -34,33 +61,8 @@ public class Profile {
     public void setFavoriteFoods(List<String> favoriteFoods) {
         this.favoriteFoods = favoriteFoods;
     }
-
     public void setDislikedFoods(List<String> dislikedFoods) {
         this.dislikedFoods = dislikedFoods;
-    }
-
-    private double height;
-    private double weight;
-    private int age;
-    private String sex;
-    private String goal;
-    private String carbAmount;
-    private int mealsPerDay;
-    private List<String> favoriteFoods;
-    private List<String> dislikedFoods;
-
-    public Profile(double height, double weight, int age, String sex, String goal, String carbAmount, int mealsPerDay) {
-        this.height = height;
-        this.weight = weight;
-        this.age = age;
-        this.sex = sex;
-        this.goal = goal;
-        this.carbAmount = carbAmount;
-        this.mealsPerDay = mealsPerDay;
-/*        this.favoriteFoods = favoriteFoods;
-        this.dislikedFoods = dislikedFoods;
-
- */
     }
 
 

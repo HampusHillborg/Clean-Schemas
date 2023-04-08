@@ -1,5 +1,6 @@
 package src.Boundary;
 
+import src.Controller.RegistrationController;
 import src.Entity.Profile;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class ProfileFormGUI extends JFrame {
     private JTextField ageField;
     private JComboBox<String> sexField;
     private JComboBox<String> goalField;
+    private JComboBox<String> activityField;
     private JComboBox<String> carbField;
     private JComboBox<String> mealsField;
 
@@ -26,6 +28,7 @@ public class ProfileFormGUI extends JFrame {
         JLabel ageLabel = new JLabel("Age:");
         JLabel sexLabel = new JLabel("Sex:");
         JLabel goalLabel = new JLabel("Goal:");
+        JLabel activityLabel = new JLabel("ActivityLevel: ");
         JLabel carbLabel = new JLabel("Carbohydrate Intake:");
         JLabel mealsLabel = new JLabel("Number of Meals:");
 
@@ -34,6 +37,7 @@ public class ProfileFormGUI extends JFrame {
         ageField = new JTextField();
         sexField = new JComboBox<>(new String[]{"Male", "Female"});
         goalField = new JComboBox<>(new String[]{"Weight Loss", "Maintenance", "Weight Gain"});
+        activityField = new JComboBox<>(new String[]{"Sedentary", "Light Exercise(1-2/Week)", "Moderate Exercise(3-5/Week)", "Heavy Exercise(6-7/Week)", "Athlete(2x/Day"});
         carbField = new JComboBox<>(new String[]{"Low", "Medium", "High"});
         mealsField = new JComboBox<>(new String[]{"1", "2", "3", "4", "5"});
 
@@ -41,7 +45,7 @@ public class ProfileFormGUI extends JFrame {
 
         // Create layout and add components
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(8, 2));
+        panel.setLayout(new GridLayout(9, 5));
         panel.add(heightLabel);
         panel.add(heightField);
         panel.add(weightLabel);
@@ -52,6 +56,8 @@ public class ProfileFormGUI extends JFrame {
         panel.add(sexField);
         panel.add(goalLabel);
         panel.add(goalField);
+        panel.add(activityLabel);
+        panel.add(activityField);
         panel.add(carbLabel);
         panel.add(carbField);
         panel.add(mealsLabel);
@@ -63,7 +69,7 @@ public class ProfileFormGUI extends JFrame {
         add(titleLabel, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(500, 300);
         setLocationRelativeTo(null);
         setVisible(true);
 
@@ -71,6 +77,22 @@ public class ProfileFormGUI extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                String activity = (String) activityField.getSelectedItem();
+                double activityValue;
+                if (activity.equals("Sedentary")) {
+                    activityValue = 1.19633658;
+                } else if (activity.equals("Light Exercise(1-2/Week)")) {
+                    activityValue = 1.3750718;
+                } else if (activity.equals("Moderate Exercise(3-5/Week)")) {
+                    activityValue = 1.55025847;
+                } else if (activity.equals("Heavy Exercise(6-7/Week)")) {
+                    activityValue = 1.72544515;
+                } else if (activity.equals("Athlete(2x/Day)")) {
+                    activityValue = 1.90005744;
+                } else {
+                    activityValue = 0;
+                }
                 // Get user input from fields
                 int height = Integer.parseInt(heightField.getText());
                 int weight = Integer.parseInt(weightField.getText());
@@ -81,7 +103,9 @@ public class ProfileFormGUI extends JFrame {
                 int mealsPerDay = Integer.parseInt((String) mealsField.getSelectedItem());
 
                 // Create Profile object with user input
-                Profile userProfile = new Profile(height, weight, age, sex, goal, carbAmount, mealsPerDay);
+                Profile userProfile = new Profile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
+                RegistrationController controller = new RegistrationController();
+                controller.submitProfile(userProfile);
 
                 // Create and show ProfileDisplayGUI with user profile
                 ProfileDisplayGUI displayGUI = new ProfileDisplayGUI(userProfile);
