@@ -41,7 +41,9 @@ public class MainFrame extends JFrame {
         MainFrame mainFrame = new MainFrame();
 
         // Set the LoginViewerGUI's listener to the MainFrame's showLandingPage method
-        //mainFrame.loginViewerGUI.setLoginListener(mainFrame::showLandingPage);
+        /*mainFrame.loginViewerGUI.setLoginListener(mainFrame::showLandingPage);
+
+         */
     }
 }
 
