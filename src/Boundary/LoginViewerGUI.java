@@ -1,5 +1,7 @@
 package src.Boundary;
 
+import src.Controller.LoginController;
+import src.Controller.RegistrationController;
 import src.Entity.Profile;
 
 import javax.swing.*;
@@ -16,6 +18,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
     private ProfileFormGUI registerInput;
     private LandingPage landingPage;
     private Profile userProfile;
+    private LoginController loginController = new LoginController();
 
     //TODO
     // behöver separera på log in och register. En panel för att ta sig
@@ -85,12 +88,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
         String username = this.usernameField.getText();
         String password = new String(this.passwordField.getPassword());
 
-        if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a username and password.");
-            return;
-        }
-
-        if (this.users.containsKey(username)) {
+        if(loginController.checkIfRegistered(username)){
             JOptionPane.showMessageDialog(this, "Username already exists. Please choose another.");
             return;
         }
@@ -105,13 +103,8 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
         String username = this.usernameField.getText();
         String password = new String(this.passwordField.getPassword());
 
-        if (!this.users.containsKey(username)) {
-            JOptionPane.showMessageDialog(this, "Username does not exist.");
-            return;
-        }
-
-        if (!this.users.get(username).equals(password)) {
-            JOptionPane.showMessageDialog(this, "Incorrect password.");
+        if(!loginController.validateLogin(username,password)){
+            JOptionPane.showMessageDialog(this, "Login failed, try again!");
             return;
         }
 
