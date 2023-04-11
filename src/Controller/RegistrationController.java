@@ -31,9 +31,6 @@ public class  RegistrationController {
     }
 
 
-
-
-
     public void submitProfile(Profile userProfile) {
         // Save user input to database
 
@@ -46,12 +43,12 @@ public class  RegistrationController {
             userDatabase.addAmountOfCarbs(userId, userProfile.getCarbAmount());
             userDatabase.addGoal(userId, userProfile.getGoal());
             userDatabase.addMealsPerDay(userId, userProfile.getMealsPerDay());
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
-
     }
+
+
 }

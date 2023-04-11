@@ -26,6 +26,24 @@ public class UserDatabase {
         return emailRegistered;
     }
 
+    public boolean validateLogin(String email, String password) {
+        String sql = "SELECT COUNT(*) AS count FROM users WHERE email = ? AND password = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt("count");
+                    return count == 1;
+                }
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        return false;
+    }
+
+
     /**
     * Creates a new user with the given email, first name, last name, age, sex, and password
     * in the database. Also creates a corresponding row in the user_data table.
