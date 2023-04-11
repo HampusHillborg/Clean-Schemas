@@ -22,6 +22,19 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
+   /* public void onLogin(Profile userProfile) {
+        // Remove LoginViewerGUI and add LandingPage to the content pane of the JFrame
+        getContentPane().remove(this.loginViewerGUI);
+        this.landingPage = new LandingPage();
+        getContentPane().add(this.landingPage, BorderLayout.CENTER);
+
+        // Set the size of the JFrame and make it visible
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    } */
+
+
 
     public void showLandingPage() {
         // Create the LandingPage and remove the LoginViewerGUI
