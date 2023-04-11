@@ -21,9 +21,10 @@ public class ProfileFormGUI extends JFrame {
     private JComboBox<String> carbField;
     private JComboBox<String> mealsField;
 
-    public ProfileFormGUI() {
+    public ProfileFormGUI(Profile userProfile) {
         super("User Profile Form");
 
+    this.profile = userProfile;
         // Create components
         JLabel titleLabel = new JLabel("Enter Your Profile Information");
         JLabel heightLabel = new JLabel("Height (cm):");
@@ -103,8 +104,8 @@ public class ProfileFormGUI extends JFrame {
         });
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         ProfileFormGUI formGUI = new ProfileFormGUI();
-    }
+    } */
 }
 

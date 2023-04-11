@@ -47,7 +47,7 @@ public class ProfileDisplayGUI extends JFrame {
        // Profile userProfile = new Profile(170, 70, 25, "Male", "Weight Loss", "Medium", 3);
 
         // Create ProfileFormGUI object to get user input
-        ProfileFormGUI formGUI = new ProfileFormGUI();
+        //ProfileFormGUI formGUI = new ProfileFormGUI();
 
 
     }
