@@ -6,7 +6,7 @@ import java.awt.*;
 public class LandingPage extends JFrame {
     public LandingPage() {
         super("Main Menu");
-        setSize(400, 200);
+        setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -40,6 +40,27 @@ public class LandingPage extends JFrame {
 
         add(buttonsPanel, BorderLayout.WEST);
 
+        mealsButton.addActionListener(e -> {
+            // Code to execute when mealsButton is clicked
+            System.out.println("Meals button clicked!");
+        });
+
+        weeklyPlansButton.addActionListener(e -> {
+            // Code to execute when mealsButton is clicked
+            System.out.println("Weekly button clicked!");
+        });
+
+        chooseFoodsButton.addActionListener(e -> {
+            // Code to execute when mealsButton is clicked
+            System.out.println("Foods button clicked!");
+        });
+
+        profileButton.addActionListener(e -> {
+            // Code to execute when mealsButton is clicked
+            System.out.println("Profile button clicked!");
+        });
+
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
