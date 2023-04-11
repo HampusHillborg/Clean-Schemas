@@ -96,6 +96,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
         this.users.put(username, password);
         userProfile = new Profile(username, password);
         JOptionPane.showMessageDialog(this, "Account created successfully!");
+        dispose();
         new ProfileFormGUI(userProfile);
     }
 
@@ -109,6 +110,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
         }
 
         JOptionPane.showMessageDialog(this, "Logged in successfully!");
+        dispose();
         new LandingPage();
 
     }
