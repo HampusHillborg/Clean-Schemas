@@ -49,6 +49,15 @@ public class MainFrame extends JFrame {
         repaint();
     }
 
+    public void showLoginViewerGUI() {
+        // Remove the LandingPage and add the LoginViewerGUI back to the content pane of the JFrame
+        getContentPane().remove(this.landingPage);
+        getContentPane().add(this.loginViewerGUI, BorderLayout.CENTER);
+
+        // Refresh the JFrame
+        revalidate();
+        repaint();
+    }
     public static void main(String[] args) {
         // Create a new MainFrame object
         MainFrame mainFrame = new MainFrame();
