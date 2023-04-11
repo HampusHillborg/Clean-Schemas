@@ -22,9 +22,7 @@ public class Profile {
 
     private List<String> favoriteFoods;
     private List<String> dislikedFoods;
-    public Profile(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Profile(String email, String password) {
         this.email = email;
         this.password = password;
     /*        this.favoriteFoods = favoriteFoods;
