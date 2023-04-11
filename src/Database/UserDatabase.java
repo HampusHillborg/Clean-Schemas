@@ -5,10 +5,9 @@ import java.sql.*;
 public class UserDatabase {
 
     Connection conn;
-    ConnectToDatabase connect = new ConnectToDatabase();
 
-    public UserDatabase(){
-        conn = connect.getUserDatabaseConnection();
+    public UserDatabase(Connection conn){
+        this.conn = conn;
     }
     
 
@@ -66,6 +65,25 @@ public class UserDatabase {
 
     return rowsInserted == 1;
 }
+
+    public int getUserId(String email){
+        try {
+            String sql = "SELECT id from users WHERE email = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            int id = -1;
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+            rs.close();
+            stmt.close();
+            return id;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 
@@ -156,13 +174,9 @@ public class UserDatabase {
 
 
     public static void main(String[] args) {
-        UserDatabase ud = new UserDatabase();
-
-        try {
-            ud.addActivityValue(1, "mycket");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        ConnectToDatabase connect = new ConnectToDatabase();
+        UserDatabase ub = new UserDatabase(connect.getUserDatabaseConnection());
+        System.out.println(ub.getUserId("hampushillborg@gmail.com"));
 
     }
 }
