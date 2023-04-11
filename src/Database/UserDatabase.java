@@ -31,14 +31,12 @@ public class UserDatabase {
     * in the database. Also creates a corresponding row in the user_data table.
     * Returns true if the operation was successful, false otherwise.
     */
-    public boolean createUser(String email, String firstName, String lastName, int age, char sex, String password) throws SQLException {
+    public boolean createUser(String email, int age, String sex, String password) throws SQLException {
         // Insert new user into users table
-        String usersSql = "INSERT INTO users (email, first_name, last_name, password) VALUES (?, ?, ?, ?)";
+        String usersSql = "INSERT INTO users (email, password) VALUES (?, ?)";
         PreparedStatement usersStmt = conn.prepareStatement(usersSql);
         usersStmt.setString(1, email);
-        usersStmt.setString(2, firstName);
-        usersStmt.setString(3, lastName);
-        usersStmt.setString(4, password);
+        usersStmt.setString(2, password);
         int rowsInserted = usersStmt.executeUpdate();
         usersStmt.close();
         if (rowsInserted != 1) {
@@ -66,7 +64,7 @@ public class UserDatabase {
     return rowsInserted == 1;
 }
 
-    public int getUserId(String email){
+    public int getUserId(String email) {
         try {
             String sql = "SELECT id from users WHERE email = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -86,13 +84,13 @@ public class UserDatabase {
 
 
 
-
     /**
      * Adds current weight to a user_id in the database.
      * If successful, returns true.
      */
     public boolean addWeight(int userId, double weight) throws SQLException {
         String sql = "UPDATE user_data SET current_weight = ? WHERE user_id = ?";
+        System.out.println(userId + "  " + weight);
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setDouble(1, weight);
         stmt.setInt(2, userId);
@@ -176,7 +174,7 @@ public class UserDatabase {
     public static void main(String[] args) {
         ConnectToDatabase connect = new ConnectToDatabase();
         UserDatabase ub = new UserDatabase(connect.getUserDatabaseConnection());
-        System.out.println(ub.getUserId("hampushillborg@gmail.com"));
-
+        //System.out.println(ub.getUserId("hampushillborg@gmail.com"));
+            System.out.println(ub.getUserId("andreas"));
     }
 }
