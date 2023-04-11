@@ -1,5 +1,7 @@
 package src.Boundary;
 
+import src.Entity.Profile;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +15,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
     private JButton loginButton;
     private ProfileFormGUI registerInput;
     private LandingPage landingPage;
+    private Profile userProfile;
 
     //TODO
     // behöver separera på log in och register. En panel för att ta sig
@@ -93,8 +96,9 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
         }
 
         this.users.put(username, password);
+        userProfile = new Profile(username, password);
         JOptionPane.showMessageDialog(this, "Account created successfully!");
-        new ProfileFormGUI();
+        new ProfileFormGUI(userProfile);
     }
 
     public void login() {
