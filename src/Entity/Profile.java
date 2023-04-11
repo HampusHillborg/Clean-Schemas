@@ -17,10 +17,13 @@ public class Profile {
     private String goal;
     private String activityValue;
     private String carbAmount;
+    private int bmr;
+    private int tdee;
 
     private int mealsPerDay;
 
     private List<String> favoriteFoods;
+
     private List<String> dislikedFoods;
     public Profile(String email, String password) {
         this.email = email;
@@ -40,6 +43,21 @@ public class Profile {
         this.carbAmount = carbAmount;
         this.mealsPerDay = mealsPerDay;
 
+    }
+    public int getBmr() {
+        return bmr;
+    }
+
+    public void setBmr(int bmr) {
+        this.bmr = bmr;
+    }
+
+    public int getTdee() {
+        return tdee;
+    }
+
+    public void setTdee(int tdee) {
+        this.tdee = tdee;
     }
 
     public String getEmail() {

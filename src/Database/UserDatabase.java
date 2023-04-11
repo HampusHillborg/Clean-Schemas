@@ -1,13 +1,17 @@
 package src.Database;
+import src.Controller.MacronutrientControl;
+
 import java.sql.*;
 
 
 public class UserDatabase {
 
     Connection conn;
+    MacronutrientControl macronutrientControl;
 
     public UserDatabase(Connection conn){
         this.conn = conn;
+        this.macronutrientControl = new MacronutrientControl();
     }
     
 
@@ -182,6 +186,26 @@ public class UserDatabase {
         String sql = "UPDATE user_data SET carbs = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, carbs);
+        stmt.setInt(2, userId);
+        int rowsUpdated = stmt.executeUpdate();
+        stmt.close();
+        return rowsUpdated == 1;
+    }
+
+    public boolean addBmr(int userId, int bmr) throws SQLException{
+        String sql = "UPDATE user_data SET bmr = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, bmr);
+        stmt.setInt(2, userId);
+        int rowsUpdated = stmt.executeUpdate();
+        stmt.close();
+        return rowsUpdated == 1;
+    }
+
+    public boolean addTdee(int userId, int tdee) throws SQLException{
+        String sql = "UPDATE user_data SET tdee = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, tdee);
         stmt.setInt(2, userId);
         int rowsUpdated = stmt.executeUpdate();
         stmt.close();
