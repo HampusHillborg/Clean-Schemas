@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ProfileFormGUI extends JFrame {
+
+    private Profile profile;
+
     private JTextField heightField;
     private JTextField weightField;
     private JTextField ageField;
@@ -89,7 +92,7 @@ public class ProfileFormGUI extends JFrame {
                 int mealsPerDay = Integer.parseInt((String) mealsField.getSelectedItem());
 
                 // Create Profile object with user input
-                Profile userProfile = new Profile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
+                profile.AddToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
                 RegistrationController controller = new RegistrationController();
                 controller.submitProfile(userProfile);
 

@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class RegistrationController {
+public class  RegistrationController {
     private ProfileFormGUI gui;
     private Connection conn;
     private MacronutrientControl macroControl;

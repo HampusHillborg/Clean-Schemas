@@ -3,20 +3,36 @@ package src.Entity;
 import java.util.List;
 
 public class Profile {
+    private String lastName;
+
+    private String firstName;
+    private String email;
+    private String password;
     private double height;
+
     private double weight;
+
     private int age;
     private String sex;
     private String goal;
-
     private String activityValue;
-
     private String carbAmount;
+
     private int mealsPerDay;
+
     private List<String> favoriteFoods;
     private List<String> dislikedFoods;
+    public Profile(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    /*        this.favoriteFoods = favoriteFoods;
+        this.dislikedFoods = dislikedFoods;
 
-    public Profile(double height, double weight, int age, String sex, String goal, String activityValue, String carbAmount, int mealsPerDay) {
+ */
+    }
+    public void AddToProfile(double height, double weight, int age, String sex, String goal, String activityValue, String carbAmount, int mealsPerDay){
         this.height = height;
         this.weight = weight;
         this.age = age;
@@ -25,10 +41,24 @@ public class Profile {
         this.activityValue = activityValue;
         this.carbAmount = carbAmount;
         this.mealsPerDay = mealsPerDay;
-/*        this.favoriteFoods = favoriteFoods;
-        this.dislikedFoods = dislikedFoods;
 
- */
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getActivityValue() {

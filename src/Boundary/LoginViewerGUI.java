@@ -14,12 +14,18 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
     private ProfileFormGUI registerInput;
     private LandingPage landingPage;
 
+    //TODO
+    // behöver separera på log in och register. En panel för att ta sig
+    // vidare till att antingen logga in eller registrera sig.
+    // Vid registrering så ska man lägga in firstName och lastName.
+    // använd denna för att logga in och skapa en separat där man registrerar sig
+
     public LoginViewerGUI() {
         super("Login Viewer");
 
         this.users = new HashMap<>();
 
-        JLabel usernameLabel = new JLabel("Username:");
+        JLabel usernameLabel = new JLabel("Email:");
         this.usernameField = new JTextField(20);
 
         JLabel passwordLabel = new JLabel("Password:");
