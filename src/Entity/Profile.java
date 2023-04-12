@@ -1,49 +1,140 @@
 package src.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Profile {
     private String lastName;
-
     private String firstName;
     private String email;
     private String password;
-    private double height;
-
-    private double weight;
-
     private int age;
     private String sex;
+    private double height;
+    private double weight;
     private String goal;
-    private String activityValue;
+    private String activityLevel;
     private String carbAmount;
+    private List<String> favoriteFoods;
+    private List<String> dislikedFoods;
     private int bmr;
     private int tdee;
-
+    private String carbIntake;
     private int mealsPerDay;
 
-    private List<String> favoriteFoods;
-
-    private List<String> dislikedFoods;
     public Profile(String email, String password) {
         this.email = email;
         this.password = password;
-    /*        this.favoriteFoods = favoriteFoods;
-        this.dislikedFoods = dislikedFoods;
-
- */
+        this.favoriteFoods = new ArrayList<String>();
+        this.dislikedFoods = new ArrayList<String>();
     }
-    public void addToProfile(double height, double weight, int age, String sex, String goal, String activityValue, String carbAmount, int mealsPerDay){
+    public void addToProfile(double height, double weight, int age, String sex, String goal, String activityLevel, String carbIntake, int mealsPerDay) {
         this.height = height;
         this.weight = weight;
         this.age = age;
         this.sex = sex;
         this.goal = goal;
-        this.activityValue = activityValue;
-        this.carbAmount = carbAmount;
+        this.activityLevel = activityLevel;
+        this.carbIntake = carbIntake;
         this.mealsPerDay = mealsPerDay;
-
     }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setGoal(String goal) {
+        this.goal = goal;
+    }
+
+    public void setActivityValue(String activityLevel) {
+        this.activityLevel = activityLevel;
+    }
+
+    public void setCarbAmount(String carbAmount) {
+        this.carbAmount = carbAmount;
+    }
+
+    public void setFavoriteFoods(List<String> favoriteFoods) {
+        this.favoriteFoods = favoriteFoods;
+    }
+
+    public void setDislikedFoods(List<String> dislikedFoods) {
+        this.dislikedFoods = dislikedFoods;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public String getGoal() {
+        return goal;
+    }
+
+    public String getActivityValue() {
+        return activityLevel;
+    }
+
+    public String getCarbAmount() {
+        return carbAmount;
+    }
+
+    public List<String> getFavoriteFoods() {
+        return favoriteFoods;
+    }
+
+    public List<String> getDislikedFoods() {
+        return dislikedFoods;
+    }
+
     public int getBmr() {
         return bmr;
     }
@@ -60,102 +151,23 @@ public class Profile {
         this.tdee = tdee;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getActivityValue() {
-        return activityValue;
-    }
-
-    public void setActivityValue(String activityValue) {
-        this.activityValue = activityValue;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public void setGoal(String goal) {
-        this.goal = goal;
-    }
-
-    public void setCarbAmount(String carbAmount) {
-        this.carbAmount = carbAmount;
-    }
-
-    public void setMealsPerDay(int mealsPerDay) {
-        this.mealsPerDay = mealsPerDay;
-    }
-
-    public void setFavoriteFoods(List<String> favoriteFoods) {
-        this.favoriteFoods = favoriteFoods;
-    }
-    public void setDislikedFoods(List<String> dislikedFoods) {
-        this.dislikedFoods = dislikedFoods;
-    }
-
-
-    public double getHeight() {
-        return height;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public String getGoal() {
-        return goal;
-    }
-
-    public String getCarbAmount() {
-        return carbAmount;
-    }
-
     public int getMealsPerDay() {
-        return mealsPerDay;
+        // Calculate the number of meals based on the user's weight and activity level
+        if (weight < 68) {
+            return 3;
+        } else if (weight >= 68 && weight < 91) {
+            if (activityLevel.equals("Sedentary")) {
+                return 4;
+            } else {
+                return 5;
+            }
+        } else {
+            if (activityLevel.equals("Sedentary")) {
+                return 5;
+            } else {
+                return 6;
+            }
+        }
+
     }
-
-    public List<String> getFavouriteFoods() {
-        return favoriteFoods;
-    }
-
-    public List<String> getDislikeFoods() {
-        return dislikedFoods;
-    }
-
-
 }
