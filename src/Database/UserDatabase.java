@@ -8,9 +8,10 @@ public class UserDatabase {
 
     Connection conn;
     MacronutrientControl macronutrientControl;
+    private ConnectToDatabase connection = new ConnectToDatabase();
 
-    public UserDatabase(Connection conn){
-        this.conn = conn;
+    public UserDatabase(){
+        this.conn = connection.getUserDatabaseConnection();
         this.macronutrientControl = new MacronutrientControl();
     }
     
@@ -214,8 +215,7 @@ public class UserDatabase {
 
 
     public static void main(String[] args) {
-        ConnectToDatabase connect = new ConnectToDatabase();
-        UserDatabase ub = new UserDatabase(connect.getUserDatabaseConnection());
+        UserDatabase ub = new UserDatabase();
         //System.out.println(ub.getUserId("hampushillborg@gmail.com"));
             System.out.println(ub.getUserId("andreas"));
     }
