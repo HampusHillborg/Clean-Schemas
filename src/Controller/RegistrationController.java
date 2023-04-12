@@ -29,8 +29,7 @@ public class  RegistrationController {
         gui = new LoginViewerGUI();
 
         // Initialize database connection
-        conn = connect.getUserDatabaseConnection();
-        userDatabase = new UserDatabase(conn);
+        userDatabase = new UserDatabase();
     }
 
 

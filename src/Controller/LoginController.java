@@ -20,8 +20,7 @@ public class LoginController {
 
     public LoginController() {
         // Initialize database connection
-        conn = connect.getUserDatabaseConnection();
-        userDatabase = new UserDatabase(conn);
+        userDatabase = new UserDatabase();
         databaseOutput = new UserDatabaseOutput();
 
     }
