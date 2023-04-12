@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 public class ProfileFormGUI extends JFrame {
 
     private Profile profile;
@@ -108,12 +107,32 @@ public class ProfileFormGUI extends JFrame {
         });
 
     }
+
     public boolean validateInput(){
         // Add validation logic here
         // Return true if input is valid, false otherwise
+        try {
+            int height = Integer.parseInt(heightField.getText());
+            int weight = Integer.parseInt(weightField.getText());
+            int age = Integer.parseInt(ageField.getText());
+            int mealsPerDay = Integer.parseInt((String) mealsField.getSelectedItem());
+
+            if (height <= 0 || weight <= 0 || age <= 0 || mealsPerDay <= 0) {
+                JOptionPane.showMessageDialog(this, "Please enter valid values for Height, Weight, Age and Meals per day.",
+                        "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter numerical values for Height, Weight, Age and Meals per day.",
+                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
         return true;
     }
+
 }
+
+
 
 
 
