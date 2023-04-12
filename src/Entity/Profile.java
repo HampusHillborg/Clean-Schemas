@@ -33,7 +33,7 @@ public class Profile {
 
  */
     }
-    public void AddToProfile(double height, double weight, int age, String sex, String goal, String activityValue, String carbAmount, int mealsPerDay){
+    public void addToProfile(double height, double weight, int age, String sex, String goal, String activityValue, String carbAmount, int mealsPerDay){
         this.height = height;
         this.weight = weight;
         this.age = age;

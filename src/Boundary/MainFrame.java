@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
 
     public void showLandingPage() {
         // Create the LandingPage and remove the LoginViewerGUI
-        this.landingPage = new LandingPage();
+        //this.landingPage = new LandingPage();
         getContentPane().remove(this.loginViewerGUI);
 
         // Add the LandingPage to the content pane of the JFrame

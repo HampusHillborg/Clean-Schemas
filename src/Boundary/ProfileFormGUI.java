@@ -93,7 +93,7 @@ public class ProfileFormGUI extends JFrame {
                 int mealsPerDay = Integer.parseInt((String) mealsField.getSelectedItem());
 
                 // Create Profile object with user input
-                profile.AddToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
+                profile.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
                 RegistrationController controller = new RegistrationController();
                 controller.submitProfile(userProfile);
 

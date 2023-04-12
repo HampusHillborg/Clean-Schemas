@@ -1,10 +1,15 @@
 package src.Boundary;
 
+import src.Controller.LoginController;
+import src.Entity.Profile;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class LandingPage extends JFrame {
-    public LandingPage() {
+    private ProfileFormGUI profileFormGUI;
+    private LoginController loginController = new LoginController();
+    public LandingPage(Profile profile) {
         super("Main Menu");
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,6 +61,7 @@ public class LandingPage extends JFrame {
         });
 
         profileButton.addActionListener(e -> {
+            new ProfileDisplayGUI(profile);
             // Code to execute when mealsButton is clicked
             System.out.println("Profile button clicked!");
         });
@@ -65,6 +71,6 @@ public class LandingPage extends JFrame {
     }
 
     public static void main(String[] args) {
-        new LandingPage();
+        //new LandingPage();
     }
 }
