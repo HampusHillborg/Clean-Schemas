@@ -122,6 +122,26 @@ public class UserDatabase {
         return rowsInserted == 1;
     }
 
+    public boolean addSex(int userId, String sex) throws SQLException {
+        String sql = "UPDATE user_data SET sex = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, sex);
+        stmt.setInt(2, userId);
+        int rowsInserted = stmt.executeUpdate();
+        stmt.close();
+        return rowsInserted == 1;
+    }
+
+    public boolean addAge(int userId, int age) throws SQLException {
+        String sql = "UPDATE user_data SET age = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, age);
+        stmt.setInt(2, userId);
+        int rowsInserted = stmt.executeUpdate();
+        stmt.close();
+        return rowsInserted == 1;
+    }
+
 
     /**
      * Adds the goal weight to a given user in the database.

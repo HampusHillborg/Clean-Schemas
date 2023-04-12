@@ -68,5 +68,40 @@ public class  RegistrationController {
 
     }
 
+    public void updateProfile(Profile userProfile){
+        // Save user input to database
+
+        try {
+            int userId = userDatabase.getUserId(userProfile.getEmail());
+            userDatabase.addSex(userId, userProfile.getSex());
+            userDatabase.addWeight(userId, userProfile.getWeight());
+            userDatabase.addHeight(userId, userProfile.getHeight());
+            userDatabase.addActivityValue(userId, userProfile.getActivityValue());
+            userDatabase.addAmountOfCarbs(userId, userProfile.getCarbAmount());
+            userDatabase.addGoal(userId, userProfile.getGoal());
+            userDatabase.addMealsPerDay(userId, userProfile.getMealsPerDay());
+            userDatabase.addAge(userId, userProfile.getAge());
+            // Calculate BMR and TDEE
+            bmr = macroControl.calculateBmr(userProfile.getWeight(), userProfile.getHeight(), userProfile.getAge(), userProfile.getSex());
+            userProfile.setBmr(bmr);
+            macroControl.setActivityLevel(userProfile.getActivityValue()); // set activityLevel
+            tdee = macroControl.calculateTdee(bmr, userProfile.getActivityValue());
+            tdee = macroControl.adjustTdeeForGoal(tdee, userProfile.getGoal());
+            userProfile.setTdee(tdee);
+
+            // Update userProfile object with the new BMR and TDEE values
+            userProfile.setBmr(bmr);
+            userProfile.setTdee(tdee);
+
+            // Save BMR and TDEE to database
+            userId = userDatabase.getUserId(userProfile.getEmail());
+            userDatabase.addBmr(userId, bmr);
+            userDatabase.addTdee(userId, tdee);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
