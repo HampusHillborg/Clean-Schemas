@@ -64,6 +64,7 @@ public class LandingPage extends JFrame {
             new ProfileDisplayGUI(profile);
             // Code to execute when mealsButton is clicked
             System.out.println("Profile button clicked!");
+
         });
 
         setLocationRelativeTo(null);

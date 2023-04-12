@@ -13,17 +13,18 @@ public class ProfileDisplayGUI extends JFrame {
     private JLabel carbLabel;
     private JLabel mealsLabel;
 
+
     public ProfileDisplayGUI(Profile userProfile) {
         super("User Profile");
 
         // Initialize labels with user input
-        heightLabel = new JLabel("Height (cm): " + userProfile.getHeight());
-        weightLabel = new JLabel("Weight (kg): " + userProfile.getWeight());
-        ageLabel = new JLabel("Age: " + userProfile.getAge());
-        sexLabel = new JLabel("Sex: " + userProfile.getSex());
-        goalLabel = new JLabel("Goal: " + userProfile.getGoal());
-        carbLabel = new JLabel("Carbohydrate Intake: " + userProfile.getCarbAmount());
-        mealsLabel = new JLabel("Number of Meals: " + userProfile.getMealsPerDay());
+        heightLabel = new JLabel("Height (cm): ");
+        weightLabel = new JLabel("Weight (kg): ");
+        ageLabel = new JLabel("Age: ");
+        sexLabel = new JLabel("Sex: ");
+        goalLabel = new JLabel("Goal: ");
+        carbLabel = new JLabel("Carbohydrate Intake: ");
+        mealsLabel = new JLabel("Number of Meals: ");
 
         // Create layout and add components
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
