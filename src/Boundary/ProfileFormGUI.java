@@ -24,7 +24,7 @@ public class ProfileFormGUI extends JFrame {
     public ProfileFormGUI(Profile userProfile) {
         super("User Profile Form");
 
-    this.profile = userProfile;
+        this.profile = userProfile;
         // Create components
         JLabel titleLabel = new JLabel("Enter Your Profile Information");
         JLabel heightLabel = new JLabel("Height (cm):");
@@ -81,6 +81,10 @@ public class ProfileFormGUI extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Validate input
+                if (!validateInput()) {
+                    return;
+                }
 
                 // Get user input from fields
                 String activityValue = (String) activityField.getSelectedItem();
@@ -102,10 +106,16 @@ public class ProfileFormGUI extends JFrame {
                 dispose();
             }
         });
-    }
 
-    /*public static void main(String[] args) {
-        ProfileFormGUI formGUI = new ProfileFormGUI();
-    } */
+    }
+    public boolean validateInput(){
+        // Add validation logic here
+        // Return true if input is valid, false otherwise
+        return true;
+    }
 }
+
+
+
+
 
