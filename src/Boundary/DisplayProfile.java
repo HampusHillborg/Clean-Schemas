@@ -105,8 +105,10 @@ import java.awt.event.ActionListener;
 
                     // Create Profile object with user input
                     profile.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
-                    RegistrationController controller = new RegistrationController();
+                    LoginController controller = new LoginController();
+
                     controller.updateProfile(userProfile);
+
 
                     // Create and show ProfileDisplayGUI with user profile
                     ProfileDisplayGUI displayGUI = new ProfileDisplayGUI(userProfile);
