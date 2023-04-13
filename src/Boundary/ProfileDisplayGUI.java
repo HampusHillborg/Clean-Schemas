@@ -18,13 +18,13 @@ public class ProfileDisplayGUI extends JFrame {
         super("User Profile");
 
         // Initialize labels with user input
-        heightLabel = new JLabel("Height (cm): ");
-        weightLabel = new JLabel("Weight (kg): ");
-        ageLabel = new JLabel("Age: ");
-        sexLabel = new JLabel("Sex: ");
-        goalLabel = new JLabel("Goal: ");
-        carbLabel = new JLabel("Carbohydrate Intake: ");
-        mealsLabel = new JLabel("Number of Meals: ");
+        heightLabel = new JLabel("Height (cm): " + userProfile.getHeight());
+        weightLabel = new JLabel("Weight (kg): " + userProfile.getWeight());
+        ageLabel = new JLabel("Age: " + userProfile.getAge());
+        sexLabel = new JLabel("Sex: " + userProfile.getSex());
+        goalLabel = new JLabel("Goal: " + userProfile.getGoal());
+        carbLabel = new JLabel("Carbohydrate Intake: " + userProfile.getCarbAmount());
+        mealsLabel = new JLabel("Number of Meals: " + userProfile.getMealsPerDay());
 
         // Create layout and add components
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
@@ -37,7 +37,7 @@ public class ProfileDisplayGUI extends JFrame {
         add(mealsLabel);
 
         // Set window properties
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setLocationRelativeTo(null);
         setVisible(true);
