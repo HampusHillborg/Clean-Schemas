@@ -83,7 +83,7 @@ import java.awt.event.ActionListener;
             setLayout(new BorderLayout());
             add(titleLabel, BorderLayout.NORTH);
             add(panel, BorderLayout.CENTER);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(500, 300);
             setLocationRelativeTo(null);
             setVisible(true);
