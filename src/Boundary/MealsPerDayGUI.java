@@ -18,7 +18,7 @@ public class MealsPerDayGUI extends JFrame implements ActionListener {
 
     public MealsPerDayGUI(Profile userProfile) {
         setTitle("Meals Per Day");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 
         JLabel titleLabel = new JLabel("Meals for the Day");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -65,6 +65,7 @@ public class MealsPerDayGUI extends JFrame implements ActionListener {
         add(buttonPanel, BorderLayout.SOUTH);
 
         pack();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
