@@ -61,7 +61,7 @@ public class LandingPage extends JFrame {
         });
 
         profileButton.addActionListener(e -> {
-            new ProfileDisplayGUI(profile);
+            new DisplayProfile(profile);
             // Code to execute when mealsButton is clicked
             System.out.println("Profile button clicked!");
 
