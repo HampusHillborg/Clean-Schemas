@@ -113,7 +113,6 @@ public class UserDatabase {
      */
     public boolean addWeight(int userId, double weight) throws SQLException {
         String sql = "UPDATE user_data SET current_weight = ? WHERE user_id = ?";
-        System.out.println(userId + "  " + weight);
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setDouble(1, weight);
         stmt.setInt(2, userId);
