@@ -57,6 +57,7 @@ public class LandingPage extends JFrame {
 
         chooseFoodsButton.addActionListener(e -> {
             // Code to execute when mealsButton is clicked
+            new FavouriteFoodsPanel(profile);
             System.out.println("Foods button clicked!");
         });
 
