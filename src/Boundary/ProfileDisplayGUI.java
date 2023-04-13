@@ -13,6 +13,7 @@ public class ProfileDisplayGUI extends JFrame {
     private JLabel carbLabel;
     private JLabel mealsLabel;
 
+
     public ProfileDisplayGUI(Profile userProfile) {
         super("User Profile");
 
@@ -36,7 +37,7 @@ public class ProfileDisplayGUI extends JFrame {
         add(mealsLabel);
 
         // Set window properties
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setLocationRelativeTo(null);
         setVisible(true);

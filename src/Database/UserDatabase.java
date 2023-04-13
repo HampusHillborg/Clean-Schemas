@@ -1,13 +1,18 @@
 package src.Database;
+import src.Controller.MacronutrientControl;
+
 import java.sql.*;
 
 
 public class UserDatabase {
 
     Connection conn;
+    MacronutrientControl macronutrientControl;
+    private ConnectToDatabase connection = new ConnectToDatabase();
 
-    public UserDatabase(Connection conn){
-        this.conn = conn;
+    public UserDatabase(){
+        this.conn = connection.getUserDatabaseConnection();
+        this.macronutrientControl = new MacronutrientControl();
     }
     
 
@@ -108,9 +113,28 @@ public class UserDatabase {
      */
     public boolean addWeight(int userId, double weight) throws SQLException {
         String sql = "UPDATE user_data SET current_weight = ? WHERE user_id = ?";
-        System.out.println(userId + "  " + weight);
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setDouble(1, weight);
+        stmt.setInt(2, userId);
+        int rowsInserted = stmt.executeUpdate();
+        stmt.close();
+        return rowsInserted == 1;
+    }
+
+    public boolean addSex(int userId, String sex) throws SQLException {
+        String sql = "UPDATE user_data SET sex = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, sex);
+        stmt.setInt(2, userId);
+        int rowsInserted = stmt.executeUpdate();
+        stmt.close();
+        return rowsInserted == 1;
+    }
+
+    public boolean addAge(int userId, int age) throws SQLException {
+        String sql = "UPDATE user_data SET age = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, age);
         stmt.setInt(2, userId);
         int rowsInserted = stmt.executeUpdate();
         stmt.close();
@@ -188,10 +212,29 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
+    public boolean addBmr(int userId, int bmr) throws SQLException{
+        String sql = "UPDATE user_data SET bmr = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, bmr);
+        stmt.setInt(2, userId);
+        int rowsUpdated = stmt.executeUpdate();
+        stmt.close();
+        return rowsUpdated == 1;
+    }
+
+    public boolean addTdee(int userId, int tdee) throws SQLException{
+        String sql = "UPDATE user_data SET tdee = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, tdee);
+        stmt.setInt(2, userId);
+        int rowsUpdated = stmt.executeUpdate();
+        stmt.close();
+        return rowsUpdated == 1;
+    }
+
 
     public static void main(String[] args) {
-        ConnectToDatabase connect = new ConnectToDatabase();
-        UserDatabase ub = new UserDatabase(connect.getUserDatabaseConnection());
+        UserDatabase ub = new UserDatabase();
         //System.out.println(ub.getUserId("hampushillborg@gmail.com"));
             System.out.println(ub.getUserId("andreas"));
     }

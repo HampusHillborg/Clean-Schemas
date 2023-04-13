@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 public class ProfileFormGUI extends JFrame {
 
     private Profile profile;
@@ -24,7 +23,7 @@ public class ProfileFormGUI extends JFrame {
     public ProfileFormGUI(Profile userProfile) {
         super("User Profile Form");
 
-    this.profile = userProfile;
+        this.profile = userProfile;
         // Create components
         JLabel titleLabel = new JLabel("Enter Your Profile Information");
         JLabel heightLabel = new JLabel("Height (cm):");
@@ -81,6 +80,10 @@ public class ProfileFormGUI extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Validate input
+                if (!validateInput()) {
+                    return;
+                }
 
                 // Get user input from fields
                 String activityValue = (String) activityField.getSelectedItem();
@@ -93,7 +96,7 @@ public class ProfileFormGUI extends JFrame {
                 int mealsPerDay = Integer.parseInt((String) mealsField.getSelectedItem());
 
                 // Create Profile object with user input
-                profile.AddToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
+                profile.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
                 RegistrationController controller = new RegistrationController();
                 controller.submitProfile(userProfile);
 
@@ -102,10 +105,36 @@ public class ProfileFormGUI extends JFrame {
                 dispose();
             }
         });
+
     }
 
-    /*public static void main(String[] args) {
-        ProfileFormGUI formGUI = new ProfileFormGUI();
-    } */
+    public boolean validateInput(){
+        // Add validation logic here
+        // Return true if input is valid, false otherwise
+        try {
+            int height = Integer.parseInt(heightField.getText());
+            int weight = Integer.parseInt(weightField.getText());
+            int age = Integer.parseInt(ageField.getText());
+            int mealsPerDay = Integer.parseInt((String) mealsField.getSelectedItem());
+
+            if (height <= 0 || weight <= 0 || age <= 0 || mealsPerDay <= 0) {
+                JOptionPane.showMessageDialog(this, "Please enter valid values for Height, Weight, Age and Meals per day.",
+                        "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter numerical values for Height, Weight, Age and Meals per day.",
+                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
 }
+
+
+
+
+
+
 

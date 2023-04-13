@@ -108,11 +108,10 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "Login failed, try again!");
             return;
         }
-
+        Profile loggedInUser = loginController.getLoggedInUser(username);
         JOptionPane.showMessageDialog(this, "Logged in successfully!");
         dispose();
-        new LandingPage();
-
+        new LandingPage(loggedInUser);
     }
 
     public static void main(String[] args) {

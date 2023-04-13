@@ -7,7 +7,7 @@ public class MacronutrientControl {
     private final double MEDIUM_CARBS = 0.35;
     private final double HIGH_CARBS = 0.5;
 
-    private double activityLevel;
+    private String activityLevel;
 
     public MacronutrientControl() {
 
@@ -16,25 +16,39 @@ public class MacronutrientControl {
     public int calculateBmr(double weight, double height, int age, String sex) {
         double bmr = 0;
 
-        if (sex.equals("male")) {
+        if (sex.equals("Male")) {
             bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
-        } else if (sex.equals("female")) {
+        } else if (sex.equals("Female")) {
             bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
         }
 
         return (int) Math.round(bmr);
     }
 
-    public int calculateTdee(int bmr, double activityLevel) {
-        double tdee = bmr * activityLevel;
-        return (int) Math.round(tdee);
+    public int calculateTdee(int bmr, String activityLevel) {
+        int tdee = 0;
+        if (activityLevel.equals("Sedentary")){
+            tdee = (int) (bmr * 1.19633658);
+        } else if (activityLevel.equals("Light Exercise(1-2/Week)")) {
+            tdee = (int) (bmr * 1.3750718);
+        } else if (activityLevel.equals("Moderate Exercise(3-5/Week)")) {
+            tdee = (int) (bmr * 1.55025847);
+        } else if (activityLevel.equals("Heavy Exercise(6-7/Week)")) {
+            tdee = (int) (bmr * 1.72544515);
+        } else if (activityLevel.equals("Athlete(2x/Day)")) {
+            tdee = (int) (bmr * 1.90005744);
+        }
+        return tdee;
     }
 
     public int adjustTdeeForGoal(int tdee, String goal) {
-        if (goal.equals("weightgain")) {
+        if (goal.equals("Weight Gain")) {
             tdee += 500;
-        } else if (goal.equals("weightloss")) {
+        } else if (goal.equals("Weight Loss")) {
             tdee -= 500;
+        }
+        else {
+            tdee += 0;
         }
         return tdee;
     }
@@ -46,11 +60,11 @@ public class MacronutrientControl {
         double fatPercent = 0.35;
         double carbPercent = 0.35;
 
-        if (carbAmount.equals("low")) {
+        if (carbAmount.equals("Low")) {
             carbPercent = LOW_CARBS;
-        } else if (carbAmount.equals("medium")) {
+        } else if (carbAmount.equals("Medium")) {
             carbPercent = MEDIUM_CARBS;
-        } else if (carbAmount.equals("high")) {
+        } else if (carbAmount.equals("High")) {
             carbPercent = HIGH_CARBS;
             proteinPercent = 0.3;
             fatPercent = 0.2;
@@ -65,6 +79,9 @@ public class MacronutrientControl {
         macronutrients.setCarbs(carbs);
 
         return macronutrients;
+    }
+    public void setActivityLevel(String activityLevel) {
+        this.activityLevel = activityLevel;
     }
 }
 
