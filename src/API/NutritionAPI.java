@@ -1,44 +1,129 @@
 package src.API;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
+import java.io.IOException;
 import java.net.URL;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+import src.Entity.Food;
 
 public class NutritionAPI {
 
-    public NutritionAPI() {
-        String date = "20220413"; // replace with your desired date in YYYYMMDD format
-        String url = "http://www7.slv.se/apilivsmedel/LivsmedelService.svc/Livsmedel/Naringsvarde/" + date;
+    private String date = "20230414";
+    private String url = "http://www7.slv.se/apilivsmedel/LivsmedelService.svc/Livsmedel/Naringsvarde/" + date;
 
-        try {
-            // create a URL object with the API URL
-            URL api = new URL(url);
 
-            // create a HttpURLConnection object to send a request to the API
-            HttpURLConnection conn = (HttpURLConnection) api.openConnection();
-            conn.setRequestMethod("GET");
 
-            // read the response from the API into an InputStream
-            InputStream response = conn.getInputStream();
+    public Document getXmlDocument() throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        URL xmlUrl = new URL(url);
+        return builder.parse(xmlUrl.openStream());
+    }
 
-            // create a Scanner object to parse the XML
-            Scanner scanner = new Scanner(response);
-            scanner.useDelimiter("\\A");
+    public void printFromDoc() throws ParserConfigurationException, IOException, SAXException {
+        Document doc = getXmlDocument();
+        Element root = doc.getDocumentElement();
+        NodeList nodeList = doc.getElementsByTagName("Livsmedel");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String name = element.getElementsByTagName("Namn").item(0).getTextContent();
+                String protein = "";
+                String kolhydrater = "";
 
-            // read the response from the API into a String
-            String xml = scanner.next();
+                NodeList naringsvardeList = element.getElementsByTagName("Naringsvarde");
+                for (int j = 0; j < naringsvardeList.getLength(); j++) {
+                    Node naringsvardeNode = naringsvardeList.item(j);
+                    if (naringsvardeNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element naringsvardeElement = (Element) naringsvardeNode;
+                        String namn = naringsvardeElement.getElementsByTagName("Namn").item(0).getTextContent();
+                        if (namn.equals("Protein")) {
+                            protein = naringsvardeElement.getElementsByTagName("Varde").item(0).getTextContent();
+                        }
+                        if(namn.equals("Kolhydrater")){
+                            kolhydrater = naringsvardeElement.getElementsByTagName("Varde").item(0).getTextContent();
 
-            // print the response from the API
-            System.out.println(xml);
-
-            // handle any exceptions that may occur
-        } catch (Exception e) {
-            e.printStackTrace();
+                        }
+                    }
+                }
+                System.out.println(name + " - "  + " Protein: " + protein + "g Kolhydrater: " + kolhydrater + "g");
+            }
         }
     }
 
-    public static void main(String[] args) {
-        new NutritionAPI();
+    public String getProteinValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
+        Document doc = getXmlDocument();
+        NodeList nodeList = doc.getElementsByTagName("Livsmedel");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String name = element.getElementsByTagName("Namn").item(0).getTextContent();
+                if (name.toLowerCase().contains(searchTerm.toLowerCase())) {
+                    NodeList naringsvardeList = element.getElementsByTagName("Naringsvarde");
+                    for (int j = 0; j < naringsvardeList.getLength(); j++) {
+                        Node naringsvardeNode = naringsvardeList.item(j);
+                        if (naringsvardeNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element naringsvardeElement = (Element) naringsvardeNode;
+                            String namn = naringsvardeElement.getElementsByTagName("Namn").item(0).getTextContent();
+                            if (namn.equals("Protein")) {
+                                return naringsvardeElement.getElementsByTagName("Varde").item(0).getTextContent();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return "No matching food found.";
     }
+
+    public String getCarbsValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
+        Document doc = getXmlDocument();
+        NodeList nodeList = doc.getElementsByTagName("Livsmedel");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String name = element.getElementsByTagName("Namn").item(0).getTextContent();
+                if (name.toLowerCase().contains(searchTerm.toLowerCase())) {
+                    NodeList naringsvardeList = element.getElementsByTagName("Naringsvarde");
+                    for (int j = 0; j < naringsvardeList.getLength(); j++) {
+                        Node naringsvardeNode = naringsvardeList.item(j);
+                        if (naringsvardeNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element naringsvardeElement = (Element) naringsvardeNode;
+                            String namn = naringsvardeElement.getElementsByTagName("Namn").item(0).getTextContent();
+                            if (namn.equals("Kolhydrater")) {
+                                return naringsvardeElement.getElementsByTagName("Varde").item(0).getTextContent();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return "No matching food found.";
+    }
+
+
+
+
+
+    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
+        NutritionAPI api = new NutritionAPI();
+        String searchValue = "Yoghurtsås";
+        System.out.println("Protein för "+ searchValue + ": " + api.getProteinValue(searchValue) + "g");
+        System.out.println("Kolhydrater för " +  searchValue + " " + api.getCarbsValue(searchValue) + "g");
+    }
+
+    // Add other methods to extract data from the XML document as per your requirement
+
 }
+
