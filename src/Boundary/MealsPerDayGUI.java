@@ -21,7 +21,7 @@ public class MealsPerDayGUI extends JFrame implements ActionListener {
 
 
         JLabel titleLabel = new JLabel("Meals for the Day");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
         add(titleLabel, BorderLayout.NORTH);
 
         JPanel mainPanel = new JPanel();
