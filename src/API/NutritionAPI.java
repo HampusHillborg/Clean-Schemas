@@ -17,27 +17,27 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import src.Entity.Food;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class NutritionAPI {
 
-    private String date = "20230414";
-    private String url = "http://www7.slv.se/apilivsmedel/LivsmedelService.svc/Livsmedel/Naringsvarde/" + date;
+    private String url = "http://www7.slv.se/apilivsmedel/LivsmedelService.svc/Livsmedel/Naringsvarde/";
 
 
 
-    /* public Document getXmlDocument() throws ParserConfigurationException, SAXException, IOException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        URL xmlUrl = new URL(url);
-        return builder.parse(xmlUrl.openStream());
-    }
+        public static String getCurrentDate() {
+            LocalDate today = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+            return today.format(formatter);
+        }
 
-     */
+
 
     public void updateXmlDocument() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        URL xmlUrl = new URL(url);
+        URL xmlUrl = new URL(url+getCurrentDate());
 
         // Create a new file at the specified path
         File xmlFile = new File("Clean-Schemas/src/livsmedelsverket");
@@ -52,7 +52,12 @@ public class NutritionAPI {
     public Document getXmlDocument() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        File xmlFile = new File("Clean-Schemas/src/livsmedelsverket");
+        File xmlFile;
+        try {
+            xmlFile = new File("Clean-Schemas/src/livsmedelsverket");
+        }catch (Exception e){
+            xmlFile = new File("src/livsmedelsverket");
+        }
         return builder.parse(xmlFile);
     }
 
@@ -150,6 +155,7 @@ public class NutritionAPI {
         String searchValue = "Yoghurtsås";
         System.out.println("Protein för "+ searchValue + ": " + api.getProteinValue(searchValue) + "g");
         System.out.println("Kolhydrater för " +  searchValue + " " + api.getCarbsValue(searchValue) + "g");
+        //api.updateXmlDocument();
     }
 
     // Add other methods to extract data from the XML document as per your requirement
