@@ -133,7 +133,7 @@ public class DietPreferences {
                 }
             }
         });
-
+        
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
