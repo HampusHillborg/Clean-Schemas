@@ -19,7 +19,6 @@ public class Profile {
     private List<String> dislikedFoods;
     private int bmr;
     private int tdee;
-    private String carbIntake;
     private int mealsPerDay;
 
     public Profile(String email, String password) {
@@ -35,7 +34,7 @@ public class Profile {
         this.sex = sex;
         this.goal = goal;
         this.activityLevel = activityLevel;
-        this.carbIntake = carbIntake;
+        this.carbAmount = carbIntake;
         this.mealsPerDay = mealsPerDay;
     }
 

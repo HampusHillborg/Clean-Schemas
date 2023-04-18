@@ -1,11 +1,15 @@
 package src.Controller;
 
+import org.xml.sax.SAXException;
+import src.API.NutritionAPI;
 import src.Boundary.LoginViewerGUI;
 import src.Database.ConnectToDatabase;
 import src.Database.UserDatabase;
 import src.Database.UserDatabaseOutput;
 import src.Entity.Profile;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -61,6 +65,11 @@ public class LoginController {
         return loggedInUser;
     }
 
+    public void loadXML(){
+        XmlUpdater xmlUpdater = new XmlUpdater();
+        xmlUpdater.start();
+    }
+
     public void updateProfile(Profile userProfile){
         // Save user input to database
 
@@ -93,6 +102,23 @@ public class LoginController {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private class XmlUpdater extends Thread{
+        private NutritionAPI api = new NutritionAPI();
+
+        @Override
+        public void run() {
+            try {
+                api.updateXmlDocument();
+            } catch (ParserConfigurationException e) {
+                throw new RuntimeException(e);
+            } catch (SAXException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

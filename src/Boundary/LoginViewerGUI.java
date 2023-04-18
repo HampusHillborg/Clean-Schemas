@@ -110,6 +110,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
         }
         Profile loggedInUser = loginController.getLoggedInUser(username);
         JOptionPane.showMessageDialog(this, "Logged in successfully!");
+        loginController.loadXML();
         dispose();
         new LandingPage(loggedInUser);
     }
