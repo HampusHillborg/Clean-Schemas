@@ -76,6 +76,7 @@ public class DietPreferences {
         listPanel.add(dislikeListScrollPane);
     
         mainPanel.add(listPanel);
+        //hejehjtest
     
         submitButton = new JButton("Submit");
         mainPanel.add(submitButton);
