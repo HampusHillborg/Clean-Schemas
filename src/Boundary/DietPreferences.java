@@ -54,7 +54,8 @@ public class DietPreferences {
     
         JPanel listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
-        searchField = new JTextField(20);
+        searchField = new JTextField(10);
+        searchField.setMaximumSize(new Dimension(350, 100)); // set the preferred size
         listPanel.add(searchField);
     
         likeButton = new JButton("Like");
@@ -65,17 +66,17 @@ public class DietPreferences {
         likeListModel = new DefaultListModel<>();
         likeList = new JList<>(likeListModel);
         JScrollPane likeListScrollPane = new JScrollPane(likeList);
-        likeListScrollPane.setPreferredSize(new Dimension(50, 50));
+        likeListScrollPane.setMaximumSize(new Dimension(300, 350)); // set the preferred size
         listPanel.add(likeListScrollPane);
     
         dislikeListModel = new DefaultListModel<>();
         dislikeList = new JList<>(dislikeListModel);
         JScrollPane dislikeListScrollPane = new JScrollPane(dislikeList);
-        dislikeListScrollPane.setPreferredSize(new Dimension(50, 50));
+        dislikeListScrollPane.setMaximumSize(new Dimension(300, 350)); // set the preferred size
         listPanel.add(dislikeListScrollPane);
     
         mainPanel.add(listPanel);
-        listPanel.setPreferredSize(new Dimension(50, 20));
+        //hejehjtest
     
         submitButton = new JButton("Submit");
         mainPanel.add(submitButton);
