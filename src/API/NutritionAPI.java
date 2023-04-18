@@ -1,7 +1,11 @@
 package src.API;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
@@ -21,12 +25,37 @@ public class NutritionAPI {
 
 
 
-    public Document getXmlDocument() throws ParserConfigurationException, SAXException, IOException {
+    /* public Document getXmlDocument() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         URL xmlUrl = new URL(url);
         return builder.parse(xmlUrl.openStream());
     }
+
+     */
+
+    public void updateXmlDocument() throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        URL xmlUrl = new URL(url);
+
+        // Create a new file at the specified path
+        File xmlFile = new File("Clean-Schemas/src/livsmedelsverket");
+
+        // Download the XML file and write it to the file
+        try (InputStream inputStream = xmlUrl.openStream()) {
+            Files.copy(inputStream, xmlFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
+
+    public Document getXmlDocument() throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        File xmlFile = new File("Clean-Schemas/src/livsmedelsverket");
+        return builder.parse(xmlFile);
+    }
+
 
     public void printFromDoc() throws ParserConfigurationException, IOException, SAXException {
         Document doc = getXmlDocument();
