@@ -1,16 +1,17 @@
 package src.Boundary;
 
 import src.Controller.LoginController;
-import src.Controller.RegistrationController;
 import src.Entity.Profile;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.HashMap;
 
-public class LoginViewerGUI extends JFrame implements ActionListener {
+public class LoginViewerGUI extends JFrame implements ActionListener, KeyListener {
     private HashMap<String, String> users;
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -19,12 +20,6 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
     private LandingPage landingPage;
     private Profile userProfile;
     private LoginController loginController = new LoginController();
-
-    //TODO
-    // behöver separera på log in och register. En panel för att ta sig
-    // vidare till att antingen logga in eller registrera sig.
-    // Vid registrering så ska man lägga in firstName och lastName.
-    // använd denna för att logga in och skapa en separat där man registrerar sig
 
     public LoginViewerGUI() {
         super("Login Viewer");
@@ -36,6 +31,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
 
         JLabel passwordLabel = new JLabel("Password:");
         this.passwordField = new JPasswordField(20);
+        this.passwordField.addKeyListener(this);
 
         JButton createButton = new JButton("Create Account");
         createButton.addActionListener(this);
@@ -114,6 +110,22 @@ public class LoginViewerGUI extends JFrame implements ActionListener {
         dispose();
         new LandingPage(loggedInUser);
     }
+
+    public void keyTyped(KeyEvent e) {
+        // do nothing
+    }
+
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            login();
+        }
+    }
+
+    public void keyReleased(KeyEvent e) {
+        // do nothing
+    }
+
 
     public static void main(String[] args) {
         new LoginViewerGUI();
