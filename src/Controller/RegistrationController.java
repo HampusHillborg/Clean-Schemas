@@ -23,13 +23,12 @@ public class  RegistrationController {
     private int tdee;
     private int bmr;
 
-    public RegistrationController() {
+    public RegistrationController(UserDatabase userDatabase) {
         // Initialize GUI
         this.macroControl = new MacronutrientControl();
-        gui = new LoginViewerGUI();
-
         // Initialize database connection
-        userDatabase = new UserDatabase();
+        this.userDatabase = userDatabase;
+        gui = new LoginViewerGUI(userDatabase);
     }
 
 
@@ -102,6 +101,5 @@ public class  RegistrationController {
             e.printStackTrace();
         }
     }
-
 
 }

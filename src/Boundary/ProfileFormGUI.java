@@ -1,6 +1,7 @@
 package src.Boundary;
 
 import src.Controller.RegistrationController;
+import src.Database.UserDatabase;
 import src.Entity.Profile;
 
 import javax.swing.*;
@@ -20,9 +21,8 @@ public class ProfileFormGUI extends JFrame {
     private JComboBox<String> carbField;
     private JComboBox<String> mealsField;
 
-    public ProfileFormGUI(Profile userProfile) {
+    public ProfileFormGUI(Profile userProfile, UserDatabase userDatabase) {
         super("User Profile Form");
-
         this.profile = userProfile;
         // Create components
         JLabel titleLabel = new JLabel("Enter Your Profile Information");
@@ -97,7 +97,7 @@ public class ProfileFormGUI extends JFrame {
 
                 // Create Profile object with user input
                 profile.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
-                RegistrationController controller = new RegistrationController();
+                RegistrationController controller = new RegistrationController(userDatabase);
                 controller.submitProfile(userProfile);
 
                 // Create and show ProfileDisplayGUI with user profile

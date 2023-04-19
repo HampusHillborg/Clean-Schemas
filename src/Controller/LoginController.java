@@ -28,12 +28,19 @@ public class LoginController {
     private int tdee;
     private int bmr;
 
-    public LoginController() {
+    public UserDatabase getUserDatabase() {
+        return userDatabase;
+    }
+
+    public UserDatabaseOutput getDatabaseOutput() {
+        return databaseOutput;
+    }
+
+    public LoginController(UserDatabase userDatabase) {
         // Initialize database connection
-        userDatabase = new UserDatabase();
+        this.userDatabase = userDatabase;
         databaseOutput = new UserDatabaseOutput();
         this.macroControl = new MacronutrientControl();
-
     }
 
     public boolean checkIfRegistered(String email){

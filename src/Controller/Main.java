@@ -1,7 +1,10 @@
 package src.Controller;
 
+import src.Database.UserDatabase;
+
 public class Main {
     public static void main(String[] args) {
-        RegistrationController registrationController = new RegistrationController();
+        UserDatabase userDatabase = new UserDatabase();
+        RegistrationController registrationController = new RegistrationController(userDatabase);
     }
 }

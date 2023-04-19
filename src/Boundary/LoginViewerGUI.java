@@ -1,6 +1,7 @@
 package src.Boundary;
 
 import src.Controller.LoginController;
+import src.Database.UserDatabase;
 import src.Entity.Profile;
 
 import javax.swing.*;
@@ -19,10 +20,13 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
     private ProfileFormGUI registerInput;
     private LandingPage landingPage;
     private Profile userProfile;
-    private LoginController loginController = new LoginController();
+    private UserDatabase userDatabase;
+    private LoginController loginController;
 
-    public LoginViewerGUI() {
+    public LoginViewerGUI(UserDatabase userDatabase) {
         super("Login Viewer");
+        this.userDatabase = userDatabase;
+        loginController = new LoginController(userDatabase);
 
         this.users = new HashMap<>();
 
@@ -93,7 +97,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         userProfile = new Profile(username, password);
         JOptionPane.showMessageDialog(this, "Account created successfully!");
         dispose();
-        new ProfileFormGUI(userProfile);
+        new ProfileFormGUI(userProfile, userDatabase);
     }
 
     public void login() {
@@ -108,7 +112,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         JOptionPane.showMessageDialog(this, "Logged in successfully!");
         loginController.loadXML();
         dispose();
-        new LandingPage(loggedInUser);
+        new LandingPage(loggedInUser, userDatabase);
     }
 
     public void keyTyped(KeyEvent e) {
@@ -128,7 +132,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
 
 
     public static void main(String[] args) {
-        new LoginViewerGUI();
+        //new LoginViewerGUI();
     }
 }
 

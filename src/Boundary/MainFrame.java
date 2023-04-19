@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
 
         // Create the LoginViewerGUI and show it first
-        this.loginViewerGUI = new LoginViewerGUI();
+        //this.loginViewerGUI = new LoginViewerGUI();
         getContentPane().add(this.loginViewerGUI, BorderLayout.CENTER);
 
         // Set the size of the JFrame and make it visible
@@ -60,7 +60,7 @@ public class MainFrame extends JFrame {
     }
     public static void main(String[] args) {
         // Create a new MainFrame object
-        MainFrame mainFrame = new MainFrame();
+        //MainFrame mainFrame = new MainFrame();
 
         // Set the LoginViewerGUI's listener to the MainFrame's showLandingPage method
         /*mainFrame.loginViewerGUI.setLoginListener(mainFrame::showLandingPage);

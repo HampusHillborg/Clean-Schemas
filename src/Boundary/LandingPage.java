@@ -1,6 +1,7 @@
 package src.Boundary;
 
 import src.Controller.LoginController;
+import src.Database.UserDatabase;
 import src.Entity.Profile;
 
 import javax.swing.*;
@@ -8,9 +9,12 @@ import java.awt.*;
 
 public class LandingPage extends JFrame {
     private ProfileFormGUI profileFormGUI;
-    private LoginController loginController = new LoginController();
-    public LandingPage(Profile profile) {
+    private UserDatabase userDatabase;
+    private LoginController loginController;
+    public LandingPage(Profile profile, UserDatabase userDatabase) {
         super("Main Menu");
+        this.userDatabase = userDatabase;
+        loginController = new LoginController(userDatabase);
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -94,7 +98,7 @@ public class LandingPage extends JFrame {
         });
 
         profileButton.addActionListener(e -> {
-            new DisplayProfile(profile);
+            new DisplayProfile(profile, userDatabase);
             // Code to execute when mealsButton is clicked
             System.out.println("Profile button clicked!");
 

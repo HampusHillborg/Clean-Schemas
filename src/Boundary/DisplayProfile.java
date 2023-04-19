@@ -2,6 +2,7 @@ package src.Boundary;
 
 import src.Controller.LoginController;
 import src.Controller.RegistrationController;
+import src.Database.UserDatabase;
 import src.Entity.Profile;
 
 import javax.swing.*;
@@ -23,9 +24,10 @@ import java.awt.event.ActionListener;
 
         private JComboBox<String> carbField;
         private JComboBox<String> mealsField;
-        public DisplayProfile(Profile userProfile) {
+        private UserDatabase userDatabase;
+        public DisplayProfile(Profile userProfile, UserDatabase userDatabase) {
             super("User Profile Form");
-
+            this.userDatabase = userDatabase;
             this.profile = userProfile;
             // Create components
             JLabel titleLabel = new JLabel("Enter Your Profile Information");
@@ -105,7 +107,7 @@ import java.awt.event.ActionListener;
 
                     // Create Profile object with user input
                     profile.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
-                    LoginController controller = new LoginController();
+                    LoginController controller = new LoginController(userDatabase);
 
                     controller.updateProfile(userProfile);
 
@@ -183,9 +185,6 @@ import java.awt.event.ActionListener;
 
     public static void main(String[] args) {
 
-        LoginController loginController = new LoginController();
-        Profile profile = loginController.getLoggedInUser("britta");
-        DisplayProfile displayProfile = new DisplayProfile(profile);
 
     }
     }
