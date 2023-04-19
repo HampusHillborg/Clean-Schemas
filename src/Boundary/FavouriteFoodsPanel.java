@@ -3,6 +3,8 @@ package src.Boundary;
 import src.Entity.Profile;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class FavouriteFoodsPanel extends JFrame {
@@ -12,8 +14,9 @@ public class FavouriteFoodsPanel extends JFrame {
     private JCheckBox beefCheckBox;
     private JCheckBox fishCheckBox;
 
+
     public FavouriteFoodsPanel(Profile userProfile) {
-         //Set the layout manager for the panel
+        // Set the layout manager for the panel
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
@@ -23,45 +26,10 @@ public class FavouriteFoodsPanel extends JFrame {
         constraints.weighty = 1.0;
         constraints.insets.bottom = 10;
 
-        JFrame frame = new JFrame("Food Chooser");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-
-         //Create two panels for food choices
-        JPanel likePanel = new JPanel();
-        likePanel.setBorder(BorderFactory.createTitledBorder("Food I Like"));
-        JList<String> likeList = new JList<>(new String[]{"Rice", "Pasta", "Chicken", "Beef","Fish"});
-        likeList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        JScrollPane likeScrollPane = new JScrollPane(likeList);
-        likePanel.add(likeScrollPane);
-
-        JPanel dislikePanel = new JPanel();
-        dislikePanel.setBorder(BorderFactory.createTitledBorder("Food I Don't Like"));
-        JList<String> dislikeList = new JList<>(new String[]{"Rice", "Pasta", "Chicken", "Beef","Fish"});
-        dislikeList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        JScrollPane dislikeScrollPane = new JScrollPane(dislikeList);
-        dislikePanel.add(dislikeScrollPane);
-
-        // Create the split pane and add the panels to it
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, likePanel, dislikePanel);
-        splitPane.setDividerLocation(0.5);
-        splitPane.setResizeWeight(0.5);
-        splitPane.setOneTouchExpandable(true);
-
-                // Add the split pane to the frame
-        frame.getContentPane().add(splitPane);
-
-        // Display the frame
-        frame.setVisible(true);
-
         // Add a title label to the panel
         JLabel titleLabel = new JLabel("Choose your preferred carbohydrates and proteins:");
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(titleLabel, constraints);
-
-        JPanel lp= new JPanel( new GridLayout(1,2));
-        lp.setBorder(BorderFactory.createTitledBorder("Food I Like"));
-
 
         // Add a rice checkbox to the panel
         riceCheckBox = new JCheckBox("Rice");
@@ -88,8 +56,28 @@ public class FavouriteFoodsPanel extends JFrame {
         constraints.gridy = 5;
         add(fishCheckBox, constraints);
 
+        // Add a submit button to the panel
+        JButton submitButton = new JButton("Submit");
+        constraints.gridx = 0;
+        constraints.gridy = 6;
+        constraints.insets = new Insets(10, 0, 0, 0);
+        add(submitButton, constraints);
+
+        // Add an ActionListener to the submit button
+        submitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Code to handle button click goes here
+                System.out.println("Submit button clicked!");
+            }
+        });
+
+        // Make the panel scrollable
+        JScrollPane scrollPane = new JScrollPane(getContentPane(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        setContentPane(scrollPane);
+
+
         // Set size and make visible
-        setSize(500, 500);
+        pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -118,5 +106,6 @@ public class FavouriteFoodsPanel extends JFrame {
     public static void main(String[] args) {
         new FavouriteFoodsPanel(null);
     }
-
 }
+
+
