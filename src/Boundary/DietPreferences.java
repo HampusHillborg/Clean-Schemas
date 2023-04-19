@@ -1,5 +1,7 @@
 package src.Boundary;
 
+import src.Entity.Profile;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,22 +20,9 @@ public class DietPreferences {
     private DefaultListModel<String> likeListModel;
     private DefaultListModel<String> dislikeListModel;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                DietPreferences window = new DietPreferences();
-                window.frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
-    public DietPreferences() {
-        initialize();
-    }
 
-    private void initialize() {
+    public DietPreferences(Profile userprofile) {
 
         frame = new JFrame("Diet Preferences");
         frame.setBounds(100, 100, 580, 350);
@@ -102,6 +91,7 @@ public class DietPreferences {
         mainPanel.add(submitButton);
 
         JButton removeButton = new JButton("Remove");
+        frame.setVisible(true);
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
