@@ -1,5 +1,8 @@
 package src.Boundary;
 
+import src.Database.UserDatabaseOutput;
+import src.Entity.Profile;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,8 +19,9 @@ public class MealsButton extends JFrame {
     private final JButton addMealButton = new JButton("Add Meal");
     private final JButton generateMealButton = new JButton("Generate Meal");
     private final JLabel macrosLabel = new JLabel("Selected Meal Macros:");
+    private UserDatabaseOutput userDatabaseOutput;
 
-    public MealsButton() {
+    public MealsButton(Profile userProfile) {
         setTitle("Meals GUI");
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,8 +30,9 @@ public class MealsButton extends JFrame {
         mealsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         mealsScrollPane.setPreferredSize(new Dimension(400, 500));
 
+
         // Add the meal panels to the meals panel
-        for (int i = 0; i < 10; i++) { // Replace 10 with the number of meals per day from the database
+        for (int i = 0; i < userProfile.getMealsPerDay(); i++) { // Replace 10 with the number of meals per day from the database
             JPanel mealPanel = new JPanel();
             mealPanel.setBorder(BorderFactory.createTitledBorder("Meal " + (i + 1)));
             mealPanel.setLayout(new BoxLayout(mealPanel, BoxLayout.Y_AXIS));
@@ -61,9 +66,12 @@ public class MealsButton extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new MealsButton();
+            Profile userProfile = new Profile("Andreas", "123");
+            new MealsButton(userProfile);
         });
     }
+
+     */
 }

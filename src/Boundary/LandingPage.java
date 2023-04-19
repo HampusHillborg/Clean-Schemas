@@ -96,7 +96,7 @@ public class LandingPage extends JFrame {
 
         mealsButton.addActionListener(e -> {
             // Code to execute when mealsButton is clicked
-            new MealsPerDayGUI(profile);
+            new MealsButton(profile);
             System.out.println("Meals button clicked!");
         });
 
