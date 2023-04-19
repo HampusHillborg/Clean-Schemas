@@ -1,7 +1,8 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "/Users/ap/Documents/GitHub/Clean-Schemas/src/postgresql-42.6.0.jar"
+        //"/Users/ap/Documents/GitHub/Clean-Schemas/src/postgresql-42.6.0.jar" //MAC
+        "C:\\Users\\Adrian\\Documents\\GitHub\\Clean-Schemas\\src\\postgresql-42.6.0.jar" //PC
         
         
     ]
