@@ -24,6 +24,16 @@ public class LandingPage extends JFrame {
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         add(buttonsPanel, BorderLayout.CENTER);
 
+        // Create a logout button and add it to the top right corner
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setBackground(Color.WHITE);
+        logoutButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        logoutButton.setPreferredSize(new Dimension(70, 30));
+        JPanel logoutPanel = new JPanel();
+        logoutPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        logoutPanel.add(logoutButton);
+        add(logoutPanel, BorderLayout.NORTH);
+
         JButton mealsButton = new JButton("Meals");
         JLabel mealsLabel = new JLabel("<html><p style='width:150px;'>Heres where you see the meals for the day. You can either choose which foods you want to eat for a certain meal or you can let us generate a meal for you!</p></html>");
         mealsLabel.setVerticalAlignment(JLabel.TOP);
@@ -74,6 +84,10 @@ public class LandingPage extends JFrame {
         buttonsPanel.add(savedInfoButton);
         buttonsPanel.add(savedInfoLabel);
 
+
+
+
+
         add(buttonsPanel, BorderLayout.WEST);
 
         savedInfoButton.addActionListener(e -> {
@@ -104,9 +118,19 @@ public class LandingPage extends JFrame {
 
         });
 
+        logoutButton.addActionListener(e -> {
+            new LoginViewerGUI(userDatabase);
+            dispose();
+        });
+
+
+
+
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
+
 
     public static void main(String[] args) {
         //new LandingPage();
