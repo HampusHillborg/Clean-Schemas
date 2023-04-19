@@ -40,7 +40,7 @@ public class NutritionAPI {
         URL xmlUrl = new URL(url+getCurrentDate());
 
         // Create a new file at the specified path
-        File xmlFile = new File("src\\livsmedelsverket");
+        File xmlFile = new File("Clean-Schemas/src/livsmedelsverket");
 
         // Download the XML file and write it to the file
         try (InputStream inputStream = xmlUrl.openStream()) {
@@ -54,9 +54,9 @@ public class NutritionAPI {
         DocumentBuilder builder = factory.newDocumentBuilder();
         File xmlFile;
         try {
-            xmlFile = new File("src\\livsmedelsverket");
+            xmlFile = new File("Clean-Schemas/src/livsmedelsverket");
         }catch (Exception e){
-            xmlFile = new File("src\\livsmedelsverket");
+            xmlFile = new File("Clean-Schemas/src/livsmedelsverket");
         }
         return builder.parse(xmlFile);
     }
