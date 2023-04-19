@@ -35,8 +35,8 @@ public class UserDatabaseOutput {
     private final Connection conn;
     private ConnectToDatabase connection = new ConnectToDatabase();
 
-    public UserDatabaseOutput() {
-        conn = connection.getUserDatabaseConnection();
+    public UserDatabaseOutput(Connection conn) {
+        this.conn = conn;
     }
 
     public Object getField(int userId, String fieldName) {
@@ -358,10 +358,7 @@ public class UserDatabaseOutput {
     }
 
     public static void main(String[] args) {
-        UserDatabaseOutput udbo = new UserDatabaseOutput();
-        System.out.println(udbo.getActivityValue(1));
-        System.out.println(udbo.getCarbs(1));
-        System.out.println(udbo.getGoal(1));
+
     }
 
 

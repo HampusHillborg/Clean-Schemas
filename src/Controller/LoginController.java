@@ -39,7 +39,7 @@ public class LoginController {
     public LoginController(UserDatabase userDatabase) {
         // Initialize database connection
         this.userDatabase = userDatabase;
-        databaseOutput = new UserDatabaseOutput();
+        databaseOutput = new UserDatabaseOutput(userDatabase.getConnection());
         this.macroControl = new MacronutrientControl();
     }
 
