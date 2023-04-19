@@ -151,6 +151,8 @@ public class Profile {
     }
 
     public int getMealsPerDay() {
+        return mealsPerDay;
+        /*
         // Calculate the number of meals based on the user's weight and activity level
         if (weight < 68) {
             return 3;
@@ -167,6 +169,8 @@ public class Profile {
                 return 6;
             }
         }
+
+         */
 
     }
 }
