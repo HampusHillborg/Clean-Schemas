@@ -18,6 +18,7 @@ public class ConnectToDatabase {
         String password = "te36iale";
         try {
             Connection conn = DriverManager.getConnection(url, user, password);
+            System.out.println("Connected");
             return conn;
         } catch (Exception e) {
             System.out.println(e);

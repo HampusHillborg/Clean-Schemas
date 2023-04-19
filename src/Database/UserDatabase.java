@@ -14,6 +14,10 @@ public class UserDatabase {
         this.conn = connection.getUserDatabaseConnection();
         this.macronutrientControl = new MacronutrientControl();
     }
+
+    public Connection getConnection(){
+        return conn;
+    }
     
 
     /**
