@@ -13,7 +13,9 @@ public class TestuserScript {
     }
 
     public void removeTestUser(int userId){
-        try (Connection conn = connect.getUserDatabaseConnection()) {
+        Connection conn = null;
+        try {
+            conn = connect.getUserDatabaseConnection();
             conn.setAutoCommit(false);
 
             // Delete user data from user_data table
@@ -33,14 +35,32 @@ public class TestuserScript {
             conn.commit();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
     public void addTestUser(){
-        try (Connection conn = connect.getUserDatabaseConnection()) {
+        Connection conn = null;
+        try {
+            conn = connect.getUserDatabaseConnection();
             conn.setAutoCommit(false);
 
             int userId = ub.getUserId("test2@gmail.com");
+
             // Delete user data from user_data table
             String sqlDeleteUserData = "DELETE FROM user_data WHERE user_id = ?";
             try (PreparedStatement ps = conn.prepareStatement(sqlDeleteUserData)) {
@@ -56,23 +76,36 @@ public class TestuserScript {
             }
 
             conn.commit();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
+
             ub.createUser("test2@gmail.com", 18, "Male", "123");
-            int userId = ub.getUserId("test2@gmail.com");
+            userId = ub.getUserId("test2@gmail.com");
             ub.addWeight(userId, 70);
             ub.addHeight(userId, 170);
             ub.addActivityValue(userId, "Sedentary");
             ub.addAmountOfCarbs(userId, "Medium");
             ub.addGoal(userId, "Maintenance");
             ub.addMealsPerDay(userId, 3);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
+
 
 
     public static void main(String[] args) {
