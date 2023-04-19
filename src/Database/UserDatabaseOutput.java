@@ -329,6 +329,33 @@ public class UserDatabaseOutput {
         return activityValue;
     }
 
+    public int getTdee(int userId) {
+        PreparedStatement stmt = null;
+        int tdee = 0;
+
+        try {
+            String sql = "SELECT tdee FROM user_data WHERE user_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                tdee = rs.getInt("tdee");
+            }
+
+            // Clean-up environment
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            // Handle other errors
+            e.printStackTrace();
+        }
+
+        return tdee;
+    }
 
     public static void main(String[] args) {
         UserDatabaseOutput udbo = new UserDatabaseOutput();

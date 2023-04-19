@@ -67,10 +67,13 @@ public class LoginController {
         String activityValue = databaseOutput.getActivityValue(userId);
         String carbAmount = databaseOutput.getCarbs(userId);
         int mealsPerDay = databaseOutput.getMealsPerDay(userId);
+        int tdee = databaseOutput.getTdee(userId); // get TDEE from database
         this.loggedInUser = new Profile(username, password);
         loggedInUser.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount,mealsPerDay);
+        loggedInUser.setTdee(tdee); // set TDEE in the user's profile
         return loggedInUser;
     }
+
 
     public void loadXML(){
         XmlUpdater xmlUpdater = new XmlUpdater();

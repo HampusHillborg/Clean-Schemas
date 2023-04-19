@@ -12,6 +12,7 @@ public class ProfileDisplayGUI extends JFrame {
     private JLabel goalLabel;
     private JLabel carbLabel;
     private JLabel mealsLabel;
+    private JLabel tdeeLabel;
 
 
     public ProfileDisplayGUI(Profile userProfile) {
@@ -25,6 +26,9 @@ public class ProfileDisplayGUI extends JFrame {
         goalLabel = new JLabel("Goal: " + userProfile.getGoal());
         carbLabel = new JLabel("Carbohydrate Intake: " + userProfile.getCarbAmount());
         mealsLabel = new JLabel("Number of Meals: " + userProfile.getMealsPerDay());
+        tdeeLabel = new JLabel("You need this amount of calories: " + userProfile.getTdee()+ "Kcals");
+
+        System.out.println("TDEE value: " + userProfile.getTdee());
 
         // Create layout and add components
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
@@ -35,6 +39,7 @@ public class ProfileDisplayGUI extends JFrame {
         add(goalLabel);
         add(carbLabel);
         add(mealsLabel);
+        add(tdeeLabel);
 
         // Set window properties
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
