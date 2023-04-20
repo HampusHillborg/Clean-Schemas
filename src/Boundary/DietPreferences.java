@@ -26,7 +26,7 @@ public class DietPreferences {
 
         frame = new JFrame("Diet Preferences");
         frame.setBounds(100, 100, 580, 350);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().setLayout(new BorderLayout());
 
         mainPanel = new JPanel();
@@ -92,6 +92,7 @@ public class DietPreferences {
 
         JButton removeButton = new JButton("Remove");
         frame.setVisible(true);
+
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
