@@ -111,6 +111,7 @@ public class DietPreferences {
                 String food = searchField.getText().trim();
                 if (!food.isEmpty() && !likeListModel.contains(food)) {
                     likeListModel.addElement(food);
+                    JOptionPane.showMessageDialog(null, food + " has been added to your liked list");
                 }
             }
         });
@@ -121,6 +122,7 @@ public class DietPreferences {
                 String food = searchField.getText().trim();
                 if (!food.isEmpty() && !dislikeListModel.contains(food)) {
                     dislikeListModel.addElement(food);
+                    JOptionPane.showMessageDialog(null, food + " has been added to your Disliked list");
                 }
             }
         });
