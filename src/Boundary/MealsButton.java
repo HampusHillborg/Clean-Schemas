@@ -63,6 +63,9 @@ public class MealsButton extends JFrame {
         // Add the split pane to the frame
         getContentPane().add(splitPane);
 
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+
         setVisible(true);
     }
 
