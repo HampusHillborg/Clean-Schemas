@@ -5,6 +5,8 @@ import src.Entity.Profile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +18,8 @@ public class MealsButton extends JFrame {
     private final JPanel mealsPanel = new JPanel(new GridLayout(0, 1));
     private final JPanel macrosPanel = new JPanel(new GridLayout(0, 1));
     private final JScrollPane mealsScrollPane = new JScrollPane(mealsPanel);
-    private final JButton addMealButton = new JButton("Add Meal");
-    private final JButton generateMealButton = new JButton("Generate Meal");
+    //private final JButton addMealButton = new JButton("Add Meal");
+    //private final JButton generateMealButton = new JButton("Generate Meal");
     private final JLabel macrosLabel = new JLabel("Selected Meal Macros:");
     private UserDatabaseOutput userDatabaseOutput;
 
@@ -38,6 +40,24 @@ public class MealsButton extends JFrame {
             mealPanel.setLayout(new BoxLayout(mealPanel, BoxLayout.Y_AXIS));
             mealsPanel.add(mealPanel);
             mealPanels.add(mealPanel);
+            JButton addMealButton = new JButton("Add Meal");
+            addMealButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Action to be performed when "Add Meal" button is clicked
+                    System.out.println("Add Meal button clicked in meal panel ");
+
+                }
+            });
+            JButton generateMealButton = new JButton("Generate Meal");
+            generateMealButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Action to be performed when "Generate Meal" button is clicked
+                    System.out.println("Generate Meal button clicked in meal panel ");
+
+                }
+            });
 
             // Add the Add and Generate buttons to the meal panel
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
