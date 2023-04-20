@@ -35,7 +35,7 @@ public class DietPreferences {
 
         JPanel checkboxPanel = new JPanel();
         checkboxPanel.setLayout(new BoxLayout(checkboxPanel, BoxLayout.Y_AXIS));
-        String[] diets = { "Vegetarian", "Gluten-free", "Vegan", "Dairy-free", "Carnivore", "Keto", "Islamic",
+        String[] diets = { "Vegetarian", "Gluten-free", "Vegan", "Dairy-free", "Carnivore", "Keto", "Halal",
                 "Pescatarian", "Keto", "Paleo" };
         dietCheckboxes = new JCheckBox[diets.length];
         for (int i = 0; i < diets.length; i++) {
