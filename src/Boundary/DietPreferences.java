@@ -124,14 +124,32 @@ public class DietPreferences {
                 }
             }
         });
-        
+
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Process and submit the information here
-                // For example, store them in a database or send them to an API
+                // Validate the user's input
+                boolean isValidInput = true;
+                for (JCheckBox checkbox : dietCheckboxes) {
+                    if (checkbox.isSelected()) {
+                        isValidInput = false;
+                        break;
+                    }
+                }
+                if (likeListModel.isEmpty() && dislikeListModel.isEmpty()) {
+                    isValidInput = false;
+                }
+
+                // If the input is valid, process and submit it
+                if (isValidInput) {
+                    // Process and submit the information here
+                    // For example, store them in a database or send them to an API
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Please select at least one diet preference and add at least one liked or disliked food.", "Invalid input", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
+
 
     }
 }
