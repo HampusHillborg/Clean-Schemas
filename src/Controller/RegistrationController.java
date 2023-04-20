@@ -1,6 +1,5 @@
 package src.Controller;
 
-
 import src.Boundary.LoginViewerGUI;
 import src.Boundary.ProfileFormGUI;
 import src.Entity.Profile;
@@ -11,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class  RegistrationController {
+public class RegistrationController {
     private LoginViewerGUI gui;
     private Connection conn;
     private MacronutrientControl macroControl;
@@ -31,12 +30,12 @@ public class  RegistrationController {
         gui = new LoginViewerGUI(userDatabase);
     }
 
-
     public void submitProfile(Profile userProfile) {
         // Save user input to database
 
         try {
-            userDatabase.createUser(userProfile.getEmail(), userProfile.getAge(), userProfile.getSex(), userProfile.getPassword());
+            userDatabase.createUser(userProfile.getEmail(), userProfile.getAge(), userProfile.getSex(),
+                    userProfile.getPassword());
             int userId = userDatabase.getUserId(userProfile.getEmail());
             userDatabase.addWeight(userId, userProfile.getWeight());
             userDatabase.addHeight(userId, userProfile.getHeight());
@@ -45,7 +44,8 @@ public class  RegistrationController {
             userDatabase.addGoal(userId, userProfile.getGoal());
             userDatabase.addMealsPerDay(userId, userProfile.getMealsPerDay());
             // Calculate BMR and TDEE
-            bmr = macroControl.calculateBmr(userProfile.getWeight(), userProfile.getHeight(), userProfile.getAge(), userProfile.getSex());
+            bmr = macroControl.calculateBmr(userProfile.getWeight(), userProfile.getHeight(), userProfile.getAge(),
+                    userProfile.getSex());
             userProfile.setBmr(bmr);
             macroControl.setActivityLevel(userProfile.getActivityValue()); // set activityLevel
             tdee = macroControl.calculateTdee(bmr, userProfile.getActivityValue());
@@ -67,7 +67,7 @@ public class  RegistrationController {
 
     }
 
-    public void updateProfile(Profile userProfile){
+    public void updateProfile(Profile userProfile) {
         // Save user input to database
 
         try {
@@ -81,7 +81,8 @@ public class  RegistrationController {
             userDatabase.addMealsPerDay(userId, userProfile.getMealsPerDay());
             userDatabase.addAge(userId, userProfile.getAge());
             // Calculate BMR and TDEE
-            bmr = macroControl.calculateBmr(userProfile.getWeight(), userProfile.getHeight(), userProfile.getAge(), userProfile.getSex());
+            bmr = macroControl.calculateBmr(userProfile.getWeight(), userProfile.getHeight(), userProfile.getAge(),
+                    userProfile.getSex());
             userProfile.setBmr(bmr);
             macroControl.setActivityLevel(userProfile.getActivityValue()); // set activityLevel
             tdee = macroControl.calculateTdee(bmr, userProfile.getActivityValue());

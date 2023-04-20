@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
 
         // Create the LoginViewerGUI and show it first
-        //this.loginViewerGUI = new LoginViewerGUI();
+        // this.loginViewerGUI = new LoginViewerGUI();
         getContentPane().add(this.loginViewerGUI, BorderLayout.CENTER);
 
         // Set the size of the JFrame and make it visible
@@ -22,23 +22,24 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-   /* public void onLogin(Profile userProfile) {
-        // Remove LoginViewerGUI and add LandingPage to the content pane of the JFrame
-        getContentPane().remove(this.loginViewerGUI);
-        this.landingPage = new LandingPage();
-        getContentPane().add(this.landingPage, BorderLayout.CENTER);
-
-        // Set the size of the JFrame and make it visible
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
-    } */
-
-
+    /*
+     * public void onLogin(Profile userProfile) {
+     * // Remove LoginViewerGUI and add LandingPage to the content pane of the
+     * JFrame
+     * getContentPane().remove(this.loginViewerGUI);
+     * this.landingPage = new LandingPage();
+     * getContentPane().add(this.landingPage, BorderLayout.CENTER);
+     * 
+     * // Set the size of the JFrame and make it visible
+     * pack();
+     * setLocationRelativeTo(null);
+     * setVisible(true);
+     * }
+     */
 
     public void showLandingPage() {
         // Create the LandingPage and remove the LoginViewerGUI
-        //this.landingPage = new LandingPage();
+        // this.landingPage = new LandingPage();
         getContentPane().remove(this.loginViewerGUI);
 
         // Add the LandingPage to the content pane of the JFrame
@@ -50,7 +51,8 @@ public class MainFrame extends JFrame {
     }
 
     public void showLoginViewerGUI() {
-        // Remove the LandingPage and add the LoginViewerGUI back to the content pane of the JFrame
+        // Remove the LandingPage and add the LoginViewerGUI back to the content pane of
+        // the JFrame
         getContentPane().remove(this.landingPage);
         getContentPane().add(this.loginViewerGUI, BorderLayout.CENTER);
 
@@ -58,28 +60,15 @@ public class MainFrame extends JFrame {
         revalidate();
         repaint();
     }
+
     public static void main(String[] args) {
         // Create a new MainFrame object
-        //MainFrame mainFrame = new MainFrame();
+        // MainFrame mainFrame = new MainFrame();
 
         // Set the LoginViewerGUI's listener to the MainFrame's showLandingPage method
-        /*mainFrame.loginViewerGUI.setLoginListener(mainFrame::showLandingPage);
-
+        /*
+         * mainFrame.loginViewerGUI.setLoginListener(mainFrame::showLandingPage);
+         * 
          */
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 
 public class ConnectToDatabase {
 
-
     /**
      * Connects to the database and
      * prints connected if successful.

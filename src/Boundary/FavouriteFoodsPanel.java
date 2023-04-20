@@ -14,7 +14,6 @@ public class FavouriteFoodsPanel extends JFrame {
     private JCheckBox beefCheckBox;
     private JCheckBox fishCheckBox;
 
-
     public FavouriteFoodsPanel(Profile userProfile) {
         // Set the layout manager for the panel
         setLayout(new GridBagLayout());
@@ -72,9 +71,9 @@ public class FavouriteFoodsPanel extends JFrame {
         });
 
         // Make the panel scrollable
-        JScrollPane scrollPane = new JScrollPane(getContentPane(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scrollPane = new JScrollPane(getContentPane(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         setContentPane(scrollPane);
-
 
         // Set size and make visible
         pack();
@@ -107,5 +106,3 @@ public class FavouriteFoodsPanel extends JFrame {
         new FavouriteFoodsPanel(null);
     }
 }
-
-

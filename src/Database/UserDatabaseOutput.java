@@ -54,7 +54,7 @@ public class UserDatabaseOutput {
         return null;
     }
 
-    public String getPassword(int userId){
+    public String getPassword(int userId) {
         PreparedStatement stmt = null;
         String password = null;
 
@@ -109,7 +109,6 @@ public class UserDatabaseOutput {
 
         return currentWeight;
     }
-
 
     /**
      * Returns the height of a given user
@@ -360,6 +359,5 @@ public class UserDatabaseOutput {
     public static void main(String[] args) {
 
     }
-
 
 }

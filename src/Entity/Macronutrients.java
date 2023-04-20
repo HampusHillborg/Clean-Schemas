@@ -5,7 +5,8 @@ public class Macronutrients {
     private int fat;
     private int carbs;
 
-    public Macronutrients() {}
+    public Macronutrients() {
+    }
 
     public int getProtein() {
         return protein;

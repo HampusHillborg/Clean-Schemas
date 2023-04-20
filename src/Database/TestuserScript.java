@@ -7,12 +7,12 @@ public class TestuserScript {
     ConnectToDatabase connect = new ConnectToDatabase();
     UserDatabase ub = new UserDatabase();
 
-    public TestuserScript(){
+    public TestuserScript() {
         removeTestUser(ub.getUserId("test1@gmail.com"));
         addTestUser();
     }
 
-    public void removeTestUser(int userId){
+    public void removeTestUser(int userId) {
         Connection conn = null;
         try {
             conn = connect.getUserDatabaseConnection();
@@ -53,7 +53,7 @@ public class TestuserScript {
         }
     }
 
-    public void addTestUser(){
+    public void addTestUser() {
         Connection conn = null;
         try {
             conn = connect.getUserDatabaseConnection();
@@ -106,10 +106,7 @@ public class TestuserScript {
         }
     }
 
-
-
     public static void main(String[] args) {
         TestuserScript testuserScript = new TestuserScript();
     }
-    }
-
+}

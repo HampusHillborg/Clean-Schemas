@@ -11,6 +11,7 @@ public class LandingPage extends JFrame {
     private ProfileFormGUI profileFormGUI;
     private UserDatabase userDatabase;
     private LoginController loginController;
+
     public LandingPage(Profile profile, UserDatabase userDatabase) {
         super("Main Menu");
         this.userDatabase = userDatabase;
@@ -35,7 +36,8 @@ public class LandingPage extends JFrame {
         add(logoutPanel, BorderLayout.NORTH);
 
         JButton mealsButton = new JButton("Meals");
-        JLabel mealsLabel = new JLabel("<html><p style='width:150px;'>Heres where you see the meals for the day. You can either choose which foods you want to eat for a certain meal or you can let us generate a meal for you!</p></html>");
+        JLabel mealsLabel = new JLabel(
+                "<html><p style='width:150px;'>Heres where you see the meals for the day. You can either choose which foods you want to eat for a certain meal or you can let us generate a meal for you!</p></html>");
         mealsLabel.setVerticalAlignment(JLabel.TOP);
         mealsLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         mealsButton.setBackground(Color.WHITE);
@@ -45,7 +47,8 @@ public class LandingPage extends JFrame {
         buttonsPanel.add(mealsLabel);
 
         JButton weeklyPlansButton = new JButton("Weekly Plans");
-        JLabel weeklyPlansLabel = new JLabel("<html><p style='width:150px;'>When you have made daily meals you can add them here in weekly plans to make your own weekly plans for the future. Otherwise we can make you a weekly plan for a small cost.</p></html>");
+        JLabel weeklyPlansLabel = new JLabel(
+                "<html><p style='width:150px;'>When you have made daily meals you can add them here in weekly plans to make your own weekly plans for the future. Otherwise we can make you a weekly plan for a small cost.</p></html>");
         weeklyPlansLabel.setVerticalAlignment(JLabel.TOP);
         weeklyPlansLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         weeklyPlansButton.setBackground(Color.WHITE);
@@ -55,7 +58,8 @@ public class LandingPage extends JFrame {
         buttonsPanel.add(weeklyPlansLabel);
 
         JButton chooseFoodsButton = new JButton("Choose Foods");
-        JLabel chooseFoodsLabel = new JLabel("<html><p style='width:150px;'>Here you will have the options to add foods to a favourite list or dislike list so that we can generate better suited meals for you.</p></html>");
+        JLabel chooseFoodsLabel = new JLabel(
+                "<html><p style='width:150px;'>Here you will have the options to add foods to a favourite list or dislike list so that we can generate better suited meals for you.</p></html>");
         chooseFoodsLabel.setVerticalAlignment(JLabel.TOP);
         chooseFoodsLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         chooseFoodsButton.setBackground(Color.WHITE);
@@ -65,7 +69,8 @@ public class LandingPage extends JFrame {
         buttonsPanel.add(chooseFoodsLabel);
 
         JButton profileButton = new JButton("Edit Profile");
-        JLabel profileLabel = new JLabel("<html><p style='width:150px;'>Set up your personal info so that we can calculate your needs and make personalized mealplans.</p></html>");
+        JLabel profileLabel = new JLabel(
+                "<html><p style='width:150px;'>Set up your personal info so that we can calculate your needs and make personalized mealplans.</p></html>");
         profileLabel.setVerticalAlignment(JLabel.TOP);
         profileLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         profileButton.setBackground(Color.WHITE);
@@ -83,10 +88,6 @@ public class LandingPage extends JFrame {
         savedInfoButton.setPreferredSize(new Dimension(150, 50));
         buttonsPanel.add(savedInfoButton);
         buttonsPanel.add(savedInfoLabel);
-
-
-
-
 
         add(buttonsPanel, BorderLayout.WEST);
 
@@ -123,16 +124,11 @@ public class LandingPage extends JFrame {
             dispose();
         });
 
-
-
-
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-
-
     public static void main(String[] args) {
-        //new LandingPage();
+        // new LandingPage();
     }
 }

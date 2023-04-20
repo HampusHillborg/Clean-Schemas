@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 public class ProfileFormGUI extends JFrame {
 
     private Profile profile;
@@ -38,11 +39,12 @@ public class ProfileFormGUI extends JFrame {
         heightField = new JTextField();
         weightField = new JTextField();
         ageField = new JTextField();
-        sexField = new JComboBox<>(new String[]{"Male", "Female"});
-        goalField = new JComboBox<>(new String[]{"Weight Loss", "Maintenance", "Weight Gain"});
-        activityField = new JComboBox<>(new String[]{"Sedentary", "Light Exercise(1-2/Week)", "Moderate Exercise(3-5/Week)", "Heavy Exercise(6-7/Week)", "Athlete(2x/Day"});
-        carbField = new JComboBox<>(new String[]{"Low", "Medium", "High"});
-        mealsField = new JComboBox<>(new String[]{"1", "2", "3", "4", "5"});
+        sexField = new JComboBox<>(new String[] { "Male", "Female" });
+        goalField = new JComboBox<>(new String[] { "Weight Loss", "Maintenance", "Weight Gain" });
+        activityField = new JComboBox<>(new String[] { "Sedentary", "Light Exercise(1-2/Week)",
+                "Moderate Exercise(3-5/Week)", "Heavy Exercise(6-7/Week)", "Athlete(2x/Day" });
+        carbField = new JComboBox<>(new String[] { "Low", "Medium", "High" });
+        mealsField = new JComboBox<>(new String[] { "1", "2", "3", "4", "5" });
 
         JButton submitButton = new JButton("Submit");
 
@@ -108,7 +110,7 @@ public class ProfileFormGUI extends JFrame {
 
     }
 
-    public boolean validateInput(){
+    public boolean validateInput() {
         // Add validation logic here
         // Return true if input is valid, false otherwise
         try {
@@ -118,12 +120,14 @@ public class ProfileFormGUI extends JFrame {
             int mealsPerDay = Integer.parseInt((String) mealsField.getSelectedItem());
 
             if (height <= 0 || weight <= 0 || age <= 0 || mealsPerDay <= 0) {
-                JOptionPane.showMessageDialog(this, "Please enter valid values for Height, Weight, Age and Meals per day.",
+                JOptionPane.showMessageDialog(this,
+                        "Please enter valid values for Height, Weight, Age and Meals per day.",
                         "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter numerical values for Height, Weight, Age and Meals per day.",
+            JOptionPane.showMessageDialog(this,
+                    "Please enter numerical values for Height, Weight, Age and Meals per day.",
                     "Invalid Input", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -131,10 +135,3 @@ public class ProfileFormGUI extends JFrame {
     }
 
 }
-
-
-
-
-
-
-

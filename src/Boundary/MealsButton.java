@@ -18,8 +18,8 @@ public class MealsButton extends JFrame {
     private final JPanel mealsPanel = new JPanel(new GridLayout(0, 1));
     private final JPanel macrosPanel = new JPanel(new GridLayout(0, 1));
     private final JScrollPane mealsScrollPane = new JScrollPane(mealsPanel);
-    //private final JButton addMealButton = new JButton("Add Meal");
-    //private final JButton generateMealButton = new JButton("Generate Meal");
+    // private final JButton addMealButton = new JButton("Add Meal");
+    // private final JButton generateMealButton = new JButton("Generate Meal");
     private final JLabel macrosLabel = new JLabel("Selected Meal Macros:");
     private UserDatabaseOutput userDatabaseOutput;
 
@@ -32,9 +32,9 @@ public class MealsButton extends JFrame {
         mealsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         mealsScrollPane.setPreferredSize(new Dimension(400, 500));
 
-
         // Add the meal panels to the meals panel
-        for (int i = 0; i < userProfile.getMealsPerDay(); i++) { // Replace 10 with the number of meals per day from the database
+        for (int i = 0; i < userProfile.getMealsPerDay(); i++) { // Replace 10 with the number of meals per day from the
+                                                                 // database
             JPanel mealPanel = new JPanel();
             mealPanel.setBorder(BorderFactory.createTitledBorder("Meal " + (i + 1)));
             mealPanel.setLayout(new BoxLayout(mealPanel, BoxLayout.Y_AXIS));
@@ -76,7 +76,8 @@ public class MealsButton extends JFrame {
         // Add the macros label to the macros panel
         macrosPanel.add(macrosLabel);
 
-        // Create a split pane with the meals panel on the left and the macros panel on the right
+        // Create a split pane with the meals panel on the left and the macros panel on
+        // the right
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mealsScrollPane, macrosPanel);
         splitPane.setDividerLocation(400);
 
@@ -85,16 +86,16 @@ public class MealsButton extends JFrame {
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-
         setVisible(true);
     }
 
-    /*public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Profile userProfile = new Profile("Andreas", "123");
-            new MealsButton(userProfile);
-        });
-    }
-
+    /*
+     * public static void main(String[] args) {
+     * SwingUtilities.invokeLater(() -> {
+     * Profile userProfile = new Profile("Andreas", "123");
+     * new MealsButton(userProfile);
+     * });
+     * }
+     * 
      */
 }

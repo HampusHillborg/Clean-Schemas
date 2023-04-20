@@ -27,7 +27,7 @@ public class MacronutrientControl {
 
     public int calculateTdee(int bmr, String activityLevel) {
         int tdee = 0;
-        if (activityLevel.equals("Sedentary")){
+        if (activityLevel.equals("Sedentary")) {
             tdee = (int) (bmr * 1.19633658);
         } else if (activityLevel.equals("Light Exercise(1-2/Week)")) {
             tdee = (int) (bmr * 1.3750718);
@@ -46,8 +46,7 @@ public class MacronutrientControl {
             tdee += 500;
         } else if (goal.equals("Weight Loss")) {
             tdee -= 500;
-        }
-        else {
+        } else {
             tdee += 0;
         }
         return tdee;
@@ -80,8 +79,8 @@ public class MacronutrientControl {
 
         return macronutrients;
     }
+
     public void setActivityLevel(String activityLevel) {
         this.activityLevel = activityLevel;
     }
 }
-

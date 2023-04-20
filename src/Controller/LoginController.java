@@ -43,7 +43,7 @@ public class LoginController {
         this.macroControl = new MacronutrientControl();
     }
 
-    public boolean checkIfRegistered(String email){
+    public boolean checkIfRegistered(String email) {
         try {
             return userDatabase.isEmailRegistered(email);
         } catch (SQLException e) {
@@ -51,16 +51,16 @@ public class LoginController {
         }
     }
 
-    public boolean validateLogin(String email, String password){
+    public boolean validateLogin(String email, String password) {
         this.username = email;
         return userDatabase.validateLogin(email, password);
     }
 
-    public Profile getLoggedInUser(String username){
+    public Profile getLoggedInUser(String username) {
         int userId = userDatabase.getUserId(username);
         String password = databaseOutput.getPassword(userId);
         Double height = databaseOutput.getHeight(userId);
-        Double weight= databaseOutput.getCurrentWeight(userId);
+        Double weight = databaseOutput.getCurrentWeight(userId);
         int age = databaseOutput.getAge(userId);
         String sex = databaseOutput.getSex(userId);
         String goal = databaseOutput.getGoal(userId);
@@ -69,18 +69,17 @@ public class LoginController {
         int mealsPerDay = databaseOutput.getMealsPerDay(userId);
         int tdee = databaseOutput.getTdee(userId); // get TDEE from database
         this.loggedInUser = new Profile(username, password);
-        loggedInUser.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount,mealsPerDay);
+        loggedInUser.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
         loggedInUser.setTdee(tdee); // set TDEE in the user's profile
         return loggedInUser;
     }
 
-
-    public void loadXML(){
+    public void loadXML() {
         XmlUpdater xmlUpdater = new XmlUpdater();
         xmlUpdater.start();
     }
 
-    public void updateProfile(Profile userProfile){
+    public void updateProfile(Profile userProfile) {
         // Save user input to database
 
         try {
@@ -94,7 +93,8 @@ public class LoginController {
             userDatabase.addMealsPerDay(userId, userProfile.getMealsPerDay());
             userDatabase.addAge(userId, userProfile.getAge());
             // Calculate BMR and TDEE
-            bmr = macroControl.calculateBmr(userProfile.getWeight(), userProfile.getHeight(), userProfile.getAge(), userProfile.getSex());
+            bmr = macroControl.calculateBmr(userProfile.getWeight(), userProfile.getHeight(), userProfile.getAge(),
+                    userProfile.getSex());
             userProfile.setBmr(bmr);
             macroControl.setActivityLevel(userProfile.getActivityValue()); // set activityLevel
             tdee = macroControl.calculateTdee(bmr, userProfile.getActivityValue());
@@ -115,7 +115,7 @@ public class LoginController {
         }
     }
 
-    private class XmlUpdater extends Thread{
+    private class XmlUpdater extends Thread {
         private NutritionAPI api = new NutritionAPI();
 
         @Override
@@ -131,6 +131,5 @@ public class LoginController {
             }
         }
     }
-
 
 }

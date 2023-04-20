@@ -27,7 +27,9 @@ public class Profile {
         this.favoriteFoods = new ArrayList<String>();
         this.dislikedFoods = new ArrayList<String>();
     }
-    public void addToProfile(double height, double weight, int age, String sex, String goal, String activityLevel, String carbIntake, int mealsPerDay) {
+
+    public void addToProfile(double height, double weight, int age, String sex, String goal, String activityLevel,
+            String carbIntake, int mealsPerDay) {
         this.height = height;
         this.weight = weight;
         this.age = age;
@@ -153,23 +155,24 @@ public class Profile {
     public int getMealsPerDay() {
         return mealsPerDay;
         /*
-        // Calculate the number of meals based on the user's weight and activity level
-        if (weight < 68) {
-            return 3;
-        } else if (weight >= 68 && weight < 91) {
-            if (activityLevel.equals("Sedentary")) {
-                return 4;
-            } else {
-                return 5;
-            }
-        } else {
-            if (activityLevel.equals("Sedentary")) {
-                return 5;
-            } else {
-                return 6;
-            }
-        }
-
+         * // Calculate the number of meals based on the user's weight and activity
+         * level
+         * if (weight < 68) {
+         * return 3;
+         * } else if (weight >= 68 && weight < 91) {
+         * if (activityLevel.equals("Sedentary")) {
+         * return 4;
+         * } else {
+         * return 5;
+         * }
+         * } else {
+         * if (activityLevel.equals("Sedentary")) {
+         * return 5;
+         * } else {
+         * return 6;
+         * }
+         * }
+         * 
          */
 
     }

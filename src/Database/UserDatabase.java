@@ -1,8 +1,8 @@
 package src.Database;
+
 import src.Controller.MacronutrientControl;
 
 import java.sql.*;
-
 
 public class UserDatabase {
 
@@ -10,15 +10,14 @@ public class UserDatabase {
     MacronutrientControl macronutrientControl;
     private ConnectToDatabase connection = new ConnectToDatabase();
 
-    public UserDatabase(){
+    public UserDatabase() {
         this.conn = connection.getUserDatabaseConnection();
         this.macronutrientControl = new MacronutrientControl();
     }
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         return conn;
     }
-    
 
     /**
      * Checks if the user is already registered in the database.
@@ -52,12 +51,12 @@ public class UserDatabase {
         return false;
     }
 
-
     /**
-    * Creates a new user with the given email, first name, last name, age, sex, and password
-    * in the database. Also creates a corresponding row in the user_data table.
-    * Returns true if the operation was successful, false otherwise.
-    */
+     * Creates a new user with the given email, first name, last name, age, sex, and
+     * password
+     * in the database. Also creates a corresponding row in the user_data table.
+     * Returns true if the operation was successful, false otherwise.
+     */
     public boolean createUser(String email, int age, String sex, String password) throws SQLException {
         // Insert new user into users table
         String usersSql = "INSERT INTO users (email, password) VALUES (?, ?)";
@@ -70,26 +69,26 @@ public class UserDatabase {
             return false;
         }
 
-    // Get the user ID of the newly created user
-    String userIdSql = "SELECT id FROM users WHERE email = ?";
-    PreparedStatement userIdStmt = conn.prepareStatement(userIdSql);
-    userIdStmt.setString(1, email);
-    ResultSet userIdResult = userIdStmt.executeQuery();
-    userIdResult.next();
-    int userId = userIdResult.getInt("id");
-    userIdStmt.close();
+        // Get the user ID of the newly created user
+        String userIdSql = "SELECT id FROM users WHERE email = ?";
+        PreparedStatement userIdStmt = conn.prepareStatement(userIdSql);
+        userIdStmt.setString(1, email);
+        ResultSet userIdResult = userIdStmt.executeQuery();
+        userIdResult.next();
+        int userId = userIdResult.getInt("id");
+        userIdStmt.close();
 
-    // Insert corresponding row into user_data table
-    String userDataSql = "INSERT INTO user_data (user_id, age, sex) VALUES (?, ?, ?)";
-    PreparedStatement userDataStmt = conn.prepareStatement(userDataSql);
-    userDataStmt.setInt(1, userId);
-    userDataStmt.setInt(2, age);
-    userDataStmt.setString(3, String.valueOf(sex));
-    rowsInserted = userDataStmt.executeUpdate();
-    userDataStmt.close();
+        // Insert corresponding row into user_data table
+        String userDataSql = "INSERT INTO user_data (user_id, age, sex) VALUES (?, ?, ?)";
+        PreparedStatement userDataStmt = conn.prepareStatement(userDataSql);
+        userDataStmt.setInt(1, userId);
+        userDataStmt.setInt(2, age);
+        userDataStmt.setString(3, String.valueOf(sex));
+        rowsInserted = userDataStmt.executeUpdate();
+        userDataStmt.close();
 
-    return rowsInserted == 1;
-}
+        return rowsInserted == 1;
+    }
 
     public int getUserId(String email) {
         try {
@@ -108,8 +107,6 @@ public class UserDatabase {
             throw new RuntimeException(e);
         }
     }
-
-
 
     /**
      * Adds current weight to a user_id in the database.
@@ -144,7 +141,6 @@ public class UserDatabase {
         stmt.close();
         return rowsInserted == 1;
     }
-
 
     /**
      * Adds the goal weight to a given user in the database.
@@ -216,7 +212,7 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
-    public boolean addBmr(int userId, int bmr) throws SQLException{
+    public boolean addBmr(int userId, int bmr) throws SQLException {
         String sql = "UPDATE user_data SET bmr = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, bmr);
@@ -226,7 +222,7 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
-    public boolean addTdee(int userId, int tdee) throws SQLException{
+    public boolean addTdee(int userId, int tdee) throws SQLException {
         String sql = "UPDATE user_data SET tdee = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, tdee);
@@ -236,10 +232,9 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
-
     public static void main(String[] args) {
         UserDatabase ub = new UserDatabase();
-        //System.out.println(ub.getUserId("hampushillborg@gmail.com"));
-            System.out.println(ub.getUserId("andreas"));
+        // System.out.println(ub.getUserId("hampushillborg@gmail.com"));
+        System.out.println(ub.getUserId("andreas"));
     }
 }

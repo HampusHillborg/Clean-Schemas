@@ -88,7 +88,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         String username = this.usernameField.getText();
         String password = new String(this.passwordField.getPassword());
 
-        if(loginController.checkIfRegistered(username)){
+        if (loginController.checkIfRegistered(username)) {
             JOptionPane.showMessageDialog(this, "Username already exists. Please choose another.");
             return;
         }
@@ -104,7 +104,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         String username = this.usernameField.getText();
         String password = new String(this.passwordField.getPassword());
 
-        if(!loginController.validateLogin(username,password)){
+        if (!loginController.validateLogin(username, password)) {
             JOptionPane.showMessageDialog(this, "Login failed, try again!");
             return;
         }
@@ -130,10 +130,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         // do nothing
     }
 
-
     public static void main(String[] args) {
-        //new LoginViewerGUI();
+        // new LoginViewerGUI();
     }
 }
-
-
