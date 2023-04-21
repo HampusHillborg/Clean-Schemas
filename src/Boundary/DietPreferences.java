@@ -1,11 +1,15 @@
 package src.Boundary;
 
+import org.xml.sax.SAXException;
+import src.API.NutritionAPI;
 import src.Entity.Profile;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class DietPreferences {
     private JFrame frame;
@@ -144,6 +148,32 @@ public class DietPreferences {
 
                 // If the input is valid, process and submit it
                 if (isValidInput) {
+                    NutritionAPI api = new NutritionAPI();
+
+                    for (Object food : likeListModel.toArray()) {
+                        try {
+                            String proteinValue = api.getProteinValue(food.toString());
+                        } catch (ParserConfigurationException ex) {
+                            throw new RuntimeException(ex);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        } catch (SAXException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        // Process the protein value for the liked food item here
+                    }
+                    for (Object food : dislikeListModel.toArray()) {
+                        try {
+                            String proteinValue = api.getProteinValue(food.toString());
+                        } catch (ParserConfigurationException ex) {
+                            throw new RuntimeException(ex);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        } catch (SAXException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        // Process the protein value for the disliked food item here
+                    }
                     // Process and submit the information here
                     // For example, store them in a database or send them to an API
                 } else {
