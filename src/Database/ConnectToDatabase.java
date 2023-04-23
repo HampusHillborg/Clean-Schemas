@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 
 public class ConnectToDatabase {
 
+    private LogData logData = new LogData();
+
     /**
      * Connects to the database and
      * prints connected if successful.
@@ -13,9 +15,9 @@ public class ConnectToDatabase {
      */
     public Connection getUserDatabaseConnection() {
 
-        String url = "jdbc:postgresql://pgserver.mau.se:5432/cleanschemas";
-        String user = "an6020";
-        String password = "te36iale";
+        String url = logData.getUrl();
+        String user = logData.getUserName();
+        String password = logData.getPassword();
         try {
             Connection conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connected");
