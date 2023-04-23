@@ -32,6 +32,7 @@
 /muhammed.txt
 /Hampus.txt
 /src/Database/ConnectToDatabase.java
+/src/Database/LogData.java
 
 # Gradle
 .idea/**/gradle.xml
