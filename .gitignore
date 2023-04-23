@@ -26,7 +26,7 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
-Clean-Schemas/src/Database/ConnectToDatabase.java
+/ConnectToDatabase.java
 
 # Gradle
 .idea/**/gradle.xml
