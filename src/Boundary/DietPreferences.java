@@ -47,8 +47,6 @@ public class DietPreferences {
     private String[] diets = { "Vegetarian", "Gluten-free", "Vegan", "Dairy-free", "Carnivore", "Keto", "Halal",
             "Pescatarian", "Paleo" };
 
-
-
     private String[] getFoodsForDiet(String diet) {
         switch (diet) {
             case "Vegetarian":
@@ -176,7 +174,6 @@ public class DietPreferences {
                 }
             }
         });
-        
 
         dislikeButton.addActionListener(new ActionListener() {
             @Override
@@ -258,13 +255,13 @@ public class DietPreferences {
                 userAddedItems.add(item);
             }
         }
-    
+
         // Clear and repopulate the list
         likeListModel.clear();
         for (int i = 0; i < dietCheckboxes.length; i++) {
             if (dietCheckboxes[i].isSelected()) {
                 String[] selectedFoods = getFoodsForDiet(diets[i]);
-    
+
                 for (String food : selectedFoods) {
                     if (!likeListModel.contains(food)) {
                         likeListModel.addElement(food);
@@ -272,13 +269,13 @@ public class DietPreferences {
                 }
             }
         }
-    
+
         // Add back user-added items
         for (String item : userAddedItems) {
             likeListModel.addElement(item);
         }
     }
-    
+
     private boolean isDietItem(String item) {
         for (String diet : diets) {
             String[] foods = getFoodsForDiet(diet);
