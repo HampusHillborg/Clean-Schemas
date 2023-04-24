@@ -54,9 +54,9 @@ public class NutritionAPI {
         DocumentBuilder builder = factory.newDocumentBuilder();
         File xmlFile;
         try {
-            xmlFile = new File("Clean-Schemas/src/livsmedelsverket");
+            xmlFile = new File("src/livsmedelsverket");
         }catch (Exception e){
-            xmlFile = new File("Clean-Schemas/src/livsmedelsverket");
+            xmlFile = new File("src/livsmedelsverket");
         }
         return builder.parse(xmlFile);
     }
@@ -73,6 +73,8 @@ public class NutritionAPI {
                 String name = element.getElementsByTagName("Namn").item(0).getTextContent();
                 String protein = "";
                 String kolhydrater = "";
+                String fett = "";
+                String energi = "";
 
                 NodeList naringsvardeList = element.getElementsByTagName("Naringsvarde");
                 for (int j = 0; j < naringsvardeList.getLength(); j++) {
@@ -85,11 +87,13 @@ public class NutritionAPI {
                         }
                         if(namn.equals("Kolhydrater")){
                             kolhydrater = naringsvardeElement.getElementsByTagName("Varde").item(0).getTextContent();
-
+                        }
+                        if(namn.equals("Fett")){
+                            kolhydrater = naringsvardeElement.getElementsByTagName("Varde").item(0).getTextContent();
                         }
                     }
                 }
-                System.out.println(name + " - "  + " Protein: " + protein + "g Kolhydrater: " + kolhydrater + "g");
+                System.out.println(name + " - "  + "Energi: " + energi + "Kcals Protein: " + protein + "g Kolhydrater: " + kolhydrater + "g Fett: " + fett + "g");
             }
         }
     }
@@ -146,15 +150,66 @@ public class NutritionAPI {
         return "No matching food found.";
     }
 
-
+    public String getFatValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
+        Document doc = getXmlDocument();
+        NodeList nodeList = doc.getElementsByTagName("Livsmedel");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String name = element.getElementsByTagName("Namn").item(0).getTextContent();
+                if (name.toLowerCase().contains(searchTerm.toLowerCase())) {
+                    NodeList naringsvardeList = element.getElementsByTagName("Naringsvarde");
+                    for (int j = 0; j < naringsvardeList.getLength(); j++) {
+                        Node naringsvardeNode = naringsvardeList.item(j);
+                        if (naringsvardeNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element naringsvardeElement = (Element) naringsvardeNode;
+                            String namn = naringsvardeElement.getElementsByTagName("Namn").item(0).getTextContent();
+                            if (namn.equals("Fett")) {
+                                return naringsvardeElement.getElementsByTagName("Varde").item(0).getTextContent();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return "No matching food found.";
+    }
+    public String getCalorieValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
+        Document doc = getXmlDocument();
+        NodeList nodeList = doc.getElementsByTagName("Livsmedel");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String name = element.getElementsByTagName("Namn").item(0).getTextContent();
+                if (name.toLowerCase().contains(searchTerm.toLowerCase())) {
+                    NodeList naringsvardeList = element.getElementsByTagName("Naringsvarde");
+                    for (int j = 0; j < naringsvardeList.getLength(); j++) {
+                        Node naringsvardeNode = naringsvardeList.item(j);
+                        if (naringsvardeNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element naringsvardeElement = (Element) naringsvardeNode;
+                            String namn = naringsvardeElement.getElementsByTagName("Namn").item(0).getTextContent();
+                            if (namn.equals("Energi (kcal)")) {
+                                return naringsvardeElement.getElementsByTagName("Varde").item(0).getTextContent();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return "No matching food found.";
+    }
 
 
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
         NutritionAPI api = new NutritionAPI();
         String searchValue = "Yoghurtsås";
+        System.out.println("Energi för " + searchValue + " " + api.getCalorieValue(searchValue) + "Kcals");
         System.out.println("Protein för "+ searchValue + ": " + api.getProteinValue(searchValue) + "g");
         System.out.println("Kolhydrater för " +  searchValue + " " + api.getCarbsValue(searchValue) + "g");
+        System.out.println("Fett för " + searchValue + " " + api.getFatValue(searchValue) + "g");
         //api.updateXmlDocument();
     }
 
