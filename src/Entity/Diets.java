@@ -7,7 +7,6 @@ import java.util.Random;
     public class Diets {
 
         private String[] vegetarianFoods = {"Tofu", "Bönor", "Cashewnötter", "Valnötter", "Frön", "Spannmål", "Tomat", "Linser", "Kikärtor", "Tempeh", "Spenat", "Broccoli", "Sötpotatis", "Äpplen"};
-
         private String[] glutenFreeFoods = {"Ris", "Potatis", "Quinoa", "Majs", "Bönor", "Nötter", "Frön", "Grönsaker", "Äpplen", "Kikärtor", "Hirs", "Bovete", "Durra", "Amarant"};
         private String[] veganFoods = {"Tofu", "Tempeh", "Seitan", "Bönor", "Linser", "Kikärtor", "Quinoa", "Bulgur", "Korn", "Fullkornsris", "Havre", "Äpplen", "Guacamole"};
         private String[] dairyFreeFoods = {"Mandelmjölk", "Kokosmjölk", "Sojamjölk", "Cashewost", "Näringsjäst", "Olivolja"};

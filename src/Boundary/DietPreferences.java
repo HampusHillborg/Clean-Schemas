@@ -9,7 +9,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.util.HashSet;
 
 public class DietPreferences {
     private JFrame frame;
@@ -24,7 +27,52 @@ public class DietPreferences {
     private DefaultListModel<String> likeListModel;
     private DefaultListModel<String> dislikeListModel;
 
+    // Add the arrays of food items for each diet here
+    private String[] vegetarianFoods = { "Tofu", "Bönor", "Cashewnötter", "Valnötter", "Frön", "Spannmål", "Tomat",
+            "Linser", "Kikärtor", "Tempeh", "Spenat", "Broccoli", "Sötpotatis", "Äpplen" };
+    private String[] glutenFreeFoods = { "Ris", "Potatis", "Quinoa", "Majs", "Bönor", "Nötter", "Frön", "Grönsaker",
+            "Äpplen", "Kikärtor", "Hirs", "Bovete", "Durra", "Amarant" };
+    private String[] veganFoods = { "Tofu", "Tempeh", "Seitan", "Bönor", "Linser", "Kikärtor", "Quinoa", "Bulgur",
+            "Korn", "Fullkornsris", "Havre", "Äpplen", "Guacamole" };
+    private String[] dairyFreeFoods = { "Mandelmjölk", "Kokosmjölk", "Sojamjölk", "Cashewost", "Näringsjäst",
+            "Olivolja" };
+    private String[] carnivoreFoods = { "Nötkött", "Fläskkött", "Kyckling", "Fisk", "Ägg", "Smör", "Ost" };
+    private String[] ketoFoods = { "Kyckling", "Lax", "Ägg", "Cashewnötter", "Pumpakärnor", "Olivolja", "Kokosolja",
+            "Avokado" };
+    private String[] halalFoods = { "Kycklingbröst", "Nötfärs", "Fisk", "Blåbär", "Jordgubbar", "Aubergine",
+            "Mozzarella" };
+    private String[] pescatarianFoods = { "Lax", "Räkor", "Grönsaker", "Blåbär", "Havre", "Cashewnötter", "Frön" };
+    private String[] paleoFoods = { "Nötfärs", "Kycklingbröst", "Lax", "Ägg", "Aubergine" };
 
+    private String[] diets = { "Vegetarian", "Gluten-free", "Vegan", "Dairy-free", "Carnivore", "Keto", "Halal",
+            "Pescatarian", "Paleo" };
+
+
+
+    private String[] getFoodsForDiet(String diet) {
+        switch (diet) {
+            case "Vegetarian":
+                return vegetarianFoods;
+            case "Gluten-free":
+                return glutenFreeFoods;
+            case "Vegan":
+                return veganFoods;
+            case "Dairy-free":
+                return dairyFreeFoods;
+            case "Carnivore":
+                return carnivoreFoods;
+            case "Keto":
+                return ketoFoods;
+            case "Halal":
+                return halalFoods;
+            case "Pescatarian":
+                return pescatarianFoods;
+            case "Paleo":
+                return paleoFoods;
+            default:
+                return new String[] {};
+        }
+    }
 
     public DietPreferences(Profile userprofile) {
 
@@ -39,11 +87,15 @@ public class DietPreferences {
 
         JPanel checkboxPanel = new JPanel();
         checkboxPanel.setLayout(new BoxLayout(checkboxPanel, BoxLayout.Y_AXIS));
-        String[] diets = { "Vegetarian", "Gluten-free", "Vegan", "Dairy-free", "Carnivore", "Keto", "Halal",
-                "Pescatarian", "Keto", "Paleo" };
         dietCheckboxes = new JCheckBox[diets.length];
         for (int i = 0; i < diets.length; i++) {
             dietCheckboxes[i] = new JCheckBox(diets[i]);
+            dietCheckboxes[i].addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    updateDisplayedFoods();
+                }
+            });
             checkboxPanel.add(dietCheckboxes[i]);
         }
         mainPanel.add(checkboxPanel);
@@ -113,20 +165,31 @@ public class DietPreferences {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String food = searchField.getText().trim();
-                if (!food.isEmpty() && !likeListModel.contains(food)) {
-                    likeListModel.addElement(food);
-                    JOptionPane.showMessageDialog(null, food + " has been added to your liked list");
+                if (!food.isEmpty()) {
+                    if (!likeListModel.contains(food) && !dislikeListModel.contains(food)) {
+                        likeListModel.addElement(food);
+                        JOptionPane.showMessageDialog(null, food + " has been added to your liked list");
+                    } else {
+                        JOptionPane.showMessageDialog(null, food + " is already in one of the lists", "Duplicate item",
+                                JOptionPane.WARNING_MESSAGE);
+                    }
                 }
             }
         });
+        
 
         dislikeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String food = searchField.getText().trim();
-                if (!food.isEmpty() && !dislikeListModel.contains(food)) {
-                    dislikeListModel.addElement(food);
-                    JOptionPane.showMessageDialog(null, food + " has been added to your Disliked list");
+                if (!food.isEmpty()) {
+                    if (!dislikeListModel.contains(food) && !likeListModel.contains(food)) {
+                        dislikeListModel.addElement(food);
+                        JOptionPane.showMessageDialog(null, food + " has been added to your disliked list");
+                    } else {
+                        JOptionPane.showMessageDialog(null, food + " is already in one of the lists", "Duplicate item",
+                                JOptionPane.WARNING_MESSAGE);
+                    }
                 }
             }
         });
@@ -177,11 +240,55 @@ public class DietPreferences {
                     // Process and submit the information here
                     // For example, store them in a database or send them to an API
                 } else {
-                    JOptionPane.showMessageDialog(frame, "Please select at least one diet preference and add at least one liked or disliked food.", "Invalid input", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame,
+                            "Please select at least one diet preference and add at least one liked or disliked food.",
+                            "Invalid input", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
-
     }
+
+    private void updateDisplayedFoods() {
+        // Store user-added items
+        HashSet<String> userAddedItems = new HashSet<>();
+        for (int i = 0; i < likeListModel.getSize(); i++) {
+            String item = likeListModel.getElementAt(i);
+            if (!isDietItem(item)) {
+                userAddedItems.add(item);
+            }
+        }
+    
+        // Clear and repopulate the list
+        likeListModel.clear();
+        for (int i = 0; i < dietCheckboxes.length; i++) {
+            if (dietCheckboxes[i].isSelected()) {
+                String[] selectedFoods = getFoodsForDiet(diets[i]);
+    
+                for (String food : selectedFoods) {
+                    if (!likeListModel.contains(food)) {
+                        likeListModel.addElement(food);
+                    }
+                }
+            }
+        }
+    
+        // Add back user-added items
+        for (String item : userAddedItems) {
+            likeListModel.addElement(item);
+        }
+    }
+    
+    private boolean isDietItem(String item) {
+        for (String diet : diets) {
+            String[] foods = getFoodsForDiet(diet);
+            for (String food : foods) {
+                if (item.equals(food)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }
