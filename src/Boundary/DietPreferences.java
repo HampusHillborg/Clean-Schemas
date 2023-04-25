@@ -14,6 +14,17 @@ import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.HashSet;
 
+/**
+
+ The DietPreferences class allows the user to choose their dietary preferences
+ through a graphical interface. The class creates JPanel and includes various
+ checkboxes that allow the user to select their preferred diets. The selected diets
+ are used to filter a list of food items that are displayed to the user.
+ Additionally, the class includes a method to check if a given food item is part
+ of one of the selected diets, and a method to update the displayed food items
+ based on the selected diets and any user-added items.
+ */
+
 public class DietPreferences {
     private JFrame frame;
     private JPanel mainPanel;
@@ -246,6 +257,13 @@ public class DietPreferences {
 
     }
 
+    /**
+     Updates the displayed list of foods based on the selected diet checkboxes and any user-added items.
+     First, it stores the user-added items and removes any non-diet items from the list.
+     Then, it populates the list with foods for each selected diet checkbox.
+     Finally, it adds back the user-added items to the list.
+     This method is called whenever a diet checkbox is selected or deselected.
+     */
     private void updateDisplayedFoods() {
         // Store user-added items
         HashSet<String> userAddedItems = new HashSet<>();
@@ -276,6 +294,11 @@ public class DietPreferences {
         }
     }
 
+    /**
+     Checks if an item is a diet item by iterating through the available diets and their associated foods.
+     @param item the item to check
+     @return true if the item is a diet item, false otherwise
+     */
     private boolean isDietItem(String item) {
         for (String diet : diets) {
             String[] foods = getFoodsForDiet(diet);

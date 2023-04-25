@@ -34,6 +34,15 @@ public class UserDatabase {
         return emailRegistered;
     }
 
+    /**
+     * Validates login credentials for a given email and password combination.
+     * @param email the email of the user trying to log in.
+     * @param password the password of the user trying to log in.
+     * @return true if the login credentials are valid, false otherwise.
+     * The method queries the database to count the number of rows that match the email and password,
+     * and returns true if the count is 1, meaning there is a match.
+     * If there is an error with the SQL query, it prints the stack trace and returns false.
+     */
     public boolean validateLogin(String email, String password) {
         String sql = "SELECT COUNT(*) AS count FROM users WHERE email = ? AND password = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -90,6 +99,12 @@ public class UserDatabase {
         return rowsInserted == 1;
     }
 
+    /**
+     Retrieves the user ID of a given email address from the "users" table in the database.
+     @param email The email address of the user.
+     @return The user ID associated with the given email address. Returns -1 if the email address is not found.
+     @throws RuntimeException if an error occurs while executing the SQL query.
+     */
     public int getUserId(String email) {
         try {
             String sql = "SELECT id from users WHERE email = ?";
@@ -212,6 +227,13 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
+    /**
+     Updates the BMR (Basal Metabolic Rate) value of a given user in the user_data table of the database.
+     @param userId the id of the user whose BMR needs to be updated
+     @param bmr the new BMR value to be set for the user
+     @return true if the update is successful, false otherwise
+     @throws SQLException if a database access error occurs or this method is called on a closed connection
+     */
     public boolean addBmr(int userId, int bmr) throws SQLException {
         String sql = "UPDATE user_data SET bmr = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -222,6 +244,13 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
+    /**
+     Updates the tdee (Total Daily Energy Expenditure) value of a given user in the user_data table of the database.
+     @param userId the id of the user whose BMR needs to be updated
+     @param tdee the new BMR value to be set for the user
+     @return true if the update is successful, false otherwise
+     @throws SQLException if a database access error occurs or this method is called on a closed connection
+     */
     public boolean addTdee(int userId, int tdee) throws SQLException {
         String sql = "UPDATE user_data SET tdee = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);

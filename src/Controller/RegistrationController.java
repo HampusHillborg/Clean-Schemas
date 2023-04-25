@@ -21,6 +21,9 @@ public class RegistrationController {
     private UserDatabase userDatabase;
     private int tdee;
     private int bmr;
+    private int protein;
+    private int carbs;
+    private int fat;
 
     public RegistrationController(UserDatabase userDatabase) {
         // Initialize GUI
@@ -55,11 +58,14 @@ public class RegistrationController {
             // Update userProfile object with the new BMR and TDEE values
             userProfile.setBmr(bmr);
             userProfile.setTdee(tdee);
+            macroControl.calculateMacronutrients(tdee, userProfile.getCarbAmount());
 
             // Save BMR and TDEE to database
             userId = userDatabase.getUserId(userProfile.getEmail());
             userDatabase.addBmr(userId, bmr);
             userDatabase.addTdee(userId, tdee);
+
+
 
         } catch (SQLException e) {
             e.printStackTrace();

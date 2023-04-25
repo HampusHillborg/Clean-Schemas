@@ -33,7 +33,12 @@ public class NutritionAPI {
         }
 
 
-
+    /**
+     Updates an XML document by downloading a new version from a URL and saving it to a file.
+     @throws ParserConfigurationException if a DocumentBuilder cannot be created
+     @throws SAXException if there is an error parsing the XML document
+     @throws IOException if there is an error downloading or writing the file
+     */
     public void updateXmlDocument() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -48,7 +53,14 @@ public class NutritionAPI {
         }
     }
 
-
+    /**
+     Retrieves an XML document from a file and returns it as a Document object.
+     If the file does not exist, a default file is used instead.
+     @return the XML document as a Document object
+     @throws ParserConfigurationException if a DocumentBuilder cannot be created
+     @throws SAXException if there is an error parsing the XML file
+     @throws IOException if there is an error reading the file
+     */
     public Document getXmlDocument() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -61,6 +73,34 @@ public class NutritionAPI {
         return builder.parse(xmlFile);
     }
 
+    /**
+     * Creates a food objekt from a searchterm in the xml file
+     * @param searchTerm
+     * @return Food
+     */
+    public Food createFood(String searchTerm){
+        String meal;
+        String protein;
+        String kcal;
+        String carbs;
+        String fat;
+        try {
+            meal = getMealName(searchTerm);
+            kcal = getCalorieValue(searchTerm);
+            protein = getProteinValue(searchTerm);
+            carbs = getCarbsValue(searchTerm);
+            fat = getFatValue(searchTerm);
+
+
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SAXException e) {
+            throw new RuntimeException(e);
+        }
+        return new Food(meal, kcal, carbs, protein, fat);
+    }
 
     public void printFromDoc() throws ParserConfigurationException, IOException, SAXException {
         Document doc = getXmlDocument();
@@ -98,6 +138,17 @@ public class NutritionAPI {
         }
     }
 
+    /**
+
+     This method searches for a food in the XML document based on a given search term,
+     and returns the protein value for the first matching food. If no matching food is found,
+     it returns a message indicating so.
+     @param searchTerm The term to search for in the food names
+     @return A string representing the protein value for the first matching food, or a message indicating no matching food was found
+     @throws ParserConfigurationException if there is a configuration error
+     @throws IOException if an I/O error occurs
+     @throws SAXException if there is an error parsing the XML document
+     */
     public String getProteinValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
         Document doc = getXmlDocument();
         NodeList nodeList = doc.getElementsByTagName("Livsmedel");
@@ -124,6 +175,16 @@ public class NutritionAPI {
         return "No matching food found.";
     }
 
+    /**
+     This method searches for a food in the XML document based on a given search term,
+     and returns the carbs value for the first matching food. If no matching food is found,
+     it returns a message indicating so.
+     @param searchTerm The term to search for in the food names
+     @return A string representing the protein value for the first matching food, or a message indicating no matching food was found
+     @throws ParserConfigurationException if there is a configuration error
+     @throws IOException if an I/O error occurs
+     @throws SAXException if there is an error parsing the XML document
+     */
     public String getCarbsValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
         Document doc = getXmlDocument();
         NodeList nodeList = doc.getElementsByTagName("Livsmedel");
@@ -150,6 +211,16 @@ public class NutritionAPI {
         return "No matching food found.";
     }
 
+    /**
+     This method searches for a food in the XML document based on a given search term,
+     and returns the fat value for the first matching food. If no matching food is found,
+     it returns a message indicating so.
+     @param searchTerm The term to search for in the food names
+     @return A string representing the protein value for the first matching food, or a message indicating no matching food was found
+     @throws ParserConfigurationException if there is a configuration error
+     @throws IOException if an I/O error occurs
+     @throws SAXException if there is an error parsing the XML document
+     */
     public String getFatValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
         Document doc = getXmlDocument();
         NodeList nodeList = doc.getElementsByTagName("Livsmedel");
@@ -175,6 +246,42 @@ public class NutritionAPI {
         }
         return "No matching food found.";
     }
+
+
+    /**
+     * Method that finds a dish int the xml file
+     * that contains the searchterm and returns its full name
+     * @param searchTerm
+     * @return
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException
+     */
+    public String getMealName(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
+        Document doc = getXmlDocument();
+        NodeList nodeList = doc.getElementsByTagName("Livsmedel");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String name = element.getElementsByTagName("Namn").item(0).getTextContent();
+                if (name.toLowerCase().contains(searchTerm.toLowerCase()))
+                return name;
+            }
+        }
+        return "No matching food found.";
+    }
+
+    /**
+     This method searches for a food in the XML document based on a given search term,
+     and returns the calorie value for the first matching food. If no matching food is found,
+     it returns a message indicating so.
+     @param searchTerm The term to search for in the food names
+     @return A string representing the protein value for the first matching food, or a message indicating no matching food was found
+     @throws ParserConfigurationException if there is a configuration error
+     @throws IOException if an I/O error occurs
+     @throws SAXException if there is an error parsing the XML document
+     */
     public String getCalorieValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
         Document doc = getXmlDocument();
         NodeList nodeList = doc.getElementsByTagName("Livsmedel");
@@ -206,10 +313,11 @@ public class NutritionAPI {
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
         NutritionAPI api = new NutritionAPI();
         String searchValue = "Yoghurtsås";
-        System.out.println("Energi för " + searchValue + " " + api.getCalorieValue(searchValue) + "Kcals");
-        System.out.println("Protein för "+ searchValue + ": " + api.getProteinValue(searchValue) + "g");
-        System.out.println("Kolhydrater för " +  searchValue + " " + api.getCarbsValue(searchValue) + "g");
-        System.out.println("Fett för " + searchValue + " " + api.getFatValue(searchValue) + "g");
+        //System.out.println("Energi för " + searchValue + " " + api.getCalorieValue(searchValue) + "Kcals");
+        //System.out.println("Protein för "+ searchValue + ": " + api.getProteinValue(searchValue) + "g");
+        //System.out.println("Kolhydrater för " +  searchValue + " " + api.getCarbsValue(searchValue) + "g");
+        System.out.println("Fett för " + api.getMealName(searchValue) + " " + api.getFatValue(searchValue) + "g");
+        System.out.println();
         //api.updateXmlDocument();
     }
 

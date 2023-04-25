@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+        /**
+        The ProfileFormGUI class represents the graphical user interface for the user profile form. It allows the user to input their personal information and submit it for registration. This class extends the JFrame class.
+        */
 public class ProfileFormGUI extends JFrame {
 
     private Profile profile;
@@ -22,6 +25,12 @@ public class ProfileFormGUI extends JFrame {
     private JComboBox<String> carbField;
     private JComboBox<String> mealsField;
 
+            /**
+             * Constructor for ProfileFormGUI class. Initializes the user profile form with input fields and a submit button.
+             *
+             * @param userProfile the Profile object that represents the user's profile information
+             * @param userDatabase the UserDatabase object that allows the program to store and retrieve user profiles
+             */
     public ProfileFormGUI(Profile userProfile, UserDatabase userDatabase) {
         super("User Profile Form");
         this.profile = userProfile;
@@ -42,7 +51,7 @@ public class ProfileFormGUI extends JFrame {
         sexField = new JComboBox<>(new String[] { "Male", "Female" });
         goalField = new JComboBox<>(new String[] { "Weight Loss", "Maintenance", "Weight Gain" });
         activityField = new JComboBox<>(new String[] { "Sedentary", "Light Exercise(1-2/Week)",
-                "Moderate Exercise(3-5/Week)", "Heavy Exercise(6-7/Week)", "Athlete(2x/Day" });
+                "Moderate Exercise(3-5/Week)", "Heavy Exercise(6-7/Week)", "Athlete(2x/Day)" });
         carbField = new JComboBox<>(new String[] { "Low", "Medium", "High" });
         mealsField = new JComboBox<>(new String[] { "1", "2", "3", "4", "5" });
 
@@ -97,6 +106,7 @@ public class ProfileFormGUI extends JFrame {
                 String carbAmount = (String) carbField.getSelectedItem();
                 int mealsPerDay = Integer.parseInt((String) mealsField.getSelectedItem());
 
+
                 // Create Profile object with user input
                 profile.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
                 RegistrationController controller = new RegistrationController(userDatabase);
@@ -110,6 +120,10 @@ public class ProfileFormGUI extends JFrame {
 
     }
 
+            /**
+             Validates user input in the Profile Form GUI.
+             @return true if input is valid, false otherwise.
+             */
     public boolean validateInput() {
         // Add validation logic here
         // Return true if input is valid, false otherwise

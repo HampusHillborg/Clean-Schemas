@@ -7,11 +7,23 @@ import src.Entity.Profile;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ The LandingPage class represents the main menu of the application. It extends JFrame and displays
+ several options for the user to choose from. It contains buttons for meals, weekly plans, choosing
+ favorite/disliked foods, editing personal information, and displaying profile status. It also contains
+ a logout button that allows the user to log out of the application.
+ */
 public class LandingPage extends JFrame {
     private ProfileFormGUI profileFormGUI;
     private UserDatabase userDatabase;
     private LoginController loginController;
 
+    /**
+     * Constructs a LandingPage object with a given Profile and UserDatabase.
+     *
+     * @param profile the user's profile information
+     * @param userDatabase the database containing user information
+     */
     public LandingPage(Profile profile, UserDatabase userDatabase) {
         super("Main Menu");
         this.userDatabase = userDatabase;

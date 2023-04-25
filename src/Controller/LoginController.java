@@ -67,7 +67,10 @@ public class LoginController {
         String activityValue = databaseOutput.getActivityValue(userId);
         String carbAmount = databaseOutput.getCarbs(userId);
         int mealsPerDay = databaseOutput.getMealsPerDay(userId);
-        int tdee = databaseOutput.getTdee(userId); // get TDEE from database
+        int tdee = databaseOutput.getTdee(userId);
+        int fat= databaseOutput.getFat(userId);//
+        int carbs= databaseOutput.getKolhydrater(userId);
+        int protein= databaseOutput.getProtein(userId);// get TDEE from database
         this.loggedInUser = new Profile(username, password);
         loggedInUser.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
         loggedInUser.setTdee(tdee); // set TDEE in the user's profile
@@ -100,15 +103,22 @@ public class LoginController {
             tdee = macroControl.calculateTdee(bmr, userProfile.getActivityValue());
             tdee = macroControl.adjustTdeeForGoal(tdee, userProfile.getGoal());
             userProfile.setTdee(tdee);
+            // Calculate fat, carbohydrates, and protein
+
+
 
             // Update userProfile object with the new BMR and TDEE values
             userProfile.setBmr(bmr);
             userProfile.setTdee(tdee);
 
+
+
             // Save BMR and TDEE to database
             userId = userDatabase.getUserId(userProfile.getEmail());
             userDatabase.addBmr(userId, bmr);
             userDatabase.addTdee(userId, tdee);
+
+
 
         } catch (SQLException e) {
             e.printStackTrace();

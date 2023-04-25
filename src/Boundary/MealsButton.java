@@ -1,6 +1,8 @@
 package src.Boundary;
 
+import src.API.NutritionAPI;
 import src.Database.UserDatabaseOutput;
+import src.Entity.Food;
 import src.Entity.Profile;
 
 import javax.swing.*;
@@ -10,7 +12,22 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+
+ The MealsButton class represents a GUI for displaying the user's meals and
+ macros. It extends JFrame and implements ActionListener.
+ The GUI displays a panel for each meal and a panel for the user's selected
+ meal macros. Each meal panel contains two buttons: "Add Meal" and "Generate
+ Meal", which can be used to add or generate a new meal. The selected meal
+ macros are displayed in the macros panel.
+ The class has a constructor that takes a userProfile as a parameter and sets
+ up the GUI accordingly.
+ The class also contains a list of meal panels and a userDatabaseOutput object
+ that is used to access the user's meals and macros.
+ The class is located in the src.Boundary package.
+ */
 public class MealsButton extends JFrame {
+    private NutritionAPI nutritionAPI = new NutritionAPI();
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
@@ -23,6 +40,15 @@ public class MealsButton extends JFrame {
     private final JLabel macrosLabel = new JLabel("Selected Meal Macros:");
     private UserDatabaseOutput userDatabaseOutput;
 
+    /**
+     Constructs a new MealsButton object with a given user profile.
+     This method creates a GUI for meals and macros, where the meals
+     are displayed in a scrollable pane and the macros are displayed
+     in a fixed-size panel. The number of meals displayed is determined
+     by the userProfile parameter. The method adds two buttons to each
+     meal panel: an "Add Meal" button and a "Generate Meal" button.
+     @param userProfile the user profile containing the number of meals per day to be displayed
+     */
     public MealsButton(Profile userProfile) {
         setTitle("Meals GUI");
         setSize(WIDTH, HEIGHT);
@@ -46,7 +72,10 @@ public class MealsButton extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     // Action to be performed when "Add Meal" button is clicked
                     System.out.println("Add Meal button clicked in meal panel ");
-
+                    String userInput = JOptionPane.showInputDialog(null, "Ange en måltid eller ingrediens som du vill ha i din måltid");
+                    Food food = nutritionAPI.createFood(userInput);
+                    JOptionPane.showMessageDialog(null, "Näringsvärde för " + food.getLivsmedelsNamn()+ "\n" + food.getEnergiKcal() + " kcal\n" +
+                    food.getFett() +" gram fett\n" + food.getKolhydrater() + " gram kolhydrater\n" + food.getProtein() + " gram protein");
                 }
             });
             JButton generateMealButton = new JButton("Generate Meal");
@@ -86,6 +115,7 @@ public class MealsButton extends JFrame {
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 

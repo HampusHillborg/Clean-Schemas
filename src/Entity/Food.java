@@ -3,14 +3,13 @@ package src.Entity;
 public class Food {
     private int livsmedelsId;
     private String livsmedelsNamn;
-    private double energiKcal;
-    private double kolhydrater;
-    private double protein;
-    private double fett;
+    private String energiKcal;
+    private String kolhydrater;
+    private String protein;
+    private String fett;
 
-    public Food(int livsmedelsId, String livsmedelsNamn, double energiKcal, double kolhydrater, double protein,
-            double fett) {
-        this.livsmedelsId = livsmedelsId;
+    public Food(String livsmedelsNamn, String energiKcal, String kolhydrater, String protein,
+            String fett) {
         this.livsmedelsNamn = livsmedelsNamn;
         this.energiKcal = energiKcal;
         this.kolhydrater = kolhydrater;
@@ -26,19 +25,19 @@ public class Food {
         return livsmedelsNamn;
     }
 
-    public double getEnergiKcal() {
+    public String getEnergiKcal() {
         return energiKcal;
     }
 
-    public double getKolhydrater() {
+    public String getKolhydrater() {
         return kolhydrater;
     }
 
-    public double getProtein() {
+    public String getProtein() {
         return protein;
     }
 
-    public double getFett() {
+    public String getFett() {
         return fett;
     }
 }

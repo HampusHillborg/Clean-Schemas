@@ -39,6 +39,12 @@ public class UserDatabaseOutput {
         this.conn = conn;
     }
 
+    /**
+     Retrieves a specific field value for a given user from the "user_data" table in the database.
+     @param userId the unique identifier of the user whose field value is being retrieved.
+     @param fieldName the name of the field being retrieved from the "user_data" table.
+     @return the value of the specified field as an Object, or null if the field is not found.
+     */
     public Object getField(int userId, String fieldName) {
         String sql = "SELECT " + fieldName + " FROM user_data WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -54,6 +60,12 @@ public class UserDatabaseOutput {
         return null;
     }
 
+    /**
+     * Returns the password of a given user
+     *
+     * @param userId
+     * @return
+     */
     public String getPassword(int userId) {
         PreparedStatement stmt = null;
         String password = null;
@@ -355,6 +367,90 @@ public class UserDatabaseOutput {
 
         return tdee;
     }
+    public int getFat(int userId) {
+        PreparedStatement stmt = null;
+        int fat = 0;
+
+        try {
+            String sql = "SELECT fat FROM  foods  WHERE user_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                fat = rs.getInt("fat");
+            }
+
+            // Clean-up environment
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            // Handle other errors
+            e.printStackTrace();
+        }
+
+        return fat;
+    }
+    public int getKolhydrater(int userId) {
+        PreparedStatement stmt = null;
+        int Kolhydrater = 0;
+
+        try {
+            String sql = "SELECT carbs FROM  foods  WHERE user_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Kolhydrater = rs.getInt("carbs");
+            }
+
+            // Clean-up environment
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            // Handle other errors
+            e.printStackTrace();
+        }
+
+        return Kolhydrater;
+    }
+    public int getProtein(int userId) {
+        PreparedStatement stmt = null;
+        int protein = 0;
+
+        try {
+            String sql = "SELECT protein FROM  foods  WHERE user_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                protein = rs.getInt("protein");
+            }
+
+            // Clean-up environment
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            // Handle other errors
+            e.printStackTrace();
+        }
+
+        return protein;
+    }
+
+
+
 
     public static void main(String[] args) {
 
