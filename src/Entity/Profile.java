@@ -168,7 +168,7 @@ public class Profile {
         return protein;
     }
 
-    public void setProtein(int fat){this.protein= fat;}
+    public void setProtein(int protein){this.protein= protein;}
 
     public int getMealsPerDay() {
         return mealsPerDay;

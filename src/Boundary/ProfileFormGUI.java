@@ -51,7 +51,7 @@ public class ProfileFormGUI extends JFrame {
         sexField = new JComboBox<>(new String[] { "Male", "Female" });
         goalField = new JComboBox<>(new String[] { "Weight Loss", "Maintenance", "Weight Gain" });
         activityField = new JComboBox<>(new String[] { "Sedentary", "Light Exercise(1-2/Week)",
-                "Moderate Exercise(3-5/Week)", "Heavy Exercise(6-7/Week)", "Athlete(2x/Day" });
+                "Moderate Exercise(3-5/Week)", "Heavy Exercise(6-7/Week)", "Athlete(2x/Day)" });
         carbField = new JComboBox<>(new String[] { "Low", "Medium", "High" });
         mealsField = new JComboBox<>(new String[] { "1", "2", "3", "4", "5" });
 
