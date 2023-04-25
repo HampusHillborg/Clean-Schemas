@@ -12,6 +12,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 
+/**
+ The LoginViewerGUI class represents the graphical user interface for the login screen of the application.
+ It allows users to log in with an existing account or create a new account.
+ This class extends the JFrame class and implements the ActionListener and KeyListener interfaces.
+ */
 public class LoginViewerGUI extends JFrame implements ActionListener, KeyListener {
     private HashMap<String, String> users;
     private JTextField usernameField;
@@ -23,6 +28,11 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
     private UserDatabase userDatabase;
     private LoginController loginController;
 
+    /**
+     * Constructs a LoginViewerGUI object with the given UserDatabase.
+     *
+     * @param userDatabase the UserDatabase object to use for managing user data.
+     */
     public LoginViewerGUI(UserDatabase userDatabase) {
         super("Login Viewer");
         this.userDatabase = userDatabase;
@@ -84,6 +94,13 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         }
     }
 
+    /**
+     This method creates a new account for a user.
+     It retrieves the username and password entered by the user and checks if the username already exists in the database.
+     If the username already exists, a message dialog is displayed asking the user to choose another username.
+     Otherwise, the new user is added to the database, and a message dialog is displayed indicating that the account was created successfully.
+     Then, the current frame is disposed and a new instance of the ProfileFormGUI class is created for the new user.
+     */
     public void createAccount() {
         String username = this.usernameField.getText();
         String password = new String(this.passwordField.getPassword());
@@ -100,6 +117,11 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         new ProfileFormGUI(userProfile, userDatabase);
     }
 
+    /**
+     Validates the login credentials entered by the user, and logs in the user if the credentials are correct.
+     Displays an error message if the credentials are incorrect or if there is a problem loading the user's data from the database.
+     Once logged in successfully, the LandingPage is opened for the logged in user.
+     */
     public void login() {
         String username = this.usernameField.getText();
         String password = new String(this.passwordField.getPassword());
@@ -119,6 +141,11 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         // do nothing
     }
 
+    /**
+     * Adds a key event on enter so that when enter is pressed
+     * it will use the login method
+     * @param e the event to be processed
+     */
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_ENTER) {

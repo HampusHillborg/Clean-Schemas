@@ -4,6 +4,9 @@ import src.Entity.Profile;
 
 import javax.swing.*;
 
+/**
+ A class that creates a graphical user interface for displaying a user's profile.
+ */
 public class ProfileDisplayGUI extends JFrame {
     private JLabel heightLabel;
     private JLabel weightLabel;
@@ -14,6 +17,10 @@ public class ProfileDisplayGUI extends JFrame {
     private JLabel mealsLabel;
     private JLabel tdeeLabel;
 
+    /**
+     A class that creates a graphical user interface for displaying a user's profile.
+     @param userProfile the user profile object to be displayed
+     */
     public ProfileDisplayGUI(Profile userProfile) {
         super("User Profile");
 

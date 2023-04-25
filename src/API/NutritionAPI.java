@@ -33,14 +33,19 @@ public class NutritionAPI {
         }
 
 
-
+    /**
+     Updates an XML document by downloading a new version from a URL and saving it to a file.
+     @throws ParserConfigurationException if a DocumentBuilder cannot be created
+     @throws SAXException if there is an error parsing the XML document
+     @throws IOException if there is an error downloading or writing the file
+     */
     public void updateXmlDocument() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         URL xmlUrl = new URL(url+getCurrentDate());
 
         // Create a new file at the specified path
-        File xmlFile = new File("src/livsmedelsverket");
+        File xmlFile = new File("Clean-Schemas/src/livsmedelsverket");
 
         // Download the XML file and write it to the file
         try (InputStream inputStream = xmlUrl.openStream()) {
@@ -48,7 +53,15 @@ public class NutritionAPI {
         }
     }
 
+    /**
 
+     Retrieves an XML document from a file and returns it as a Document object.
+     If the file does not exist, a default file is used instead.
+     @return the XML document as a Document object
+     @throws ParserConfigurationException if a DocumentBuilder cannot be created
+     @throws SAXException if there is an error parsing the XML file
+     @throws IOException if there is an error reading the file
+     */
     public Document getXmlDocument() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -98,6 +111,17 @@ public class NutritionAPI {
         }
     }
 
+    /**
+
+     This method searches for a food in the XML document based on a given search term,
+     and returns the protein value for the first matching food. If no matching food is found,
+     it returns a message indicating so.
+     @param searchTerm The term to search for in the food names
+     @return A string representing the protein value for the first matching food, or a message indicating no matching food was found
+     @throws ParserConfigurationException if there is a configuration error
+     @throws IOException if an I/O error occurs
+     @throws SAXException if there is an error parsing the XML document
+     */
     public String getProteinValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
         Document doc = getXmlDocument();
         NodeList nodeList = doc.getElementsByTagName("Livsmedel");
@@ -124,6 +148,17 @@ public class NutritionAPI {
         return "No matching food found.";
     }
 
+    /**
+
+     This method searches for a food in the XML document based on a given search term,
+     and returns the carbs value for the first matching food. If no matching food is found,
+     it returns a message indicating so.
+     @param searchTerm The term to search for in the food names
+     @return A string representing the protein value for the first matching food, or a message indicating no matching food was found
+     @throws ParserConfigurationException if there is a configuration error
+     @throws IOException if an I/O error occurs
+     @throws SAXException if there is an error parsing the XML document
+     */
     public String getCarbsValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
         Document doc = getXmlDocument();
         NodeList nodeList = doc.getElementsByTagName("Livsmedel");
@@ -150,6 +185,17 @@ public class NutritionAPI {
         return "No matching food found.";
     }
 
+    /**
+
+     This method searches for a food in the XML document based on a given search term,
+     and returns the fat value for the first matching food. If no matching food is found,
+     it returns a message indicating so.
+     @param searchTerm The term to search for in the food names
+     @return A string representing the protein value for the first matching food, or a message indicating no matching food was found
+     @throws ParserConfigurationException if there is a configuration error
+     @throws IOException if an I/O error occurs
+     @throws SAXException if there is an error parsing the XML document
+     */
     public String getFatValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
         Document doc = getXmlDocument();
         NodeList nodeList = doc.getElementsByTagName("Livsmedel");
@@ -175,6 +221,18 @@ public class NutritionAPI {
         }
         return "No matching food found.";
     }
+
+    /**
+
+     This method searches for a food in the XML document based on a given search term,
+     and returns the calorie value for the first matching food. If no matching food is found,
+     it returns a message indicating so.
+     @param searchTerm The term to search for in the food names
+     @return A string representing the protein value for the first matching food, or a message indicating no matching food was found
+     @throws ParserConfigurationException if there is a configuration error
+     @throws IOException if an I/O error occurs
+     @throws SAXException if there is an error parsing the XML document
+     */
     public String getCalorieValue(String searchTerm) throws ParserConfigurationException, IOException, SAXException {
         Document doc = getXmlDocument();
         NodeList nodeList = doc.getElementsByTagName("Livsmedel");

@@ -10,6 +10,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+
+ The DisplayProfile class provides a GUI for the user to enter and update their profile information.
+ The GUI contains fields for height, weight, age, sex, goal, activity level, carbohydrate intake, and number of meals.
+ Upon submission, the user's input is used to create a Profile object which is then updated in the UserDatabase.
+ */
 public class DisplayProfile extends JFrame {
 
     private Profile profile;
@@ -26,6 +32,13 @@ public class DisplayProfile extends JFrame {
     private JComboBox<String> mealsField;
     private UserDatabase userDatabase;
 
+    /**
+     The DisplayProfile class provides a GUI for the user to enter and update their profile information.
+     The GUI contains fields for height, weight, age, sex, goal, activity level, carbohydrate intake, and number of meals.
+     Upon submission, the user's input is used to create a Profile object which is then updated in the UserDatabase.
+     @param userProfile The user's Profile object containing their current information.
+     @param userDatabase The UserDatabase containing the user's information.
+     */
     public DisplayProfile(Profile userProfile, UserDatabase userDatabase) {
         super("User Profile Form");
         this.userDatabase = userDatabase;

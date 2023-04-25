@@ -39,6 +39,12 @@ public class UserDatabaseOutput {
         this.conn = conn;
     }
 
+    /**
+     Retrieves a specific field value for a given user from the "user_data" table in the database.
+     @param userId the unique identifier of the user whose field value is being retrieved.
+     @param fieldName the name of the field being retrieved from the "user_data" table.
+     @return the value of the specified field as an Object, or null if the field is not found.
+     */
     public Object getField(int userId, String fieldName) {
         String sql = "SELECT " + fieldName + " FROM user_data WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -54,6 +60,12 @@ public class UserDatabaseOutput {
         return null;
     }
 
+    /**
+     * Returns the password of a given user
+     *
+     * @param userId
+     * @return
+     */
     public String getPassword(int userId) {
         PreparedStatement stmt = null;
         String password = null;
