@@ -15,11 +15,16 @@ public class Profile {
     private String goal;
     private String activityLevel;
     private String carbAmount;
+    private String macroNutrient;
     private List<String> favoriteFoods;
     private List<String> dislikedFoods;
     private int bmr;
     private int tdee;
     private int mealsPerDay;
+    private int fat;
+    private int protein;
+
+    private int carbs;
 
     public Profile(String email, String password) {
         this.email = email;
@@ -38,6 +43,7 @@ public class Profile {
         this.activityLevel = activityLevel;
         this.carbAmount = carbIntake;
         this.mealsPerDay = mealsPerDay;
+
     }
 
     public void setFirstName(String firstName) {
@@ -151,6 +157,18 @@ public class Profile {
     public void setTdee(int tdee) {
         this.tdee = tdee;
     }
+
+    public  int getFat(){return fat;}
+    public void setFat(int fat){this.fat= fat;}
+
+    public  int getCarbs(){return carbs;}
+    public void setCarbs(int carbs){this.carbs= carbs;}
+
+    public int getProtein() {
+        return protein;
+    }
+
+    public void setProtein(int fat){this.protein= fat;}
 
     public int getMealsPerDay() {
         return mealsPerDay;

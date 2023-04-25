@@ -367,6 +367,90 @@ public class UserDatabaseOutput {
 
         return tdee;
     }
+    public int getFat(int userId) {
+        PreparedStatement stmt = null;
+        int fat = 0;
+
+        try {
+            String sql = "SELECT fat FROM  foods  WHERE user_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                fat = rs.getInt("fat");
+            }
+
+            // Clean-up environment
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            // Handle other errors
+            e.printStackTrace();
+        }
+
+        return fat;
+    }
+    public int getKolhydrater(int userId) {
+        PreparedStatement stmt = null;
+        int Kolhydrater = 0;
+
+        try {
+            String sql = "SELECT carbs FROM  foods  WHERE user_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Kolhydrater = rs.getInt("carbs");
+            }
+
+            // Clean-up environment
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            // Handle other errors
+            e.printStackTrace();
+        }
+
+        return Kolhydrater;
+    }
+    public int getProtein(int userId) {
+        PreparedStatement stmt = null;
+        int protein = 0;
+
+        try {
+            String sql = "SELECT protein FROM  foods  WHERE user_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                protein = rs.getInt("protein");
+            }
+
+            // Clean-up environment
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            // Handle other errors
+            e.printStackTrace();
+        }
+
+        return protein;
+    }
+
+
+
 
     public static void main(String[] args) {
 
