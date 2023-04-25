@@ -1,6 +1,8 @@
 package src.Boundary;
 
+import src.API.NutritionAPI;
 import src.Database.UserDatabaseOutput;
+import src.Entity.Food;
 import src.Entity.Profile;
 
 import javax.swing.*;
@@ -25,6 +27,7 @@ import java.util.List;
  The class is located in the src.Boundary package.
  */
 public class MealsButton extends JFrame {
+    private NutritionAPI nutritionAPI = new NutritionAPI();
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
@@ -69,7 +72,10 @@ public class MealsButton extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     // Action to be performed when "Add Meal" button is clicked
                     System.out.println("Add Meal button clicked in meal panel ");
-
+                    String userInput = JOptionPane.showInputDialog(null, "Ange en måltid eller ingrediens som du vill ha i din måltid");
+                    Food food = nutritionAPI.createFood(userInput);
+                    JOptionPane.showMessageDialog(null, "Näringsvärde för " + food.getLivsmedelsNamn()+ "\n" + food.getEnergiKcal() + " kcal\n" +
+                    food.getFett() +" gram fett\n" + food.getKolhydrater() + " gram kolhydrater\n" + food.getProtein() + " gram protein");
                 }
             });
             JButton generateMealButton = new JButton("Generate Meal");
@@ -109,6 +115,7 @@ public class MealsButton extends JFrame {
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
