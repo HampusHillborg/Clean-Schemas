@@ -2,6 +2,12 @@ package src.Controller;
 
 import src.Entity.Macronutrients;
 
+/**
+ * The MacronutrientControl class is responsible for calculating the daily caloric needs, macronutrient percentages, and
+ *  macronutrient amounts for a given user profile. It includes methods for calculating basal metabolic rate (BMR), total daily
+ *  energy expenditure (TDEE), adjusting TDEE for weight gain/loss goals, and calculating macronutrient amounts based on a
+ *  user's caloric needs and desired carbohydrate percentage. It also includes a method for setting the user's activity level.
+ */
 public class MacronutrientControl {
     private final double LOW_CARBS = 0.2;
     private final double MEDIUM_CARBS = 0.35;
@@ -9,10 +15,23 @@ public class MacronutrientControl {
 
     private String activityLevel;
 
+
+    /**
+     * Constructs a MacronutrientControl object with no parameters.
+     */
     public MacronutrientControl() {
 
     }
 
+    /**
+     * Calculates the basal metabolic rate (BMR) for a given user profile.
+     *
+     * @param weight the user's weight in kilograms
+     * @param height the user's height in centimeters
+     * @param age the user's age in years
+     * @param sex the user's biological sex ("Male" or "Female")
+     * @return the user's BMR as an integer
+     */
     public int calculateBmr(double weight, double height, int age, String sex) {
         double bmr = 0;
 
@@ -25,6 +44,14 @@ public class MacronutrientControl {
         return (int) Math.round(bmr);
     }
 
+    /**
+     * Calculates the total daily energy expenditure (TDEE) for a given user profile and activity level.
+     *
+     * @param bmr the user's BMR
+     * @param activityLevel the user's activity level ("Sedentary", "Light Exercise(1-2/Week)", "Moderate Exercise(3-5/Week)",
+     *                      "Heavy Exercise(6-7/Week)", or "Athlete(2x/Day)")
+     * @return the user's TDEE as an integer
+     */
     public int calculateTdee(int bmr, String activityLevel) {
         int tdee = 0;
         if (activityLevel.equals("Sedentary")) {
@@ -41,6 +68,14 @@ public class MacronutrientControl {
         return tdee;
     }
 
+
+    /**
+     * Adjust TDEE based on weight goal,
+     * and calculate macronutrient requirements based on calorie intake and desired carbohydrate amount.
+     * @param tdee
+     * @param goal
+     * @return
+     */
     public int adjustTdeeForGoal(int tdee, String goal) {
         if (goal.equals("Weight Gain")) {
             tdee += 500;
@@ -52,6 +87,13 @@ public class MacronutrientControl {
         return tdee;
     }
 
+
+    /**
+     * Calculates macronutrient requirements based on the number of calories and preferred carb amount.
+     * @param calories
+     * @param carbAmount
+     * @return
+     */
     public Macronutrients calculateMacronutrients(int calories, String carbAmount) {
         Macronutrients macronutrients = new Macronutrients();
 
@@ -80,6 +122,10 @@ public class MacronutrientControl {
         return macronutrients;
     }
 
+    /**
+     * Sets the activity level
+     * @param activityLevel
+     */
     public void setActivityLevel(String activityLevel) {
         this.activityLevel = activityLevel;
     }
