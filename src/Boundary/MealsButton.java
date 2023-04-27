@@ -8,6 +8,7 @@ import src.Entity.Food;
 import src.Entity.Profile;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,94 +69,27 @@ public class MealsButton extends JFrame {
         mealsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         mealsScrollPane.setPreferredSize(new Dimension(400, 500));
 
-        /*
+
         // Add the meal panels to the meals panel
-        for (int i = 0; i < userProfile.getMealsPerDay(); i++) { // Replace 10 with the number of meals per day from the
-            // database
-            JPanel mealPanel = new JPanel();
-            mealPanel.setBorder(BorderFactory.createTitledBorder("Meal " + (i + 1)));
-            mealPanel.setLayout(new BoxLayout(mealPanel, BoxLayout.Y_AXIS));
+        for (int i = 0; i < userProfile.getMealsPerDay(); i++) {
+            JPanel mealPanel = new JPanel(new BorderLayout());
+            TitledBorder titledBorder = BorderFactory.createTitledBorder("Meal " + (i + 1));
+            titledBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
+            mealPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10), titledBorder));
+            AddButton addButton = new AddButton(i+1);
+            GenerateMealButton generateMealButton = new GenerateMealButton();
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+            buttonPanel.add(addButton);
+            buttonPanel.add(generateMealButton);
+            mealPanel.add(buttonPanel, BorderLayout.NORTH);
+            mealPanel.add(new JSeparator(SwingConstants.HORIZONTAL), BorderLayout.CENTER);
             mealsPanel.add(mealPanel);
             mealPanels.add(mealPanel);
         }
 
-         */
-            JPanel mealPanel = new JPanel();
-            mealPanel.setLayout(new BoxLayout(mealPanel, BoxLayout.Y_AXIS));
-            mealsPanel.add(mealPanel);
-            mealPanels.add(mealPanel);
-            JButton addMealButton1 = new JButton("Add Meal 1");
-            JButton addMealButton2 = new JButton("Add Meal 2");
-            JButton addMealButton3 = new JButton("Add Meal 3");
-            JButton addMealButton4 = new JButton("Add Meal 4");
-            JButton addMealButton5 = new JButton("Add Meal 5");
-            addMealButton1.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
 
-                    // Action to be performed when "Add Meal" button is clicked
-                    System.out.println("Add Meal button clicked in meal panel ");
-                    String userInput = JOptionPane.showInputDialog(null, "Ange en måltid eller ingrediens som du vill ha i din måltid");
-                    Food food = nutritionAPI.createFood(userInput);
-                    foodDatabase.saveFood(food.getLivsmedelsNamn(), food.getKolhydrater(), food.getProtein(), food.getFett(), food.getEnergiKcal());
-                    foodDatabase.updateMeals(userId, food.getLivsmedelsNamn(), 1);
-                    JOptionPane.showMessageDialog(null, "Näringsvärde för " + food.getLivsmedelsNamn()+ "\n" + food.getEnergiKcal() + " kcal\n" + food.getFett() +" gram fett\n" + food.getKolhydrater() + " gram kolhydrater\n" + food.getProtein() + " gram protein");
-                }
-            });
+         /*
 
-            addMealButton2.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Action to be performed when "Add Meal" button is clicked
-                    System.out.println("Add Meal button clicked in meal panel ");
-                    String userInput = JOptionPane.showInputDialog(null, "Ange en måltid eller ingrediens som du vill ha i din måltid");
-                    Food food = nutritionAPI.createFood(userInput);
-                    foodDatabase.saveFood(food.getLivsmedelsNamn(), food.getKolhydrater(), food.getProtein(), food.getFett(), food.getEnergiKcal());
-                    foodDatabase.updateMeals(userId, food.getLivsmedelsNamn(), 2);
-                    JOptionPane.showMessageDialog(null, "Näringsvärde för " + food.getLivsmedelsNamn()+ "\n" + food.getEnergiKcal() + " kcal\n" + food.getFett() +" gram fett\n" + food.getKolhydrater() + " gram kolhydrater\n" + food.getProtein() + " gram protein");
-                }
-            });
-
-            addMealButton3.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Action to be performed when "Add Meal" button is clicked
-                    System.out.println("Add Meal button clicked in meal panel ");
-                    String userInput = JOptionPane.showInputDialog(null, "Ange en måltid eller ingrediens som du vill ha i din måltid");
-                    Food food = nutritionAPI.createFood(userInput);
-                    foodDatabase.saveFood(food.getLivsmedelsNamn(), food.getKolhydrater(), food.getProtein(), food.getFett(), food.getEnergiKcal());
-                    foodDatabase.updateMeals(userId, food.getLivsmedelsNamn(), 3);
-                    JOptionPane.showMessageDialog(null, "Näringsvärde för " + food.getLivsmedelsNamn()+ "\n" + food.getEnergiKcal() + " kcal\n" + food.getFett() +" gram fett\n" + food.getKolhydrater() + " gram kolhydrater\n" + food.getProtein() + " gram protein");
-                }
-            });
-
-        addMealButton4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                // Action to be performed when "Add Meal" button is clicked
-                System.out.println("Add Meal button clicked in meal panel ");
-                String userInput = JOptionPane.showInputDialog(null, "Ange en måltid eller ingrediens som du vill ha i din måltid");
-                Food food = nutritionAPI.createFood(userInput);
-                foodDatabase.saveFood(food.getLivsmedelsNamn(), food.getKolhydrater(), food.getProtein(), food.getFett(), food.getEnergiKcal());
-                foodDatabase.updateMeals(userId, food.getLivsmedelsNamn(), 4);
-                JOptionPane.showMessageDialog(null, "Näringsvärde för " + food.getLivsmedelsNamn()+ "\n" + food.getEnergiKcal() + " kcal\n" + food.getFett() +" gram fett\n" + food.getKolhydrater() + " gram kolhydrater\n" + food.getProtein() + " gram protein");
-            }
-        });
-
-        addMealButton5.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                // Action to be performed when "Add Meal" button is clicked
-                System.out.println("Add Meal button clicked in meal panel ");
-                String userInput = JOptionPane.showInputDialog(null, "Ange en måltid eller ingrediens som du vill ha i din måltid");
-                Food food = nutritionAPI.createFood(userInput);
-                foodDatabase.saveFood(food.getLivsmedelsNamn(), food.getKolhydrater(), food.getProtein(), food.getFett(), food.getEnergiKcal());
-                foodDatabase.updateMeals(userId, food.getLivsmedelsNamn(), 5);
-                JOptionPane.showMessageDialog(null, "Näringsvärde för " + food.getLivsmedelsNamn()+ "\n" + food.getEnergiKcal() + " kcal\n" + food.getFett() +" gram fett\n" + food.getKolhydrater() + " gram kolhydrater\n" + food.getProtein() + " gram protein");
-            }
-        });
 
             JButton generateMealButton = new JButton("Generate Meal");
             generateMealButton.addActionListener(new ActionListener() {
@@ -197,11 +131,16 @@ public class MealsButton extends JFrame {
                     break;
             }
 
+
+
             // Add the Add and Generate buttons to the meal panel
             mealPanel.add(buttonPanel);
 
             // Add a separator to the meal panel
             mealPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+
+          */
+
 
 
         // Create the macros panel
@@ -224,6 +163,42 @@ public class MealsButton extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    private class AddButton extends JButton {
+        private int number;
+
+        public AddButton(int number){
+            this.number = number;
+            setText("Add Meal " + number);
+            addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Action to be performed when "Add Meal" button is clicked
+                    System.out.println("Add Meal button clicked in meal panel ");
+                    String userInput = JOptionPane.showInputDialog(null, "Ange en måltid eller ingrediens som du vill ha i din måltid");
+                    Food food = nutritionAPI.createFood(userInput);
+                    foodDatabase.saveFood(food.getLivsmedelsNamn(), food.getKolhydrater(), food.getProtein(), food.getFett(), food.getEnergiKcal());
+                    foodDatabase.updateMeals(userId, food.getLivsmedelsNamn(), number);
+                    JOptionPane.showMessageDialog(null, "Näringsvärde för " + food.getLivsmedelsNamn()+ "\n" + food.getEnergiKcal() + " kcal\n" + food.getFett() +" gram fett\n" + food.getKolhydrater() + " gram kolhydrater\n" + food.getProtein() + " gram protein");
+                }
+            });
+        }
+    }
+
+    private class GenerateMealButton extends JButton{
+        public GenerateMealButton(){
+            setText("Generate Meal");
+            addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Action to be performed when "Add Meal" button is clicked
+                    System.out.println("Generate Meal button clicked in meal panel ");
+                    }
+            });
+        }
+
+    }
+
 
     /*
      * public static void main(String[] args) {
