@@ -86,62 +86,7 @@ public class MealsButton extends JFrame {
             mealsPanel.add(mealPanel);
             mealPanels.add(mealPanel);
         }
-
-
-         /*
-
-
-            JButton generateMealButton = new JButton("Generate Meal");
-            generateMealButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Action to be performed when "Generate Meal" button is clicked
-                    System.out.println("Generate Meal button clicked in meal panel ");
-
-                }
-            });
-
-            // Add the Add and Generate buttons to the meal panel
-            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            switch (userProfile.getMealsPerDay()){
-                case 5:
-                    buttonPanel.add(addMealButton1);
-                    buttonPanel.add(addMealButton2);
-                    buttonPanel.add(addMealButton3);
-                    buttonPanel.add(addMealButton4);
-                    buttonPanel.add(addMealButton5);
-                    break;
-                case 4:
-                    buttonPanel.add(addMealButton1);
-                    buttonPanel.add(addMealButton2);
-                    buttonPanel.add(addMealButton3);
-                    buttonPanel.add(addMealButton4);
-                    break;
-                case 3:
-                    buttonPanel.add(addMealButton1);
-                    buttonPanel.add(addMealButton2);
-                    buttonPanel.add(addMealButton3);
-                    break;
-                case 2:
-                    buttonPanel.add(addMealButton1);
-                    buttonPanel.add(addMealButton2);
-                    break;
-                case 1:
-                    buttonPanel.add(addMealButton1);
-                    break;
-            }
-
-
-
-            // Add the Add and Generate buttons to the meal panel
-            mealPanel.add(buttonPanel);
-
-            // Add a separator to the meal panel
-            mealPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
-
-          */
-
-
+        
 
         // Create the macros panel
         macrosPanel.setBorder(BorderFactory.createTitledBorder("Macros"));
