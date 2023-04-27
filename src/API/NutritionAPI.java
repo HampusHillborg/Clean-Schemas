@@ -49,7 +49,7 @@ public class NutritionAPI {
         System.out.println("Updating file...");
 
         // Create a new file at the specified path
-        File xmlFile = new File("livsmedelsverket");
+        File xmlFile = new File("Files\\livsmedelsverket");
 
         // Check if the file already exists and was last modified today
         if (xmlFile.exists() && isToday(xmlFile.lastModified())) {
@@ -88,9 +88,9 @@ public class NutritionAPI {
         DocumentBuilder builder = factory.newDocumentBuilder();
         File xmlFile;
         try {
-            xmlFile = new File("livsmedelsverket");
+            xmlFile = new File("Files\\livsmedelsverket");
         }catch (Exception e){
-            xmlFile = new File("livsmedelsverket");
+            xmlFile = new File("Files\\livsmedelsverket");
         }
         return builder.parse(xmlFile);
     }
