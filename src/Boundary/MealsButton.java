@@ -143,15 +143,4 @@ public class MealsButton extends JFrame {
         }
 
     }
-
-
-    /*
-     * public static void main(String[] args) {
-     * SwingUtilities.invokeLater(() -> {
-     * Profile userProfile = new Profile("Andreas", "123");
-     * new MealsButton(userProfile);
-     * });
-     * }
-     * 
-     */
 }
