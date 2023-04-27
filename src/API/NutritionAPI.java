@@ -6,6 +6,9 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
@@ -42,16 +45,35 @@ public class NutritionAPI {
     public void updateXmlDocument() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        URL xmlUrl = new URL(url+getCurrentDate());
+        URL xmlUrl = new URL(url + getCurrentDate());
+        System.out.println("Updating file...");
 
         // Create a new file at the specified path
-        File xmlFile = new File("src/livsmedelsverket");
+        File xmlFile = new File("Clean-Schemas/Files/livsmedelsverket");
+
+        // Check if the file already exists and was last modified today
+        if (xmlFile.exists() && isToday(xmlFile.lastModified())) {
+            System.out.println("File already up-to-date");
+            return;
+        }
 
         // Download the XML file and write it to the file
         try (InputStream inputStream = xmlUrl.openStream()) {
             Files.copy(inputStream, xmlFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("File updated");
         }
     }
+
+    private boolean isToday(long timestamp) {
+        LocalDate today = LocalDate.now();
+        Instant instant = Instant.ofEpochMilli(timestamp);
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, zoneId);
+        return today.equals(dateTime.toLocalDate());
+    }
+
+
+
 
     /**
      Retrieves an XML document from a file and returns it as a Document object.
@@ -66,9 +88,9 @@ public class NutritionAPI {
         DocumentBuilder builder = factory.newDocumentBuilder();
         File xmlFile;
         try {
-            xmlFile = new File("src/livsmedelsverket");
+            xmlFile = new File("Clean-Schemas/Files/livsmedelsverket");
         }catch (Exception e){
-            xmlFile = new File("src/livsmedelsverket");
+            xmlFile = new File("Clean-Schemas/Files/livsmedelsverket");
         }
         return builder.parse(xmlFile);
     }
