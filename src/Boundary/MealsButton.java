@@ -168,13 +168,13 @@ public class MealsButton extends JFrame {
             });
         }
     }
-    
-    
+
+
     private class GenerateMealButton extends JButton {
         private int totalCalories = 0;
         private final JLabel totalCaloriesLabel = new JLabel();
         private final Color buttonColor = new Color(59, 89, 152);
-    
+
         public GenerateMealButton() {
             setText("Generate Meal");
             setBackground(buttonColor);
@@ -182,31 +182,114 @@ public class MealsButton extends JFrame {
             setFocusPainted(false);
             setBorder(BorderFactory.createLineBorder(buttonColor, 2));
             setPreferredSize(new Dimension(150, 30));
-    
+
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Action to be performed when "Generate Meal" button is clicked
                     System.out.println("Generate Meal button clicked in meal panel ");
-                    Meal meal = new Meal("Chicken and Broccoli", 360, 30, 10, 50);
-                    String mealData = "<html><table cellpadding='5'>" +
-                            "<tr><td><b>Meal:</b></td><td>" + meal.getName() + "</td></tr>" +
-                            "<tr><td><b>Calories:</b></td><td>" + meal.getCalories() + " kcal</td></tr>" +
-                            "<tr><td><b>Fat:</b></td><td>" + meal.getFat() + " g</td></tr>" +
-                            "<tr><td><b>Carbs:</b></td><td>" + meal.getCarbs() + " g</td></tr>" +
-                            "<tr><td><b>Protein:</b></td><td>" + meal.getProtein() + " g</td></tr>" +
+
+                    // Adding more meals to generate meals button
+                    Meal meal1 = new Meal("Chicken and Broccoli", 360, 30, 10, 50);
+                    Meal meal2 = new Meal("Spinach and Mushroom Omelette with Whole Wheat Toast",360,17,26,25);
+                    Meal meal3 = new Meal("Grilled Salmon with Sweet Potato and Grilled Asparagus", 500,24,30,40);
+                    Meal meal4 = new Meal("Tuna Salad with Mixed Greens and Whole Wheat Crackers", 320,12,22,30);
+                    Meal meal5 = new Meal("Beef Stir-Fry with Brown Rice and Mixed Vegetables", 550,20,50,40);
+
+
+                    String mealData1 = "<html><table cellpadding='5'>" +
+                            "<tr><td><b>Meal:</b></td><td>" + meal1.getName() + "</td></tr>" +
+                            "<tr><td><b>Calories:</b></td><td>" + meal1.getCalories() + " kcal</td></tr>" +
+                            "<tr><td><b>Fat:</b></td><td>" + meal1.getFat() + " g</td></tr>" +
+                            "<tr><td><b>Carbs:</b></td><td>" + meal1.getCarbs() + " g</td></tr>" +
+                            "<tr><td><b>Protein:</b></td><td>" + meal1.getProtein() + " g</td></tr>" +
                             "</table></html>";
-                    JTextPane selectedMealTextPane = new JTextPane();
-                    selectedMealTextPane.setContentType("text/html");
-                    selectedMealTextPane.setText(mealData);
-                    selectedMealTextPane.setEditable(false);
+
+                    String mealData2 = "<html><table cellpadding='5'>" +
+                            "<tr><td><b>Meal:</b></td><td>" + meal2.getName() + "</td></tr>" +
+                            "<tr><td><b>Calories:</b></td><td>" + meal2.getCalories() + " kcal</td></tr>" +
+                            "<tr><td><b>Fat:</b></td><td>" + meal2.getFat() + " g</td></tr>" +
+                            "<tr><td><b>Carbs:</b></td><td>" + meal2.getCarbs() + " g</td></tr>" +
+                            "<tr><td><b>Protein:</b></td><td>" + meal2.getProtein() + " g</td></tr>" +
+                            "</table></html>";
+
+                    String mealData3 = "<html><table cellpadding='5'>" +
+                            "<tr><td><b>Meal:</b></td><td>" + meal3.getName() + "</td></tr>" +
+                            "<tr><td><b>Calories:</b></td><td>" + meal3.getCalories() + " kcal</td></tr>" +
+                            "<tr><td><b>Fat:</b></td><td>" + meal3.getFat() + " g</td></tr>" +
+                            "<tr><td><b>Carbs:</b></td><td>" + meal3.getCarbs() + " g</td></tr>" +
+                            "<tr><td><b>Protein:</b></td><td>" + meal3.getProtein() + " g</td></tr>" +
+                            "</table></html>";
+
+                    String mealData4 = "<html><table cellpadding='5'>" +
+                            "<tr><td><b>Meal:</b></td><td>" + meal4.getName() + "</td></tr>" +
+                            "<tr><td><b>Calories:</b></td><td>" + meal4.getCalories() + " kcal</td></tr>" +
+                            "<tr><td><b>Fat:</b></td><td>" + meal4.getFat() + " g</td></tr>" +
+                            "<tr><td><b>Carbs:</b></td><td>" + meal4.getCarbs() + " g</td></tr>" +
+                            "<tr><td><b>Protein:</b></td><td>" + meal4.getProtein() + " g</td></tr>" +
+                            "</table></html>";
+
+                    String mealData5 = "<html><table cellpadding='5'>" +
+                            "<tr><td><b>Meal:</b></td><td>" + meal5.getName() + "</td></tr>" +
+                            "<tr><td><b>Calories:</b></td><td>" + meal5.getCalories() + " kcal</td></tr>" +
+                            "<tr><td><b>Fat:</b></td><td>" + meal5.getFat() + " g</td></tr>" +
+                            "<tr><td><b>Carbs:</b></td><td>" + meal5.getCarbs() + " g</td></tr>" +
+                            "<tr><td><b>Protein:</b></td><td>" + meal5.getProtein() + " g</td></tr>" +
+                            "</table></html>";
+
+
+                    JTextPane selectedMealTextPane1 = new JTextPane();
+                    selectedMealTextPane1.setContentType("text/html");
+                    selectedMealTextPane1.setText(mealData1);
+                    selectedMealTextPane1.setEditable(false);
+
+                    JTextPane selectedMealTextPane2 = new JTextPane();
+                    selectedMealTextPane2.setContentType("text/html");
+                    selectedMealTextPane2.setText(mealData2);
+                    selectedMealTextPane2.setEditable(false);
+
+                    JTextPane selectedMealTextPane3 = new JTextPane();
+                    selectedMealTextPane3.setContentType("text/html");
+                    selectedMealTextPane3.setText(mealData2);
+                    selectedMealTextPane3.setEditable(false);
+
+                    JTextPane selectedMealTextPane4 = new JTextPane();
+                    selectedMealTextPane4.setContentType("text/html");
+                    selectedMealTextPane4.setText(mealData2);
+                    selectedMealTextPane4.setEditable(false);
+
+                    JTextPane selectedMealTextPane5 = new JTextPane();
+                    selectedMealTextPane5.setContentType("text/html");
+                    selectedMealTextPane5.setText(mealData2);
+                    selectedMealTextPane5.setEditable(false);
+
+
                     macrosPanel.add(Box.createRigidArea(new Dimension(0, 10))); // add padding
                     macrosPanel.add(macrosLabel);
-                    macrosPanel.add(selectedMealTextPane, 0); // add to the top
+                    macrosPanel.add(selectedMealTextPane1, 0); // add to the top
                     macrosPanel.add(new JSeparator(SwingConstants.HORIZONTAL)); // add separator
+
+                    macrosPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+                    macrosPanel.add(selectedMealTextPane2,0);
+
+                    macrosPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+                    macrosPanel.add(selectedMealTextPane3,0);
+
+                    macrosPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+                    macrosPanel.add(selectedMealTextPane4,0);
+
+                    macrosPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+                    macrosPanel.add(selectedMealTextPane5,0);
+                    macrosPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+
+
+
+                    // Revalidate and repaint the macrosPanel
                     macrosPanel.revalidate();
                     macrosPanel.repaint();
-                    totalCalories += meal.getCalories();
+
+
+                    totalCalories += meal1.getCalories();
                     totalCaloriesLabel.setText("Total calories for the day: " + totalCalories + " kcal");
                 }
             });
@@ -214,5 +297,6 @@ public class MealsButton extends JFrame {
             macrosPanel.add(totalCaloriesLabel);
         }
     }
-    
-}
+
+    }
+
