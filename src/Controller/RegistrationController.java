@@ -79,9 +79,20 @@ public class RegistrationController {
             macroControl.calculateMacronutrients(tdee, userProfile.getCarbAmount());
 
             // Save BMR and TDEE to database
-            userId = userDatabase.getUserId(userProfile.getEmail());
             userDatabase.addBmr(userId, bmr);
             userDatabase.addTdee(userId, tdee);
+
+            protein = macroControl.calculateMacronutrients(userProfile.getTdee(), userProfile.getCarbAmount()).getProtein();
+            carbs = macroControl.calculateMacronutrients(userProfile.getTdee(), userProfile.getCarbAmount()).getCarbs();
+            fat = macroControl.calculateMacronutrients(userProfile.getTdee(), userProfile.getCarbAmount()).getFat();
+            userProfile.setProtein(protein);
+            userProfile.setFat(fat);
+            userProfile.setCarbs(carbs);
+
+            userDatabase.addProtein(userId, protein);
+            userDatabase.addFett(userId, fat);
+            userDatabase.addKolhydrater(userId, carbs);
+
 
 
 

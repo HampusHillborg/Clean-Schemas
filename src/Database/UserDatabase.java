@@ -268,6 +268,34 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
+    public boolean addKolhydrater(int userId, int kolhydrater) throws SQLException {
+        String sql = "UPDATE user_data SET kolhydrater = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, kolhydrater);
+        stmt.setInt(2, userId);
+        int rowsUpdated = stmt.executeUpdate();
+        stmt.close();
+        return rowsUpdated == 1;
+    }
+    public boolean addFett(int userId, int fett) throws SQLException {
+        String sql = "UPDATE user_data SET fett = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, fett);
+        stmt.setInt(2, userId);
+        int rowsUpdated = stmt.executeUpdate();
+        stmt.close();
+        return rowsUpdated == 1;
+    }
+    public boolean addProtein(int userId, int protein) throws SQLException {
+        String sql = "UPDATE user_data SET protein = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, protein);
+        stmt.setInt(2, userId);
+        int rowsUpdated = stmt.executeUpdate();
+        stmt.close();
+        return rowsUpdated == 1;
+    }
+
     public static void main(String[] args) {
         UserDatabase ub = new UserDatabase();
         // System.out.println(ub.getUserId("hampushillborg@gmail.com"));

@@ -109,12 +109,15 @@ public class LoginController {
         String carbAmount = databaseOutput.getCarbs(userId);
         int mealsPerDay = databaseOutput.getMealsPerDay(userId);
         int tdee = databaseOutput.getTdee(userId);
-        //int fat= databaseOutput.getFat(userId);//
-        //int carbs= databaseOutput.getKolhydrater(userId);
-       // int protein= databaseOutput.getProtein(userId);// get TDEE from database
+        int fat= databaseOutput.getFett(userId);//
+        int carbs= databaseOutput.getKolhydrater(userId);
+        int protein= databaseOutput.getProtein(userId);// get TDEE from database
         this.loggedInUser = new Profile(username, password);
         loggedInUser.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
         loggedInUser.setTdee(tdee); // set TDEE in the user's profile
+        loggedInUser.setProtein(protein);
+        loggedInUser.setFat(fat);
+        loggedInUser.setCarbs(carbs);
         return loggedInUser;
     }
 

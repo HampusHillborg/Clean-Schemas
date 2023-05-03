@@ -367,19 +367,19 @@ public class UserDatabaseOutput {
 
         return tdee;
     }
-    /*
-    public int getFat(int userId) {
+
+    public int getFett(int userId) {
         PreparedStatement stmt = null;
-        int fat = 0;
+        int fett = 0;
 
         try {
-            String sql = "SELECT fat FROM  foods  WHERE user_id = ?";
+            String sql = "SELECT fett FROM  user_data  WHERE user_id = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                fat = rs.getInt("fat");
+                fett = rs.getInt("fett");
             }
 
             // Clean-up environment
@@ -393,20 +393,20 @@ public class UserDatabaseOutput {
             e.printStackTrace();
         }
 
-        return fat;
+        return fett;
     }
     public int getKolhydrater(int userId) {
         PreparedStatement stmt = null;
         int Kolhydrater = 0;
 
         try {
-            String sql = "SELECT carbs FROM  foods  WHERE user_id = ?";
+            String sql = "SELECT kolhydrater FROM  user_data  WHERE user_id = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Kolhydrater = rs.getInt("carbs");
+                Kolhydrater = rs.getInt("kolhydrater");
             }
 
             // Clean-up environment
@@ -427,7 +427,7 @@ public class UserDatabaseOutput {
         int protein = 0;
 
         try {
-            String sql = "SELECT protein FROM  foods  WHERE user_id = ?";
+            String sql = "SELECT protein FROM  user_data  WHERE user_id = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
@@ -450,8 +450,6 @@ public class UserDatabaseOutput {
         return protein;
     }
 
-
-     */
 
 
 
