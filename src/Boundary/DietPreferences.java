@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.HashSet;
 
 /**
-
  The DietPreferences class allows the user to choose their dietary preferences
  through a graphical interface. The class creates JPanel and includes various
  checkboxes that allow the user to select their preferred diets. The selected diets

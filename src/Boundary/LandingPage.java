@@ -58,15 +58,15 @@ public class LandingPage extends JFrame {
         buttonsPanel.add(mealsButton);
         buttonsPanel.add(mealsLabel);
 
-        JButton weeklyPlansButton = new JButton("Weekly Plans");
+        JButton searchForFoods = new JButton("Search for foods");
         JLabel weeklyPlansLabel = new JLabel(
-                "<html><p style='width:150px;'>When you have made daily meals you can add them here in weekly plans to make your own weekly plans for the future. Otherwise we can make you a weekly plan for a small cost.</p></html>");
+                "<html><p style='width:150px;'>Here you can search for a food to see how much protein, carbs, fat and calories it contains per 100 grams</p></html>");
         weeklyPlansLabel.setVerticalAlignment(JLabel.TOP);
         weeklyPlansLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        weeklyPlansButton.setBackground(Color.WHITE);
-        weeklyPlansButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        weeklyPlansButton.setPreferredSize(new Dimension(150, 50));
-        buttonsPanel.add(weeklyPlansButton);
+        searchForFoods.setBackground(Color.WHITE);
+        searchForFoods.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        searchForFoods.setPreferredSize(new Dimension(150, 50));
+        buttonsPanel.add(searchForFoods);
         buttonsPanel.add(weeklyPlansLabel);
 
         JButton chooseFoodsButton = new JButton("Choose Foods");
@@ -113,9 +113,8 @@ public class LandingPage extends JFrame {
             System.out.println("Meals button clicked!");
         });
 
-        weeklyPlansButton.addActionListener(e -> {
-            // Code to execute when mealsButton is clicked
-            System.out.println("Weekly button clicked!");
+        searchForFoods.addActionListener(e -> {
+            new SearchForFoods();
         });
 
         chooseFoodsButton.addActionListener(e -> {
