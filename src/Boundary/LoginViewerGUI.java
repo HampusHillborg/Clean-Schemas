@@ -95,27 +95,35 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
     }
 
     /**
-     This method creates a new account for a user.
-     It retrieves the username and password entered by the user and checks if the username already exists in the database.
-     If the username already exists, a message dialog is displayed asking the user to choose another username.
-     Otherwise, the new user is added to the database, and a message dialog is displayed indicating that the account was created successfully.
-     Then, the current frame is disposed and a new instance of the ProfileFormGUI class is created for the new user.
+     * This method creates a new account for a user.
+     * It retrieves the username and password entered by the user and checks if the username already exists in the database.
+     * If the username already exists, a message dialog is displayed asking the user to choose another username.
+     * Otherwise, the new user is added to the database, and a message dialog is displayed indicating that the account was created successfully.
+     * Then, the current frame is disposed and a new instance of the ProfileFormGUI class is created for the new user.
      */
     public void createAccount() {
         String username = this.usernameField.getText();
         String password = new String(this.passwordField.getPassword());
 
-        if (loginController.checkIfRegistered(username)) {
-            JOptionPane.showMessageDialog(this, "Username already exists. Please choose another.");
-            return;
-        }
 
-        this.users.put(username, password);
-        userProfile = new Profile(username, password);
-        JOptionPane.showMessageDialog(this, "Account created successfully!");
-        dispose();
-        new ProfileFormGUI(userProfile, userDatabase);
+        if (username.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+            if (loginController.checkIfRegistered(username)) {
+                JOptionPane.showMessageDialog(this, "Username already exists. Please choose another.");
+                return;
+            }
+
+            this.users.put(username, password);
+            userProfile = new Profile(username, password);
+            JOptionPane.showMessageDialog(this, "Account created successfully!");
+            dispose();
+            new ProfileFormGUI(userProfile, userDatabase);
+
+    } else
+    {
+        JOptionPane.showMessageDialog(null, "Email not valid");
     }
+}
+
 
     /**
      Validates the login credentials entered by the user, and logs in the user if the credentials are correct.
