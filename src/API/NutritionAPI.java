@@ -49,7 +49,9 @@ public class NutritionAPI {
         System.out.println("Updating file...");
 
         // Create a new file at the specified path
-        File xmlFile = new File("Files\\livsmedelsverket");
+        String projectDir = new File("").getAbsolutePath();
+        File xmlFile = new File(projectDir + "/Clean-Schemas/Files/livsmedelsverket");
+
 
         // Check if the file already exists and was last modified today
         if (xmlFile.exists() && isToday(xmlFile.lastModified())) {
@@ -86,11 +88,13 @@ public class NutritionAPI {
     public Document getXmlDocument() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
+        String projectDir = new File("").getAbsolutePath();
+
         File xmlFile;
         try {
-            xmlFile = new File("Files\\livsmedelsverket");
+            xmlFile = new File(projectDir + "/Clean-Schemas/Files/livsmedelsverket");
         }catch (Exception e){
-            xmlFile = new File("Files\\livsmedelsverket");
+            xmlFile = new File(projectDir + "/Clean-Schemas/Files/livsmedelsverket");
         }
         return builder.parse(xmlFile);
     }
