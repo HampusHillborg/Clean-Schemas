@@ -367,6 +367,7 @@ public class UserDatabaseOutput {
 
         return tdee;
     }
+    /*
     public int getFat(int userId) {
         PreparedStatement stmt = null;
         int fat = 0;
@@ -449,6 +450,8 @@ public class UserDatabaseOutput {
         return protein;
     }
 
+
+     */
 
 
 

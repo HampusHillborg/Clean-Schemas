@@ -109,7 +109,7 @@ public class LandingPage extends JFrame {
 
         mealsButton.addActionListener(e -> {
             // Code to execute when mealsButton is clicked
-            new MealsButton(profile);
+            new MealsButton(profile, userDatabase);
             System.out.println("Meals button clicked!");
         });
 

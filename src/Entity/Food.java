@@ -1,5 +1,8 @@
 package src.Entity;
 
+/**
+ * A class that stores information for a food object
+ */
 public class Food {
     private int livsmedelsId;
     private String livsmedelsNamn;
@@ -8,6 +11,14 @@ public class Food {
     private String protein;
     private String fett;
 
+    /**
+     * Constructs a Food object
+     * @param livsmedelsNamn
+     * @param energiKcal
+     * @param kolhydrater
+     * @param protein
+     * @param fett
+     */
     public Food(String livsmedelsNamn, String energiKcal, String kolhydrater, String protein,
             String fett) {
         this.livsmedelsNamn = livsmedelsNamn;

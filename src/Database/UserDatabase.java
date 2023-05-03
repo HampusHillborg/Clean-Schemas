@@ -96,6 +96,13 @@ public class UserDatabase {
         rowsInserted = userDataStmt.executeUpdate();
         userDataStmt.close();
 
+        // Insert corresponding row into user_data table
+        String userFoodSql = "INSERT INTO user_foods (user_id) VALUES (?)";
+        PreparedStatement userFoodStmt = conn.prepareStatement(userFoodSql);
+        userFoodStmt.setInt(1, userId);
+        rowsInserted = userFoodStmt.executeUpdate();
+        userDataStmt.close();
+
         return rowsInserted == 1;
     }
 

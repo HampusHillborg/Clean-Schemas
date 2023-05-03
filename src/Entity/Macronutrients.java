@@ -1,5 +1,8 @@
 package src.Entity;
 
+/**
+ * Class that stores the Macronutrients
+ */
 public class Macronutrients {
     private int protein;
     private int fat;

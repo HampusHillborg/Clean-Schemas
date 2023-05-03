@@ -209,7 +209,7 @@ public class DietPreferences {
                 boolean isValidInput = true;
                 for (JCheckBox checkbox : dietCheckboxes) {
                     if (checkbox.isSelected()) {
-                        isValidInput = false;
+                        isValidInput = true;
                         break;
                     }
                 }

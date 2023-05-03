@@ -3,6 +3,10 @@ package src.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that represents an userprofile
+ * and is used to store data of a user.
+ */
 public class Profile {
     private String lastName;
     private String firstName;
@@ -26,6 +30,11 @@ public class Profile {
 
     private int carbs;
 
+    /**
+     * Constructs a Profile object
+     * @param email
+     * @param password
+     */
     public Profile(String email, String password) {
         this.email = email;
         this.password = password;
@@ -33,6 +42,17 @@ public class Profile {
         this.dislikedFoods = new ArrayList<String>();
     }
 
+    /**
+     * Adds more data to a profile
+     * @param height
+     * @param weight
+     * @param age
+     * @param sex
+     * @param goal
+     * @param activityLevel
+     * @param carbIntake
+     * @param mealsPerDay
+     */
     public void addToProfile(double height, double weight, int age, String sex, String goal, String activityLevel,
             String carbIntake, int mealsPerDay) {
         this.height = height;
@@ -168,7 +188,7 @@ public class Profile {
         return protein;
     }
 
-    public void setProtein(int fat){this.protein= fat;}
+    public void setProtein(int protein){this.protein= protein;}
 
     public int getMealsPerDay() {
         return mealsPerDay;

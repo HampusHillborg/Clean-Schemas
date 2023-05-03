@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class that stores foods for the different diets
+ */
     public class Diets {
 
         private String[] vegetarianFoods = {"Tofu", "Bönor", "Cashewnötter", "Valnötter", "Frön", "Spannmål", "Tomat", "Linser", "Kikärtor", "Tempeh", "Spenat", "Broccoli", "Sötpotatis", "Äpplen"};
