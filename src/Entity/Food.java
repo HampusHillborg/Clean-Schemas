@@ -28,6 +28,15 @@ public class Food {
         this.fett = fett;
     }
 
+    @Override
+    public String toString() {
+        return livsmedelsNamn + "\n"
+                + "Energi (kcal): " + energiKcal + "\n"
+                + "Kolhydrater (g): " + kolhydrater + "\n"
+                + "Protein (g): " + protein + "\n"
+                + "Fett (g): " + fett;
+    }
+
     public int getLivsmedelsId() {
         return livsmedelsId;
     }
