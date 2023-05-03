@@ -19,7 +19,6 @@ public class SearchForFoods extends JFrame implements ActionListener {
 
     public SearchForFoods() {
         super("Search for Foods");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create UI components
         JLabel foodNameLabel = new JLabel("Food Name:");
