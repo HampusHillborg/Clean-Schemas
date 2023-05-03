@@ -80,10 +80,8 @@ public class MealsButton extends JFrame {
             TitledBorder titledBorder = BorderFactory.createTitledBorder("Meal " + (i + 1));
             titledBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
             mealPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10), titledBorder));
-            AddButton addButton = new AddButton(i+1);
             GenerateMealButton generateMealButton = new GenerateMealButton();
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-            buttonPanel.add(addButton);
             buttonPanel.add(generateMealButton);
             mealPanel.add(buttonPanel, BorderLayout.NORTH);
             JPanel mealFoodsPanel = new JPanel();
@@ -110,63 +108,6 @@ public class MealsButton extends JFrame {
     
         setLocationRelativeTo(null);
         setVisible(true);
-    }
-    
-
-    private class AddButton extends JButton {
-        private int number;
-        private final Color buttonColor = new Color(59, 89, 152);
-    
-        public AddButton(int number) {
-            this.number = number;
-            setText("Add Meal " + number);
-            setBackground(buttonColor);
-            setForeground(Color.WHITE);
-            setFocusPainted(false);
-            setBorder(BorderFactory.createLineBorder(buttonColor, 2));
-            setPreferredSize(new Dimension(150, 30));
-    
-            addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Action to be performed when "Add Meal" button is clicked
-                    System.out.println("Add Meal button clicked in meal panel ");
-                    String userInput = JOptionPane.showInputDialog(null, "Ange en måltid eller ingrediens som du vill ha i din måltid");
-                    Food food = nutritionAPI.createFood(userInput);
-                    JPanel mealPanel = mealPanels.get(number - 1);
-                    JPanel foodPanel = new JPanel(new GridLayout(0, 1));
-                    foodPanel.setBackground(Color.WHITE);
-                    foodPanel.setBorder(BorderFactory.createCompoundBorder(
-                            BorderFactory.createEmptyBorder(5, 5, 5, 5),
-                            BorderFactory.createLineBorder(buttonColor, 2)));
-                    JLabel nameLabel = new JLabel(food.getLivsmedelsNamn());
-                    nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
-                    foodPanel.add(nameLabel);
-                    foodPanel.add(new JLabel(food.getEnergiKcal() + " kcal"));
-                    foodPanel.add(new JLabel("Protein: " + food.getProtein() + " g"));
-                    foodPanel.add(new JLabel("Kolhydrater: " + food.getKolhydrater() + " g"));
-                    foodPanel.add(new JLabel("Fett: " + food.getFett() + " g"));
-                    JPanel mealFoodsPanel = null;
-                    for (Component c : mealPanel.getComponents()) {
-                        if (c instanceof JPanel) {
-                            mealFoodsPanel = (JPanel) c;
-                            break;
-                        }
-                    }
-                    mealFoodsPanel.setLayout(new BoxLayout(mealFoodsPanel, BoxLayout.Y_AXIS));
-                    mealFoodsPanel.add(foodPanel);
-                    mealFoodsPanel.add(Box.createRigidArea(new Dimension(0, 5))); // add some space after the food panel
-                    mealFoodsPanel.add(new JSeparator(SwingConstants.HORIZONTAL)); // add separator
-                    revalidate();
-                    repaint();
-                    JOptionPane.showMessageDialog(null, "<html>Näringsvärde för " + food.getLivsmedelsNamn() +
-                            "<br>" + food.getEnergiKcal() + " kcal<br>" +
-                            "Protein: " + food.getProtein() + " g<br>" +
-                            "Kolhydrater: " + food.getKolhydrater() + " g<br>" +
-                            "Fett: " + food.getFett() + " g</html>");
-                }
-            });
-        }
     }
 
 
