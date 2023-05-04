@@ -80,7 +80,7 @@ public class MealsButton extends JFrame {
             TitledBorder titledBorder = BorderFactory.createTitledBorder("Meal " + (i + 1));
             titledBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
             mealPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10), titledBorder));
-            GenerateMealButton generateMealButton = new GenerateMealButton();
+            GenerateMealButton generateMealButton = new GenerateMealButton(userProfile, foodDatabase);
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
             buttonPanel.add(generateMealButton);
             mealPanel.add(buttonPanel, BorderLayout.NORTH);
@@ -116,20 +116,32 @@ public class MealsButton extends JFrame {
         private final JLabel totalCaloriesLabel = new JLabel();
         private final Color buttonColor = new Color(59, 89, 152);
 
-        public GenerateMealButton() {
+        private Profile userProfile;
+        private FoodDatabase foodDatabase;
+
+        public GenerateMealButton(Profile userProfile, FoodDatabase foodDatabase) {
             setText("Generate Meal");
             setBackground(buttonColor);
             setForeground(Color.WHITE);
             setFocusPainted(false);
             setBorder(BorderFactory.createLineBorder(buttonColor, 2));
             setPreferredSize(new Dimension(150, 30));
+            this.userProfile = userProfile;
+            this.foodDatabase = foodDatabase;
 
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Action to be performed when "Generate Meal" button is clicked
                     System.out.println("Generate Meal button clicked in meal panel ");
+                    int tdee = userProfile.getTdee()/userProfile.getMealsPerDay();
+                    int protein = userProfile.getProtein()/userProfile.getMealsPerDay();
+                    int carbs = userProfile.getCarbs()/userProfile.getMealsPerDay();
+                    int fat = userProfile.getFat()/userProfile.getMealsPerDay();
+                    //foodDatabase.findFittingMeal(tdee, protein, carbs, fat);
+                    foodDatabase.getMeal("normal",tdee);
 
+                    /*
                     // Adding more meals to generate meals button
                     Meal meal1 = new Meal("Chicken and Broccoli", 360, 30, 10, 50);
                     Meal meal2 = new Meal("Spinach and Mushroom Omelette with Whole Wheat Toast",360,17,26,25);
@@ -232,6 +244,8 @@ public class MealsButton extends JFrame {
 
                     totalCalories += meal1.getCalories();
                     totalCaloriesLabel.setText("Total calories for the day: " + totalCalories + " kcal");
+
+                     */
                 }
             });
             macrosPanel.add(Box.createRigidArea(new Dimension(0, 20))); // add some space before totalCaloriesLabel
