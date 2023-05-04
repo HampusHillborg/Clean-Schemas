@@ -144,6 +144,13 @@ public class UserDatabase {
         return rowsInserted == 1;
     }
 
+    /**
+     * Adds the sex to the user_data table
+     * @param userId
+     * @param sex
+     * @return
+     * @throws SQLException
+     */
     public boolean addSex(int userId, String sex) throws SQLException {
         String sql = "UPDATE user_data SET sex = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -154,10 +161,43 @@ public class UserDatabase {
         return rowsInserted == 1;
     }
 
+    /**
+     * Adds the age to the user_data table
+     * @param userId
+     * @param age
+     * @return
+     * @throws SQLException
+     */
     public boolean addAge(int userId, int age) throws SQLException {
         String sql = "UPDATE user_data SET age = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, age);
+        stmt.setInt(2, userId);
+        int rowsInserted = stmt.executeUpdate();
+        stmt.close();
+        return rowsInserted == 1;
+    }
+
+    /**
+     * Adds a category to the user_data table
+     * @param userId
+     * @param category
+     * @return
+     * @throws SQLException
+     */
+    public boolean addCategory(int userId, String category) throws SQLException {
+        if(category != null) {
+            if (category.equals("Gluten-Free")) {
+                category = "glutenFree";
+
+            } else if (category.equals("Dairy-Free")) {
+                category = "dairyFree";
+            }
+        }
+
+        String sql = "UPDATE user_data SET category = ? WHERE user_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, category);
         stmt.setInt(2, userId);
         int rowsInserted = stmt.executeUpdate();
         stmt.close();

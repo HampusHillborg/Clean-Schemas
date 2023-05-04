@@ -161,6 +161,9 @@ public class FoodDatabase {
     }
 
     public String getMeal(String category, int calorieLimit) {
+        if(category == null){
+            category = "normal";
+        }
         int lowerCalorieLimit = (int) ((calorieLimit-200)/1.5);
         int upperCalorieLimit = (int) ((calorieLimit+50)/1.5);
         String sql = "SELECT name, kcal FROM food WHERE kcal BETWEEN ? AND ? AND category = ? ORDER BY random() LIMIT 1";

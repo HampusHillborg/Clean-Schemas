@@ -93,6 +93,8 @@ public class UserDatabaseOutput {
         return password;
     }
 
+
+
     /**
      * Returns the current weight of a given user
      *
@@ -183,6 +185,39 @@ public class UserDatabaseOutput {
         }
 
         return goal;
+    }
+
+    /**
+     * returns the users diet category
+     * @param userId
+     * @return
+     */
+    public String getCategory(int userId) {
+        PreparedStatement stmt = null;
+        String category = null;
+
+        try {
+            String sql = "SELECT category FROM user_data WHERE user_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                category = rs.getString("category");
+            }
+
+            // Clean-up environment
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            // Handle other errors
+            e.printStackTrace();
+        }
+
+        return category;
     }
 
     /**

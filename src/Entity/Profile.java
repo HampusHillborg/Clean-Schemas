@@ -29,6 +29,7 @@ public class Profile {
     private int protein;
 
     private int carbs;
+    private String dietCategory;
 
     /**
      * Constructs a Profile object
@@ -64,6 +65,14 @@ public class Profile {
         this.carbAmount = carbIntake;
         this.mealsPerDay = mealsPerDay;
 
+    }
+
+    public void setDietCategory(String category){
+        this.dietCategory = category;
+    }
+
+    public String getDietCategory(){
+        return dietCategory;
     }
 
     public void setFirstName(String firstName) {

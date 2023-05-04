@@ -118,6 +118,7 @@ public class LoginController {
         loggedInUser.setProtein(protein);
         loggedInUser.setFat(fat);
         loggedInUser.setCarbs(carbs);
+        loggedInUser.setDietCategory(databaseOutput.getCategory(userId));
         return loggedInUser;
     }
 

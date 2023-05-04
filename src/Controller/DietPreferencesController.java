@@ -1,5 +1,6 @@
 package src.Controller;
 
+
 import org.xml.sax.SAXException;
 import src.API.NutritionAPI;
 import src.Boundary.DietPreferencesView;
@@ -16,6 +17,7 @@ import java.io.IOException;
  *  It validates the user's input and processes it if it is valid. It also adds action listeners to the view's
  *  submit, like, and dislike buttons.
  */
+/*
 public class DietPreferencesController {
     private DietPreferencesView view;
     private Profile model;
@@ -25,6 +27,8 @@ public class DietPreferencesController {
      * @param model the Profile model
      * @param view the DietPreferencesView view
      */
+
+    /*
     public DietPreferencesController(Profile model, DietPreferencesView view) {
         this.model = model;
         this.view = view;
@@ -37,6 +41,7 @@ public class DietPreferencesController {
      * ActionListener for the submit button.
      * Validates the user's input and processes and submits it if it is valid.
      */
+        /*
     class SubmitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -94,7 +99,7 @@ public class DietPreferencesController {
      * ActionListener for the like button.
      * Adds a food item to the user's liked list if it is not already in the liked or disliked list.
      */
-    class LikeListener implements ActionListener {
+    /*class LikeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String food = view.getSearchFieldText().trim();
@@ -114,6 +119,7 @@ public class DietPreferencesController {
      * A class that listens for the dislike button to be clicked and adds the entered food item to the dislike list
      * in the view if it is not already in either the like or dislike list.
      */
+        /*
     class DislikeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -130,3 +136,5 @@ public class DietPreferencesController {
         }
     }
 }
+
+         */
