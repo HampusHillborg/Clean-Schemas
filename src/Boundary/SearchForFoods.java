@@ -1,10 +1,6 @@
 package src.Boundary;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,17 +21,31 @@ public class SearchForFoods extends JFrame implements ActionListener {
         foodNameField = new JTextField(20);
         searchButton = new JButton("Search");
 
-        // Add components to frame
-        add(foodNameLabel);
-        add(foodNameField);
-        add(searchButton);
+        // Set button properties
+        searchButton.setBackground(new Color(32, 98, 147));
+        searchButton.setForeground(Color.WHITE);
+        searchButton.setFocusPainted(false);
+        searchButton.setPreferredSize(new Dimension(100, 30));
 
-        // Set layout and size
-        setLayout(new FlowLayout());
-        setSize(400, 100);
+        // Create panel and set layout
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBackground(Color.WHITE);
+
+        // Add components to panel
+        panel.add(foodNameLabel);
+        panel.add(foodNameField);
+        panel.add(searchButton);
+
+        // Set panel as the content pane
+        setContentPane(panel);
 
         // Set ActionListener for searchButton
         searchButton.addActionListener(this);
+
+        // Set window properties
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -55,4 +65,11 @@ public class SearchForFoods extends JFrame implements ActionListener {
         }
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new SearchForFoods();
+            }
+        });
+    }
 }
