@@ -160,83 +160,54 @@ public class FoodDatabase {
         }
     }
 
-    public String getMeal(String category, int calorieLimit) {
-        if(category == null){
-            category = "normal";
-        }
-        int lowerCalorieLimit = (int) ((calorieLimit-200)/1.5);
-        int upperCalorieLimit = (int) ((calorieLimit+50)/1.5);
-        String sql = "SELECT name, kcal FROM food WHERE kcal BETWEEN ? AND ? AND category = ? ORDER BY random() LIMIT 1";
-        PreparedStatement stmt = null;
+
+    public void findFood(double proteins, double carbs, double kcals, double fat) {
+        double proteinRatio = proteins/kcals;
+        double carbRatio = carbs/kcals;
+        double fatRatio = fat/kcals;
+        double proteinLowerBound = proteinRatio - 0.03;
+        double proteinUpperBound = proteinRatio + 0.03;
+        double carbLowerBound = carbRatio - 0.03;
+        double carbUpperBound = carbRatio + 0.03;
+        double fatLowerBound = fatRatio - 0.03;
+        double fatUpperBound = fatRatio + 0.03;
+
         try {
-            stmt = conn.prepareStatement(sql);
-            stmt.setDouble(1, lowerCalorieLimit);
-            stmt.setDouble(2, upperCalorieLimit);
-            stmt.setString(3, category);
+            // Skapa en förberedd fråga med placeholders för protein, kolhydrater och fett
+            String sql = "SELECT * FROM food WHERE protein / kcal BETWEEN ? AND ? AND carbs / kcal BETWEEN ? AND ? AND fat / kcal BETWEEN ? AND ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            // Sätt de sex placeholders till önskade värden
+            stmt.setDouble(1, proteinLowerBound);
+            stmt.setDouble(2, proteinUpperBound);
+            stmt.setDouble(3, carbLowerBound);
+            stmt.setDouble(4, carbUpperBound);
+            stmt.setDouble(5, fatLowerBound);
+            stmt.setDouble(6, fatUpperBound);
+
+            // Utför frågan och hämta resultatet
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                String mealName = rs.getString("name");
-                String kcal = rs.getString("kcal");
-                System.out.println(mealName + "(" + kcal + "kcal)");
-                return mealName;
-            } else {
-                return "No meals found.";
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                double carb = rs.getDouble("carbs");
+                double protein = rs.getDouble("protein");
+                double fats = rs.getDouble("fat");
+                double kcal = rs.getDouble("kcal");
+                String category = rs.getString("category");
+                System.out.printf("%d\t%s\t%.2f\t%.2f\t%.2f\t%.2f\t%s\n",
+                        id, name, carb, protein, fats, kcal, category);
+                System.out.println("You need to eat this many grams: " + (int)(kcals/kcal * 100) + "g");
             }
+
+            // Stäng resurserna
+            rs.close();
+            stmt.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
-    public String findFittingMeal(int tdee, int protein, int carb, int fat) {
-
-
-
-        int lowerCalorieLimit = (int) ((tdee-200)/1.5);
-        int upperCalorieLimit = (int) ((tdee+50)/1.5);
-
-
-
-
-        System.out.println(lowerCalorieLimit + " " + upperCalorieLimit);
-        System.out.println(protein/1.5 + " " + fat/1.5 + " " + carb/1.5);
-
-
-        String sql = "SELECT name, protein, fat, carbs, kcal\n" +
-                "FROM food\n" +
-                "WHERE kcal BETWEEN ? AND ? AND protein >= ? AND fat >= ? AND carbs >= ?\n" +
-                "ORDER BY (ABS(protein - ?) + ABS(fat - ?) + ABS(carbs - ?)) ASC, random()\n" +
-                "LIMIT 1\n";
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setDouble(1, lowerCalorieLimit);
-            stmt.setDouble(2, upperCalorieLimit);
-            stmt.setDouble(3, protein/1.5);
-            stmt.setDouble(4, fat/1.5);
-            stmt.setDouble(5, carb/1.5);
-            stmt.setDouble(6, protein/1.5);
-            stmt.setDouble(7, fat/1.5);
-            stmt.setDouble(8, carb/1.5);
-
-
-            ResultSet rs = stmt.executeQuery();
-
-
-            if (rs.next()) {
-                    String mealName = rs.getString("name");
-                    double mealCals = rs.getDouble("kcal");
-                    System.out.println("Recommended meal: " + mealName + " (" + mealCals + " kcal)");
-                    System.out.println("You need to eat this many grams: " + (tdee / (int) mealCals * 100));
-                    return mealName;
-
-                } else {
-                    System.out.println("No meals found.");
-                }
-            }catch (Exception e){
-                System.out.println(e);
-            }
-            return null;
-        }
 
 }
 

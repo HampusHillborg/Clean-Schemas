@@ -139,9 +139,10 @@ public class MealsButton extends JFrame {
                     int carbs = userProfile.getCarbs()/userProfile.getMealsPerDay();
                     int fat = userProfile.getFat()/userProfile.getMealsPerDay();
                     //foodDatabase.findFittingMeal(tdee, protein, carbs, fat);
-                    foodDatabase.getMeal(userProfile.getDietCategory(),tdee);
+                    //foodDatabase.getMeal(userProfile.getDietCategory(),tdee);
+                    foodDatabase.findFood(userProfile.getProtein(), userProfile.getCarbs(), userProfile.getTdee(), userProfile.getFat());
 
-                    
+
                 }
             });
             macrosPanel.add(Box.createRigidArea(new Dimension(0, 20))); // add some space before totalCaloriesLabel
