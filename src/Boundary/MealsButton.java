@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 
@@ -130,7 +131,6 @@ public class MealsButton extends JFrame {
             this.foodDatabase = foodDatabase;
 
             addActionListener(new ActionListener() {
-                @Override
                 public void actionPerformed(ActionEvent e) {
                     // Action to be performed when "Generate Meal" button is clicked
                     System.out.println("Generate Meal button clicked in meal panel ");
@@ -140,7 +140,7 @@ public class MealsButton extends JFrame {
                     int fat = userProfile.getFat() / userProfile.getMealsPerDay();
 
                     ArrayList<Meal> matchingMeals = foodDatabase.findFood(protein, carbs, tdee, fat, userProfile.getDietCategory());
-                    Meal randomMeal = foodDatabase.chooseRandomMeal(matchingMeals, tdee);
+                    Meal randomMeal = chooseRandomMeal(matchingMeals, tdee);
 
                     if (randomMeal != null) {
                         System.out.println("Selected meal: " + randomMeal.getName());
@@ -156,6 +156,20 @@ public class MealsButton extends JFrame {
             });
             macrosPanel.add(Box.createRigidArea(new Dimension(0, 20))); // add some space before totalCaloriesLabel
             macrosPanel.add(totalCaloriesLabel);
+        }
+    }
+
+
+    public Meal chooseRandomMeal(ArrayList<Meal> matchingMeals, double kcals) {
+        if (matchingMeals.isEmpty()) {
+            return null;
+        } else {
+            Random rand = new Random();
+            Meal randomMeal = matchingMeals.get(rand.nextInt(matchingMeals.size()));
+            double grams = kcals / randomMeal.getKcal() * 100;
+            randomMeal.setRecommendedGrams(String.valueOf(grams));
+            System.out.println("HÃ¤r kommer den valda mealen");
+            return randomMeal;
         }
     }
 
