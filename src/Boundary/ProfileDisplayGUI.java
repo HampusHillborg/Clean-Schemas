@@ -3,9 +3,10 @@ package src.Boundary;
 import src.Entity.Profile;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
- A class that creates a graphical user interface for displaying a user's profile.
+ * A class that creates a graphical user interface for displaying a user's profile.
  */
 public class ProfileDisplayGUI extends JFrame {
     private JLabel heightLabel;
@@ -18,40 +19,63 @@ public class ProfileDisplayGUI extends JFrame {
     private JLabel tdeeLabel;
 
     /**
-     A class that creates a graphical user interface for displaying a user's profile.
-     @param userProfile the user profile object to be displayed
+     * A class that creates a graphical user interface for displaying a user's profile.
+     *
+     * @param userProfile the user profile object to be displayed
      */
     public ProfileDisplayGUI(Profile userProfile) {
         super("User Profile");
 
         // Initialize labels with user input
-        heightLabel = new JLabel("Height (cm): " + userProfile.getHeight());
-        weightLabel = new JLabel("Weight (kg): " + userProfile.getWeight());
-        ageLabel = new JLabel("Age: " + userProfile.getAge());
-        sexLabel = new JLabel("Sex: " + userProfile.getSex());
-        goalLabel = new JLabel("Goal: " + userProfile.getGoal());
-        carbLabel = new JLabel("Carbohydrate Intake: " + userProfile.getCarbAmount());
-        mealsLabel = new JLabel("Number of Meals: " + userProfile.getMealsPerDay());
-        tdeeLabel = new JLabel("You need this amount of calories: " + userProfile.getTdee() + "Kcals");
+        heightLabel = createLabel("Höjd (cm): " + userProfile.getHeight());
+        weightLabel = createLabel("Vikt (kg): " + userProfile.getWeight());
+        ageLabel = createLabel("Ålder: " + userProfile.getAge());
+        sexLabel = createLabel("Kön: " + userProfile.getSex());
+        goalLabel = createLabel("Mål: " + userProfile.getGoal());
+        carbLabel = createLabel("Kolhydratintag: " + userProfile.getCarbAmount());
+        mealsLabel = createLabel("Antal måltider: " + userProfile.getMealsPerDay());
+        tdeeLabel = createLabel("Du behöver detta antal kalorier: " + userProfile.getTdee() + " Kcals");
 
-        System.out.println("TDEE value: " + userProfile.getTdee());
+        // Create panel and set layout
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        panel.setBackground(Color.WHITE);
 
-        // Create layout and add components
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-        add(heightLabel);
-        add(weightLabel);
-        add(ageLabel);
-        add(sexLabel);
-        add(goalLabel);
-        add(carbLabel);
-        add(mealsLabel);
-        add(tdeeLabel);
+        // Add labels to the panel with proper layout constraints
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        panel.add(heightLabel, gbc);
+        panel.add(weightLabel, gbc);
+        panel.add(ageLabel, gbc);
+        panel.add(sexLabel, gbc);
+        panel.add(goalLabel, gbc);
+        panel.add(carbLabel, gbc);
+        panel.add(mealsLabel, gbc);
+        panel.add(tdeeLabel, gbc);
+
+        // Set panel as the content pane
+        setContentPane(panel);
 
         // Set window properties
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    /**
+     * Helper method to create a formatted label.
+     *
+     * @param text the label text
+     * @return the formatted label
+     */
+    private JLabel createLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Arial", Font.PLAIN, 14));
+        return label;
     }
 
     public static void main(String[] args) {
@@ -61,6 +85,5 @@ public class ProfileDisplayGUI extends JFrame {
 
         // Create ProfileFormGUI object to get user input
         // ProfileFormGUI formGUI = new ProfileFormGUI();
-
     }
 }
