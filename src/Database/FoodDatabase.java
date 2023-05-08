@@ -1,6 +1,11 @@
 package src.Database;
 
+import src.Entity.Food;
+import src.Entity.Meal;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class FoodDatabase {
 
@@ -161,7 +166,7 @@ public class FoodDatabase {
     }
 
 
-    public void findFood(double proteins, double carbs, double kcals, double fat, String category) {
+    public ArrayList<Meal> findFood(double proteins, double carbs, double kcals, double fat, String category) {
         double proteinRatio = proteins / kcals;
         double carbRatio = carbs / kcals;
         double fatRatio = fat / kcals;
@@ -173,6 +178,7 @@ public class FoodDatabase {
         double fatUpperBound = fatRatio + 0.03;
         String sql;
         PreparedStatement stmt;
+        ArrayList<Meal> matchingMeal = new ArrayList<>();
         try {
 
             if(category.equals("normal")){
@@ -213,6 +219,8 @@ public class FoodDatabase {
                 double fats = rs.getDouble("fat");
                 double kcal = rs.getDouble("kcal");
                 String foodCategory = rs.getString("category");
+                Meal matchingMeals = new Meal(id, name, carb, protein, fats, kcal, foodCategory);
+                matchingMeal.add(matchingMeals);
                 System.out.printf("%d\t%s\t%.2f\t%.2f\t%.2f\t%.2f\t%s\n",
                         id, name, carb, protein, fats, kcal, foodCategory);
                 System.out.println("You need to eat this many grams: " + (int) (kcals / kcal * 100) + "g");
@@ -224,6 +232,19 @@ public class FoodDatabase {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return matchingMeal;
+    }
+    public Meal chooseRandomMeal(ArrayList<Meal> matchingMeals, double kcals) {
+        if (matchingMeals.isEmpty()) {
+            return null;
+        } else {
+            Random rand = new Random();
+            Meal randomMeal = matchingMeals.get(rand.nextInt(matchingMeals.size()));
+            double grams = kcals / randomMeal.getKcal() * 100;
+            randomMeal.setRecommendedGrams(String.valueOf(grams));
+            System.out.println("Här kommer den valda mealen");
+            return randomMeal;
         }
     }
     
