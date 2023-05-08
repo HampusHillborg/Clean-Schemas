@@ -138,7 +138,6 @@ public class MealsButton extends JFrame {
                     int protein = userProfile.getProtein()/userProfile.getMealsPerDay();
                     int carbs = userProfile.getCarbs()/userProfile.getMealsPerDay();
                     int fat = userProfile.getFat()/userProfile.getMealsPerDay();
-                    //foodDatabase.findFittingMeal(tdee, protein, carbs, fat);
                     foodDatabase.getMeal(userProfile.getDietCategory(),tdee);
 
                     
