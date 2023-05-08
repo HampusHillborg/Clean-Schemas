@@ -171,20 +171,38 @@ public class FoodDatabase {
         double carbUpperBound = carbRatio + 0.03;
         double fatLowerBound = fatRatio - 0.03;
         double fatUpperBound = fatRatio + 0.03;
+        String sql;
+        PreparedStatement stmt;
         try {
-            // Create a prepared statement with placeholders for protein, carbs, fat, and category
-            String sql = "SELECT * FROM food WHERE protein / kcal BETWEEN ? AND ? AND carbs / kcal BETWEEN ? AND ? AND fat / kcal BETWEEN ? AND ? AND category = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-    
-            // Set the seven placeholders to the desired values
-            stmt.setDouble(1, proteinLowerBound);
-            stmt.setDouble(2, proteinUpperBound);
-            stmt.setDouble(3, carbLowerBound);
-            stmt.setDouble(4, carbUpperBound);
-            stmt.setDouble(5, fatLowerBound);
-            stmt.setDouble(6, fatUpperBound);
-            stmt.setString(7, category);
-    
+
+            if(category.equals("normal")){
+                sql = "SELECT * FROM food WHERE protein / kcal BETWEEN ? AND ? AND carbs / kcal BETWEEN ? AND ? AND fat / kcal BETWEEN ? AND ?";
+                stmt = conn.prepareStatement(sql);
+
+                // Set the seven placeholders to the desired values
+                stmt.setDouble(1, proteinLowerBound);
+                stmt.setDouble(2, proteinUpperBound);
+                stmt.setDouble(3, carbLowerBound);
+                stmt.setDouble(4, carbUpperBound);
+                stmt.setDouble(5, fatLowerBound);
+                stmt.setDouble(6, fatUpperBound);
+
+            }else {
+                // Create a prepared statement with placeholders for protein, carbs, fat, and category
+                sql = "SELECT * FROM food WHERE protein / kcal BETWEEN ? AND ? AND carbs / kcal BETWEEN ? AND ? AND fat / kcal BETWEEN ? AND ? AND category = ?";
+                stmt = conn.prepareStatement(sql);
+
+                // Set the seven placeholders to the desired values
+                stmt.setDouble(1, proteinLowerBound);
+                stmt.setDouble(2, proteinUpperBound);
+                stmt.setDouble(3, carbLowerBound);
+                stmt.setDouble(4, carbUpperBound);
+                stmt.setDouble(5, fatLowerBound);
+                stmt.setDouble(6, fatUpperBound);
+                stmt.setString(7, category);
+
+            }
+
             // Execute the query and retrieve the result
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

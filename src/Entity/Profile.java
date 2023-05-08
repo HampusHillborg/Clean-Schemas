@@ -68,6 +68,12 @@ public class Profile {
     }
 
     public void setDietCategory(String category){
+        if (category.equals("gluten-free")) {
+            category = "glutenFree";
+
+        } else if (category.equals("dairy-free")) {
+            category = "dairyFree";
+        }
         this.dietCategory = category;
     }
 
