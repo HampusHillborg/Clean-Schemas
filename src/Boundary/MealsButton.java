@@ -134,13 +134,10 @@ public class MealsButton extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     // Action to be performed when "Generate Meal" button is clicked
                     System.out.println("Generate Meal button clicked in meal panel ");
-                    int tdee = userProfile.getTdee()/userProfile.getMealsPerDay();
-                    int protein = userProfile.getProtein()/userProfile.getMealsPerDay();
-                    int carbs = userProfile.getCarbs()/userProfile.getMealsPerDay();
-                    int fat = userProfile.getFat()/userProfile.getMealsPerDay();
-                    //foodDatabase.findFittingMeal(tdee, protein, carbs, fat);
-                    //foodDatabase.getMeal(userProfile.getDietCategory(),tdee);
-                    foodDatabase.findFood(userProfile.getProtein(), userProfile.getCarbs(), userProfile.getTdee(), userProfile.getFat(), userProfile.getDietCategory());
+                    int tdee = userProfile.getTdee() / userProfile.getMealsPerDay();
+                    int protein = userProfile.getProtein() / userProfile.getMealsPerDay();
+                    int carbs = userProfile.getCarbs() / userProfile.getMealsPerDay();
+                    int fat = userProfile.getFat() / userProfile.getMealsPerDay();
 
                     ArrayList<Meal> matchingMeals = foodDatabase.findFood(protein, carbs, tdee, fat, userProfile.getDietCategory());
                     Meal randomMeal = foodDatabase.chooseRandomMeal(matchingMeals, tdee);
