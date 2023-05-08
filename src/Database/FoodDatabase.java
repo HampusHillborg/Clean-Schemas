@@ -1,6 +1,5 @@
 package src.Database;
 
-import src.Entity.Food;
 import src.Entity.Meal;
 
 import java.sql.*;
@@ -224,9 +223,9 @@ public class FoodDatabase {
                 System.out.printf("%d\t%s\t%.2f\t%.2f\t%.2f\t%.2f\t%s\n",
                         id, name, carb, protein, fats, kcal, foodCategory);
                 System.out.println("You need to eat this many grams: " + (int) (kcals / kcal * 100) + "g");
-                
+
             }
-    
+
             // Close the resources
             rs.close();
             stmt.close();
@@ -235,7 +234,7 @@ public class FoodDatabase {
         }
         return matchingMeal;
     }
-    public Meal chooseRandomMeal(ArrayList<Meal> matchingMeals, double kcals) {
+   /* public Meal chooseRandomMeal(ArrayList<Meal> matchingMeals, double kcals) {
         if (matchingMeals.isEmpty()) {
             return null;
         } else {
@@ -243,10 +242,10 @@ public class FoodDatabase {
             Meal randomMeal = matchingMeals.get(rand.nextInt(matchingMeals.size()));
             double grams = kcals / randomMeal.getKcal() * 100;
             randomMeal.setRecommendedGrams(String.valueOf(grams));
-            System.out.println("Här kommer den valda mealen");
+            System.out.println("HÃ¤r kommer den valda mealen");
             return randomMeal;
         }
-    }
+    }*/
     
 }
 
