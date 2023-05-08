@@ -142,7 +142,19 @@ public class MealsButton extends JFrame {
                     //foodDatabase.getMeal(userProfile.getDietCategory(),tdee);
                     foodDatabase.findFood(userProfile.getProtein(), userProfile.getCarbs(), userProfile.getTdee(), userProfile.getFat(), userProfile.getDietCategory());
 
+                    ArrayList<Meal> matchingMeals = foodDatabase.findFood(protein, carbs, tdee, fat, userProfile.getDietCategory());
+                    Meal randomMeal = foodDatabase.chooseRandomMeal(matchingMeals, tdee);
 
+                    if (randomMeal != null) {
+                        System.out.println("Selected meal: " + randomMeal.getName());
+                        // Add a JLabel to the meal panel to display the selected meal
+                        JLabel selectedMealLabel = new JLabel("Selected Meal: " + randomMeal.getName());
+                        JPanel mealPanel = (JPanel) getParent().getParent();
+                        mealPanel.add(selectedMealLabel, BorderLayout.SOUTH);
+                        mealPanel.revalidate();
+                    } else {
+                        System.out.println("No matching meals found.");
+                    }
                 }
             });
             macrosPanel.add(Box.createRigidArea(new Dimension(0, 20))); // add some space before totalCaloriesLabel
