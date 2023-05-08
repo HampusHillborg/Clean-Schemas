@@ -99,13 +99,13 @@ public class DietPreferencesView {
                     for (JCheckBox checkbox : dietCheckboxes) {
 
                         if (checkbox.isSelected()) {
-                            userDatabase.addCategory(userDatabase.getUserId(profile.getEmail()), checkbox.getText());
+                            userDatabase.addCategory(userDatabase.getUserId(profile.getEmail()), checkbox.getText().toLowerCase());
                             done = true;
                         }
 
                     }
                     if (!done) {
-                        userDatabase.addCategory(userDatabase.getUserId(profile.getEmail()), null);
+                        userDatabase.addCategory(userDatabase.getUserId(profile.getEmail()), "normal");
                     }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);

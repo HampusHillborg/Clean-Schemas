@@ -187,10 +187,11 @@ public class UserDatabase {
      */
     public boolean addCategory(int userId, String category) throws SQLException {
         if(category != null) {
-            if (category.equals("Gluten-Free")) {
+            category.toLowerCase();
+            if (category.equals("gluten-free")) {
                 category = "glutenFree";
 
-            } else if (category.equals("Dairy-Free")) {
+            } else if (category.equals("dairy-free")) {
                 category = "dairyFree";
             }
         }
