@@ -100,12 +100,14 @@ public class DietPreferencesView {
 
                         if (checkbox.isSelected()) {
                             userDatabase.addCategory(userDatabase.getUserId(profile.getEmail()), checkbox.getText().toLowerCase());
+                            profile.setDietCategory(checkbox.getText().toLowerCase());
                             done = true;
                         }
 
                     }
                     if (!done) {
                         userDatabase.addCategory(userDatabase.getUserId(profile.getEmail()), "normal");
+                        profile.setDietCategory("normal");
                     }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
@@ -123,8 +125,3 @@ public class DietPreferencesView {
         frame.setVisible(true);
     }
 }
-
-
-
-
-

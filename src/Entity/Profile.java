@@ -197,6 +197,10 @@ public class Profile {
         return protein;
     }
 
+    public String getCategory() {
+        return dietCategory;
+    }
+
     public void setProtein(int protein){this.protein= protein;}
 
     public int getMealsPerDay() {

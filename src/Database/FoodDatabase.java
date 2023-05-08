@@ -161,31 +161,31 @@ public class FoodDatabase {
     }
 
 
-    public void findFood(double proteins, double carbs, double kcals, double fat) {
-        double proteinRatio = proteins/kcals;
-        double carbRatio = carbs/kcals;
-        double fatRatio = fat/kcals;
+    public void findFood(double proteins, double carbs, double kcals, double fat, String category) {
+        double proteinRatio = proteins / kcals;
+        double carbRatio = carbs / kcals;
+        double fatRatio = fat / kcals;
         double proteinLowerBound = proteinRatio - 0.03;
         double proteinUpperBound = proteinRatio + 0.03;
         double carbLowerBound = carbRatio - 0.03;
         double carbUpperBound = carbRatio + 0.03;
         double fatLowerBound = fatRatio - 0.03;
         double fatUpperBound = fatRatio + 0.03;
-
         try {
-            // Skapa en förberedd fråga med placeholders för protein, kolhydrater och fett
-            String sql = "SELECT * FROM food WHERE protein / kcal BETWEEN ? AND ? AND carbs / kcal BETWEEN ? AND ? AND fat / kcal BETWEEN ? AND ?";
+            // Create a prepared statement with placeholders for protein, carbs, fat, and category
+            String sql = "SELECT * FROM food WHERE protein / kcal BETWEEN ? AND ? AND carbs / kcal BETWEEN ? AND ? AND fat / kcal BETWEEN ? AND ? AND category = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-
-            // Sätt de sex placeholders till önskade värden
+    
+            // Set the seven placeholders to the desired values
             stmt.setDouble(1, proteinLowerBound);
             stmt.setDouble(2, proteinUpperBound);
             stmt.setDouble(3, carbLowerBound);
             stmt.setDouble(4, carbUpperBound);
             stmt.setDouble(5, fatLowerBound);
             stmt.setDouble(6, fatUpperBound);
-
-            // Utför frågan och hämta resultatet
+            stmt.setString(7, category);
+    
+            // Execute the query and retrieve the result
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -194,21 +194,21 @@ public class FoodDatabase {
                 double protein = rs.getDouble("protein");
                 double fats = rs.getDouble("fat");
                 double kcal = rs.getDouble("kcal");
-                String category = rs.getString("category");
+                String foodCategory = rs.getString("category");
                 System.out.printf("%d\t%s\t%.2f\t%.2f\t%.2f\t%.2f\t%s\n",
-                        id, name, carb, protein, fats, kcal, category);
-                System.out.println("You need to eat this many grams: " + (int)(kcals/kcal * 100) + "g");
+                        id, name, carb, protein, fats, kcal, foodCategory);
+                System.out.println("You need to eat this many grams: " + (int) (kcals / kcal * 100) + "g");
+                
             }
-
-            // Stäng resurserna
+    
+            // Close the resources
             rs.close();
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
+    
 }
 
 
