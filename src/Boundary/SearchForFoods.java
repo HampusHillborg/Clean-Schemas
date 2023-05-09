@@ -44,7 +44,7 @@ public class SearchForFoods extends JFrame implements ActionListener {
         searchButton.addActionListener(this);
 
         // Set window properties
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
