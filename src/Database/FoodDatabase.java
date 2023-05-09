@@ -164,6 +164,17 @@ public class FoodDatabase {
         }
     }
 
+    /**
+     * Returns a list of meals that match the given nutritional requirements and food category.
+     *
+     * @param proteins the amount of proteins in grams desired for each meal
+     * @param carbs the amount of carbohydrates in grams desired for each meal
+     * @param kcals the number of calories desired for each meal
+     * @param fat the amount of fat in grams desired for each meal
+     * @param category the food category desired, or "normal" for any category
+     *
+     * @return a list of Meal objects that match the nutritional requirements and food category
+     */
 
     public ArrayList<Meal> findFood(double proteins, double carbs, double kcals, double fat, String category) {
         double proteinRatio = proteins / kcals;
