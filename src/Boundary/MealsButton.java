@@ -59,7 +59,7 @@ public class MealsButton extends JFrame {
      * meal panel: an "Add Meal" button and a "Generate Meal" button.
      * 
      * @param userProfile the user profile containing the number of meals per day to
-     *                    be displayed
+     * be displayed
      */
     public MealsButton(Profile userProfile, UserDatabase userDatabase) {
         this.userDatabase = userDatabase;
@@ -111,7 +111,12 @@ public class MealsButton extends JFrame {
         setVisible(true);
     }
 
-
+    /**
+     * This class represents a custom JButton component used to generate a random meal
+     * based on the user's profile and dietary requirements.
+     * It extends the JButton class and overrides its default behavior.
+     * It contains a Profile object and a FoodDatabase object used to generate the meal.
+     */
     private class GenerateMealButton extends JButton {
         private int totalCalories = 0;
         private final JLabel totalCaloriesLabel = new JLabel();
@@ -120,6 +125,11 @@ public class MealsButton extends JFrame {
         private Profile userProfile;
         private FoodDatabase foodDatabase;
 
+        /**
+         * Constructs a GenerateMealButton object.
+         * @param userProfile  a Profile object containing the user's information
+         * @param foodDatabase a FoodDatabase object containing the database of available meals
+         */
         public GenerateMealButton(Profile userProfile, FoodDatabase foodDatabase) {
             setText("Generate Meal");
             setBackground(buttonColor);
@@ -129,6 +139,8 @@ public class MealsButton extends JFrame {
             setPreferredSize(new Dimension(150, 30));
             this.userProfile = userProfile;
             this.foodDatabase = foodDatabase;
+
+
 
             addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -149,6 +161,7 @@ public class MealsButton extends JFrame {
                         JPanel mealPanel = (JPanel) getParent().getParent();
                         mealPanel.add(selectedMealLabel, BorderLayout.SOUTH);
                         mealPanel.revalidate();
+
                     } else {
                         System.out.println("No matching meals found.");
                     }
@@ -160,9 +173,19 @@ public class MealsButton extends JFrame {
     }
 
 
+    /**
+     * Chooses a random meal from the given list of meals that matches the provided calorie count.
+     * Calculates the recommended grams of the meal based on the calorie count and sets it on the chosen meal.
+     * Returns the chosen meal or null if the list is empty.
+     * @param matchingMeals the list of meals to choose from
+     * @param kcals the calorie count to match
+     *
+     * @return the chosen meal or null if the list is empty
+     */
     public Meal chooseRandomMeal(ArrayList<Meal> matchingMeals, double kcals) {
         if (matchingMeals.isEmpty()) {
             return null;
+
         } else {
             Random rand = new Random();
             Meal randomMeal = matchingMeals.get(rand.nextInt(matchingMeals.size()));
