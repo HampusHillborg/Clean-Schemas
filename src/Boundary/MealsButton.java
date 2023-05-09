@@ -156,11 +156,21 @@ public class MealsButton extends JFrame {
 
                     if (randomMeal != null) {
                         System.out.println("Selected meal: " + randomMeal.getName());
-                        // Add a JLabel to the meal panel to display the selected meal
-                        JLabel selectedMealLabel = new JLabel("Selected Meal: " + randomMeal.getName());
+
+                        // Create a label to display the selected meal with its nutrition information
+                        String mealText = "<html>Selected Meal: " + randomMeal.getName() + "(Per 100g)" + "<br>" +
+                                "Protein: " + randomMeal.getProtein() + "g" + "<br>" +
+                                "Carbs: " + randomMeal.getCarbs() + "g" + "<br>" +
+                                "Fats: " + randomMeal.getFat() + "g" + "<br>" +
+                                "Calories: " + randomMeal.getKcal() + " kcal" + "</html>";
+
+                        JLabel selectedMealLabel = new JLabel(mealText);
+
+                        // Add the label to the meal panel
                         JPanel mealPanel = (JPanel) getParent().getParent();
                         mealPanel.add(selectedMealLabel, BorderLayout.SOUTH);
                         mealPanel.revalidate();
+
 
                     } else {
                         System.out.println("No matching meals found.");
