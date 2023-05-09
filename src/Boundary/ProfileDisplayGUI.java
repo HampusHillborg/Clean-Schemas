@@ -60,7 +60,7 @@ public class ProfileDisplayGUI extends JFrame {
         setContentPane(panel);
 
         // Set window properties
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
