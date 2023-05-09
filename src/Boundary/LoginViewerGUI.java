@@ -27,6 +27,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
     private Profile userProfile;
     private UserDatabase userDatabase;
     private LoginController loginController;
+    private JButton createButton;
 
     /**
      * Constructs a LoginViewerGUI object with the given UserDatabase.
@@ -47,11 +48,15 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         this.passwordField = new JPasswordField(20);
         this.passwordField.addKeyListener(this);
 
-        JButton createButton = new JButton("Create Account");
-        createButton.addActionListener(this);
+        this.createButton = new JButton("Create Account");
+        this.createButton.addActionListener(this);
+        this.createButton.setBackground(new Color(32, 98, 147));
+        this.createButton.setForeground(Color.WHITE);
 
         this.loginButton = new JButton("Log In");
         this.loginButton.addActionListener(this);
+        this.loginButton.setBackground(new Color(32, 98, 147));
+        this.loginButton.setForeground(Color.WHITE);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
