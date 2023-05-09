@@ -245,18 +245,6 @@ public class FoodDatabase {
         }
         return matchingMeal;
     }
-   /* public Meal chooseRandomMeal(ArrayList<Meal> matchingMeals, double kcals) {
-        if (matchingMeals.isEmpty()) {
-            return null;
-        } else {
-            Random rand = new Random();
-            Meal randomMeal = matchingMeals.get(rand.nextInt(matchingMeals.size()));
-            double grams = kcals / randomMeal.getKcal() * 100;
-            randomMeal.setRecommendedGrams(String.valueOf(grams));
-            System.out.println("HÃ¤r kommer den valda mealen");
-            return randomMeal;
-        }
-    }*/
     
 }
 
