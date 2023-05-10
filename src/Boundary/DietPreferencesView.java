@@ -87,16 +87,17 @@ public class DietPreferencesView {
         JPanel dietPanel = new JPanel(new GridLayout(4, 2, 5, 5));
         dietPanel.setBorder(BorderFactory.createTitledBorder("Select your diet preferences"));
         dietCheckboxes = new ArrayList<>();
-    
-        String[] dietOptions = { "Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Carnivore", "Keto", "Halal", "Pescatarian", "Paleo" };
-    
+
+        String[] dietOptions = { "Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Carnivore", "Keto", "Halal",
+                "Pescatarian", "Paleo" };
+
         for (String dietOption : dietOptions) {
             JCheckBox dietCheckbox = new JCheckBox(dietOption);
             dietCheckbox.setFocusPainted(false);
             dietCheckboxes.add(dietCheckbox);
             dietPanel.add(dietCheckbox);
         }
-    
+
         // Add a listener to each checkbox to uncheck the others when it is selected
         for (JCheckBox checkbox : dietCheckboxes) {
             checkbox.addActionListener(new ActionListener() {
@@ -110,15 +111,14 @@ public class DietPreferencesView {
                 }
             });
         }
-    
+
         frame.getContentPane().add(dietPanel, BorderLayout.CENTER);
     }
-    
 
     private void createSubmitButton() {
         Color buttonColor = new Color(32, 98, 147); // Custom button color
         Color panelBackgroundColor = Color.WHITE; // Custom panel background color
-    
+
         JButton submitButton = new JButton("Submit");
         submitButton.setBackground(buttonColor);
         submitButton.setForeground(Color.WHITE);
@@ -126,11 +126,11 @@ public class DietPreferencesView {
         submitButton.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16));
         submitButton.setPreferredSize(new Dimension(150, 30));
         submitButton.setOpaque(true); // Set button's opaque property to true
-    
+
         // Customize the button font and size
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
         submitButton.setFont(buttonFont);
-    
+
         // Set custom ButtonUI for consistent background color
         submitButton.setUI(new BasicButtonUI() {
             @Override
@@ -142,27 +142,27 @@ public class DietPreferencesView {
                 g2.dispose();
             }
         });
-    
+
         // Add hover effect (optional)
         submitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 submitButton.setBackground(buttonColor.brighter());
             }
-    
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 submitButton.setBackground(buttonColor);
             }
         });
-    
+
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Action to be performed when the submit button is clicked
                 System.out.println("Submit button clicked");
-    
+
                 try {
                     boolean done = false;
-    
+
                     for (JCheckBox checkbox : dietCheckboxes) {
                         if (checkbox.isSelected()) {
                             String dietCategory = checkbox.getText().toLowerCase();
@@ -172,19 +172,37 @@ public class DietPreferencesView {
                             break; // Exit loop after the first selected checkbox is found
                         }
                     }
-    
+
                     if (!done) {
                         userDatabase.addCategory(userDatabase.getUserId(profile.getEmail()), "normal");
                         profile.setDietCategory("normal");
                     }
+
+                    // Show the prompt dialog
+                    int choice = JOptionPane.showConfirmDialog(frame,
+                            "Is " + profile.getDietCategory() + " the right choice?",
+                            "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                    if (choice == JOptionPane.YES_OPTION) {
+                        // User clicked "Yes"
+                        System.out.println("User confirmed the diet choice");
+                        frame.dispose();
+                    } else {
+                        // User clicked "No"
+                        System.out.println("User did not confirm the diet choice");
+                        // Go back to the choice pane
+                        frame.getContentPane().removeAll();
+                        createDietPanel();
+                        createSubmitButton();
+                        frame.revalidate();
+                        frame.repaint();
+                    }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-    
-                frame.dispose();
             }
         });
-    
+
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
         buttonPanel.setBackground(panelBackgroundColor); // Set the background color of the button panel to white
@@ -192,8 +210,6 @@ public class DietPreferencesView {
         buttonPanel.add(submitButton);
         frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
     }
-    
-    
 
     private void addComponentsToFrame() {
         frame.pack();
