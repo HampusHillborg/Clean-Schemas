@@ -1,7 +1,9 @@
 package src.Unused;
 
+import src.Controller.RegistrationController;
 import src.Database.ConnectToDatabase;
 import src.Database.UserDatabase;
+import src.Entity.Profile;
 
 import java.sql.*;
 
@@ -9,8 +11,10 @@ public class TestuserScript {
 
     ConnectToDatabase connect = new ConnectToDatabase();
     UserDatabase ub = new UserDatabase();
+    RegistrationController registrationController;
 
     public TestuserScript() {
+         registrationController = new RegistrationController(ub);
         removeTestUser(ub.getUserId("test1@gmail.com"));
         addTestUser();
     }
@@ -24,6 +28,13 @@ public class TestuserScript {
             // Delete user data from user_data table
             String sqlDeleteUserData = "DELETE FROM user_data WHERE user_id = ?";
             try (PreparedStatement ps = conn.prepareStatement(sqlDeleteUserData)) {
+                ps.setInt(1, userId);
+                ps.executeUpdate();
+            }
+
+            // Delete user from user_foods table
+            String sqlDeleteUserFood = "DELETE FROM user_foods WHERE user_id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sqlDeleteUserFood)) {
                 ps.setInt(1, userId);
                 ps.executeUpdate();
             }
@@ -64,12 +75,20 @@ public class TestuserScript {
 
             int userId = ub.getUserId("test2@gmail.com");
 
+            // Delete user from user_foods table
+            String sqlDeleteUserFood = "DELETE FROM user_foods WHERE user_id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sqlDeleteUserFood)) {
+                ps.setInt(1, userId);
+                ps.executeUpdate();
+            }
+
             // Delete user data from user_data table
             String sqlDeleteUserData = "DELETE FROM user_data WHERE user_id = ?";
             try (PreparedStatement ps = conn.prepareStatement(sqlDeleteUserData)) {
                 ps.setInt(1, userId);
                 ps.executeUpdate();
             }
+
 
             // Delete user from users table
             String sqlDeleteUser = "DELETE FROM users WHERE id = ?";
@@ -78,16 +97,13 @@ public class TestuserScript {
                 ps.executeUpdate();
             }
 
+
             conn.commit();
 
-            ub.createUser("test2@gmail.com", 18, "Male", "123");
-            userId = ub.getUserId("test2@gmail.com");
-            ub.addWeight(userId, 70);
-            ub.addHeight(userId, 170);
-            ub.addActivityValue(userId, "Sedentary");
-            ub.addAmountOfCarbs(userId, "Medium");
-            ub.addGoal(userId, "Maintenance");
-            ub.addMealsPerDay(userId, 3);
+            Profile profile = new Profile("test2@gmail.com", "123");
+            profile.addToProfile(170, 70, 18, "Male","Maintenance", "Sedentary", "Medium", 3);
+
+            registrationController.submitProfile(profile);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
