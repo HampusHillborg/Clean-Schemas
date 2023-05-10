@@ -91,6 +91,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         button.setBackground(new Color(32, 98, 147));
         button.setForeground(Color.WHITE);
         button.addActionListener(this);
+        button.setOpaque(true);
         return button;
     }
 
@@ -118,6 +119,7 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(createButton);
         panel.add(loginButton);
+
         return panel;
     }
 
