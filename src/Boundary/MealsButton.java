@@ -32,6 +32,7 @@ import java.util.Random;
  * The class is located in the src.Boundary package.
  */
 public class MealsButton extends JFrame {
+
     private NutritionAPI nutritionAPI = new NutritionAPI();
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
@@ -39,16 +40,20 @@ public class MealsButton extends JFrame {
     private UserDatabase userDatabase;
     private FoodDatabase foodDatabase;
     private int userId;
+
     private int buttonNumber = 0;
 
     private final List<JPanel> mealPanels = new ArrayList<>();
     private final JPanel mealsPanel = new JPanel(new GridLayout(0, 1));
     private final JPanel macrosPanel = new JPanel(new GridLayout(0, 1));
     private final JScrollPane mealsScrollPane = new JScrollPane(mealsPanel);
+
     // private final JButton addMealButton = new JButton("Add Meal");
     // private final JButton generateMealButton = new JButton("Generate Meal");
     private final JLabel macrosLabel = new JLabel("Selected Meal Macros:");
+
     private UserDatabaseOutput userDatabaseOutput;
+
 
     /**
      * Constructs a new MealsButton object with a given user profile.
@@ -96,7 +101,7 @@ public class MealsButton extends JFrame {
         macrosPanel.setBackground(Color.LIGHT_GRAY);
         macrosPanel.setPreferredSize(new Dimension(300, 500));
         macrosPanel.add(macrosLabel);
-    
+
         // Create a split pane with the meals panel on the left and the macros panel on
         // the right
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mealsScrollPane, macrosPanel);
@@ -118,6 +123,7 @@ public class MealsButton extends JFrame {
      * It contains a Profile object and a FoodDatabase object used to generate the meal.
      */
     private class GenerateMealButton extends JButton {
+
         private int totalCalories = 0;
         private final JLabel totalCaloriesLabel = new JLabel();
         private final Color buttonColor = new Color(59, 89, 152);
@@ -125,12 +131,22 @@ public class MealsButton extends JFrame {
         private Profile userProfile;
         private FoodDatabase foodDatabase;
 
+        JLabel proteinLabel = new JLabel("Protein:");
+        JLabel carbsLabel = new JLabel("Carbs:");
+        JLabel fatLabel = new JLabel("Fat:");
+        JLabel caloriesLabel = new JLabel("Calories:");
+
+        JLabel mealLabel = new JLabel("Selected meal:");
+
+
+
         /**
          * Constructs a GenerateMealButton object.
          * @param userProfile  a Profile object containing the user's information
          * @param foodDatabase a FoodDatabase object containing the database of available meals
          */
         public GenerateMealButton(Profile userProfile, FoodDatabase foodDatabase) {
+
             setText("Generate Meal");
             setBackground(buttonColor);
             setForeground(Color.WHITE);
@@ -140,6 +156,15 @@ public class MealsButton extends JFrame {
             this.userProfile = userProfile;
             this.foodDatabase = foodDatabase;
 
+
+            // add the nutrition Labels to the macrosPanel
+            macrosPanel.add(proteinLabel);
+            macrosPanel.add(carbsLabel);
+            macrosPanel.add(fatLabel);
+            macrosPanel.add(caloriesLabel);
+
+            // add the mealLabel to the mealsPanel
+            mealsPanel.add(mealLabel);
 
 
             addActionListener(new ActionListener() {
@@ -157,24 +182,21 @@ public class MealsButton extends JFrame {
                     if (randomMeal != null) {
                         System.out.println("Selected meal: " + randomMeal.getName());
 
-                        // Create a label to display the selected meal with its nutrition information
-                        String mealText = "<html>Selected Meal: " + randomMeal.getName() + "(Per 100g)" + "<br>" +
-                                "Protein: " + randomMeal.getProtein() + "g" + "<br>" +
-                                "Carbs: " + randomMeal.getCarbs() + "g" + "<br>" +
-                                "Fats: " + randomMeal.getFat() + "g" + "<br>" +
-                                "Calories: " + randomMeal.getKcal() + " kcal" + "</html>";
-
-                        JLabel selectedMealLabel = new JLabel(mealText);
+                        // Update the labels with the nutrition information
+                        mealLabel.setText("Selected meal: " + randomMeal.getName());
+                        proteinLabel.setText("Protein: " + randomMeal.getProtein() + "g");
+                        carbsLabel.setText("Carbs: " + randomMeal.getCarbs() + "g");
+                        fatLabel.setText("Fat: " + randomMeal.getFat() + "g");
+                        caloriesLabel.setText("Calories: " + randomMeal.getKcal() + " kcal");
 
                         // Add the label to the meal panel
                         JPanel mealPanel = (JPanel) getParent().getParent();
-                        mealPanel.add(selectedMealLabel, BorderLayout.SOUTH);
                         mealPanel.revalidate();
-
 
                     } else {
                         System.out.println("No matching meals found.");
                     }
+
                 }
             });
             macrosPanel.add(Box.createRigidArea(new Dimension(0, 20))); // add some space before totalCaloriesLabel
