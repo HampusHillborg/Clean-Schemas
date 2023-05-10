@@ -6,11 +6,16 @@ import src.Entity.Profile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * The LandingPage class represents the main menu of the application. It extends JFrame and displays
- * several options for the user to choose from. It contains buttons for meals, weekly plans, choosing
- * favorite/disliked foods, editing personal information, and displaying profile status. It also contains
+ * The LandingPage class represents the main menu of the application. It extends
+ * JFrame and displays
+ * several options for the user to choose from. It contains buttons for meals,
+ * weekly plans, choosing
+ * favorite/disliked foods, editing personal information, and displaying profile
+ * status. It also contains
  * a logout button that allows the user to log out of the application.
  */
 public class LandingPage extends JFrame {
@@ -38,66 +43,49 @@ public class LandingPage extends JFrame {
         add(buttonsPanel, BorderLayout.CENTER);
 
         // Create a logout button and add it to the top right corner
-        JButton logoutButton = new JButton("Logout");
-        logoutButton.setBackground(Color.WHITE);
-        logoutButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        logoutButton.setPreferredSize(new Dimension(70, 30));
+        JButton logoutButton = createStyledButton("Logout");
+        logoutButton.setPreferredSize(new Dimension(100, 40)); // Updated size
         JPanel logoutPanel = new JPanel();
         logoutPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         logoutPanel.add(logoutButton);
         add(logoutPanel, BorderLayout.NORTH);
 
-        JButton mealsButton = new JButton("Meals");
-        JLabel mealsLabel = new JLabel(
+        JButton mealsButton = createStyledButton("Meals");
+        JLabel mealsLabel = createStyledLabel(
                 "<html><p style='width:150px;'>Heres where you see the meals for the day. You can either choose which foods you want to eat for a certain meal or you can let us generate a meal for you!</p></html>");
         mealsLabel.setVerticalAlignment(JLabel.TOP);
         mealsLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        mealsButton.setBackground(Color.WHITE);
-        mealsButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        mealsButton.setPreferredSize(new Dimension(150, 50));
         buttonsPanel.add(mealsButton);
         buttonsPanel.add(mealsLabel);
 
-        JButton searchForFoods = new JButton("Search for foods");
-        JLabel weeklyPlansLabel = new JLabel(
+        JButton searchForFoods = createStyledButton("Search for foods");
+        JLabel weeklyPlansLabel = createStyledLabel(
                 "<html><p style='width:150px;'>Here you can search for a food to see how much protein, carbs, fat and calories it contains per 100 grams</p></html>");
         weeklyPlansLabel.setVerticalAlignment(JLabel.TOP);
         weeklyPlansLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        searchForFoods.setBackground(Color.WHITE);
-        searchForFoods.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        searchForFoods.setPreferredSize(new Dimension(150, 50));
         buttonsPanel.add(searchForFoods);
         buttonsPanel.add(weeklyPlansLabel);
 
-        JButton chooseFoodsButton = new JButton("Choose Foods");
-        JLabel chooseFoodsLabel = new JLabel(
+        JButton chooseFoodsButton = createStyledButton("Choose Foods");
+        JLabel chooseFoodsLabel = createStyledLabel(
                 "<html><p style='width:150px;'>Here you will have the options to add foods to a favourite list or dislike list so that we can generate better suited meals for you.</p></html>");
         chooseFoodsLabel.setVerticalAlignment(JLabel.TOP);
         chooseFoodsLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        chooseFoodsButton.setBackground(Color.WHITE);
-        chooseFoodsButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        chooseFoodsButton.setPreferredSize(new Dimension(150, 50));
         buttonsPanel.add(chooseFoodsButton);
         buttonsPanel.add(chooseFoodsLabel);
 
-        JButton profileButton = new JButton("Edit Profile");
-        JLabel profileLabel = new JLabel(
+        JButton profileButton = createStyledButton("Edit Profile");
+        JLabel profileLabel = createStyledLabel(
                 "<html><p style='width:150px;'>Set up your personal info so that we can calculate your needs and make personalized mealplans.</p></html>");
         profileLabel.setVerticalAlignment(JLabel.TOP);
         profileLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        profileButton.setBackground(Color.WHITE);
-        profileButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        profileButton.setPreferredSize(new Dimension(150, 50));
         buttonsPanel.add(profileButton);
         buttonsPanel.add(profileLabel);
 
-        JButton savedInfoButton = new JButton("Profilestatus");
-        JLabel savedInfoLabel = new JLabel("<html><p style='width:150px;'>Show your personal info.</p></html>");
+        JButton savedInfoButton = createStyledButton("Profilestatus");
+        JLabel savedInfoLabel = createStyledLabel("<html><p style='width:150px;'>Show your personal info.</p></html>");
         savedInfoLabel.setVerticalAlignment(JLabel.TOP);
         savedInfoLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        savedInfoButton.setBackground(Color.WHITE);
-        savedInfoButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        savedInfoButton.setPreferredSize(new Dimension(150, 50));
         buttonsPanel.add(savedInfoButton);
         buttonsPanel.add(savedInfoLabel);
 
@@ -137,6 +125,23 @@ public class LandingPage extends JFrame {
 
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    // Helper method to create a styled JButton
+    private JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setBackground(new Color(32, 98, 147));
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);
+        return button;
+    }
+
+    // Helper method to create a styled JLabel
+    private JLabel createStyledLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(label.getFont().deriveFont(Font.PLAIN));
+        return label;
     }
 
     public static void main(String[] args) {
