@@ -21,12 +21,12 @@ public class Meal {
      * @param kcal Amount of kilocalories in the meal.
      * @param category Category of the meal, e.g. breakfast, lunch, dinner, snack.
      */
-    public Meal(int id, String name, double fat, double carbs, double protein, double kcal, String category) {
+    public Meal(int id, String name, double carbs, double protein, double fat, double kcal, String category) {
         this.name = name;
-        this.kcal = kcal;
-        this.fat = fat;
         this.carbs = carbs;
         this.protein = protein;
+        this.fat = fat;
+        this.kcal = kcal;
     }
 
     /**
