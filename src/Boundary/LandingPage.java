@@ -133,9 +133,18 @@ public class LandingPage extends JFrame {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setBackground(new Color(32, 98, 147));
         button.setForeground(Color.WHITE);
+       // button.addActionListener(this);
         button.setOpaque(true);
+        button.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // remove border when button is focused
+        button.setFocusPainted(false);
+        // remove border
+        button.setBorderPainted(false);
+
         return button;
     }
+
 
     // Helper method to create a styled JLabel
     private JLabel createStyledLabel(String text) {
