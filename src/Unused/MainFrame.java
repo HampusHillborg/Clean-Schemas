@@ -1,12 +1,13 @@
-package src.Unused;
 
+package src.Unused;
+/* */
 import src.Boundary.LandingPage;
 import src.Boundary.LoginViewerGUI;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+/*public class MainFrame extends JFrame {
     private LandingPage landingPage;
     private LoginViewerGUI loginViewerGUI;
 
@@ -40,7 +41,7 @@ public class MainFrame extends JFrame {
      * }
      */
 
-    public void showLandingPage() {
+    /*public void showLandingPage() {
         // Create the LandingPage and remove the LoginViewerGUI
         // this.landingPage = new LandingPage();
         getContentPane().remove(this.loginViewerGUI);
@@ -73,5 +74,6 @@ public class MainFrame extends JFrame {
          * mainFrame.loginViewerGUI.setLoginListener(mainFrame::showLandingPage);
          * 
          */
-    }
+   /* }
 }
+*/

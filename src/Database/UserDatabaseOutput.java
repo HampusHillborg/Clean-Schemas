@@ -5,31 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * CREATE TABLE users (
- * id SERIAL PRIMARY KEY,
- * email VARCHAR(255) UNIQUE NOT NULL,
- * password VARCHAR(255) NOT NULL,
- * first_name VARCHAR(50) NOT NULL,
- * last_name VARCHAR(50) NOT NULL
- * );
- * <p>
- * CREATE TABLE user_data (
- * user_id INTEGER NOT NULL REFERENCES users(id),
- * current_weight NUMERIC(5,2),
- * height NUMERIC(5,2),
- * goal_weight NUMERIC(5,2),
- * sex CHAR(1) NOT NULL,
- * age INTEGER NOT NULL,
- * meals_per_day INTEGER,
- * carbs INTEGER,
- * exercise_per_week NUMERIC(5,2),
- * PRIMARY KEY (user_id)
- * );
- * <p>
- * "SELECT * FROM user_data WHERE user_id = ?"
- */
-
 public class UserDatabaseOutput {
 
     private final Connection conn;
