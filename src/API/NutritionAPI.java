@@ -76,7 +76,6 @@ public class NutritionAPI {
 
 
 
-
     /**
      Retrieves an XML document from a file and returns it as a Document object.
      If the file does not exist, a default file is used instead.
@@ -128,41 +127,6 @@ public class NutritionAPI {
         return new Food(meal, kcal, carbs, protein, fat);
     }
 
-    public void printFromDoc() throws ParserConfigurationException, IOException, SAXException {
-        Document doc = getXmlDocument();
-        Element root = doc.getDocumentElement();
-        NodeList nodeList = doc.getElementsByTagName("Livsmedel");
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            Node node = nodeList.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) node;
-                String name = element.getElementsByTagName("Namn").item(0).getTextContent();
-                String protein = "";
-                String kolhydrater = "";
-                String fett = "";
-                String energi = "";
-
-                NodeList naringsvardeList = element.getElementsByTagName("Naringsvarde");
-                for (int j = 0; j < naringsvardeList.getLength(); j++) {
-                    Node naringsvardeNode = naringsvardeList.item(j);
-                    if (naringsvardeNode.getNodeType() == Node.ELEMENT_NODE) {
-                        Element naringsvardeElement = (Element) naringsvardeNode;
-                        String namn = naringsvardeElement.getElementsByTagName("Namn").item(0).getTextContent();
-                        if (namn.equals("Protein")) {
-                            protein = naringsvardeElement.getElementsByTagName("Varde").item(0).getTextContent();
-                        }
-                        if(namn.equals("Kolhydrater")){
-                            kolhydrater = naringsvardeElement.getElementsByTagName("Varde").item(0).getTextContent();
-                        }
-                        if(namn.equals("Fett")){
-                            kolhydrater = naringsvardeElement.getElementsByTagName("Varde").item(0).getTextContent();
-                        }
-                    }
-                }
-                System.out.println(name + " - "  + "Energi: " + energi + "Kcals Protein: " + protein + "g Kolhydrater: " + kolhydrater + "g Fett: " + fett + "g");
-            }
-        }
-    }
 
     /**
 
