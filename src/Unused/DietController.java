@@ -1,6 +1,5 @@
-package src.Controller;
+package src.Unused;
 
-import src.Entity.Diets;
 /**
  * The DietController class manages the diets available in the system.
  *  It provides methods to retrieve three foods for each specific diet.

@@ -93,11 +93,10 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
     }
 
     /**
-     * Creates a JButton with the specified text and sets its alignment, background color,
-     * foreground color, action listener, and opacity.
+     * Creates a customized JButton with the given text, background color, and foreground color.
      *
      * @param text the text to display on the button
-     * @return a JButton with the specified text and settings
+     * @return a customized JButton with the given text and colors
      */
     private JButton createButton(String text) {
         JButton button = new JButton(text);
@@ -106,6 +105,9 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         button.setForeground(Color.WHITE);
         button.addActionListener(this);
         button.setOpaque(true);
+
+        // added to remove border
+        button.setBorderPainted(false); // added to remove border
         return button;
     }
 
