@@ -50,7 +50,7 @@ public class NutritionAPI {
 
         // Create a new file at the specified path
         String projectDir = new File("").getAbsolutePath();
-        File xmlFile = new File(projectDir + "/Clean-Schemas/Files/livsmedelsverket");
+        File xmlFile = new File(projectDir + "/Files/livsmedelsverket");
 
 
         // Check if the file already exists and was last modified today
@@ -92,9 +92,9 @@ public class NutritionAPI {
 
         File xmlFile;
         try {
-            xmlFile = new File(projectDir + "/Clean-Schemas/Files/livsmedelsverket");
+            xmlFile = new File(projectDir + "/Files/livsmedelsverket");
         }catch (Exception e){
-            xmlFile = new File(projectDir + "/Clean-Schemas/Files/livsmedelsverket");
+            xmlFile = new File(projectDir + "/Files/livsmedelsverket");
         }
         return builder.parse(xmlFile);
     }
