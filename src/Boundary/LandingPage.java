@@ -98,7 +98,7 @@ public class LandingPage extends JFrame {
         mealsButton.addActionListener(e -> {
             // Code to execute when mealsButton is clicked
             new MealsButton(profile, userDatabase);
-            System.out.println("Meals button clicked!");
+
         });
 
         searchForFoods.addActionListener(e -> {
@@ -108,13 +108,13 @@ public class LandingPage extends JFrame {
         chooseFoodsButton.addActionListener(e -> {
             // Code to execute when mealsButton is clicked
             new DietPreferencesView(profile, userDatabase);
-            System.out.println("Foods button clicked!");
+
         });
 
         profileButton.addActionListener(e -> {
             new DisplayProfile(profile, userDatabase);
             // Code to execute when mealsButton is clicked
-            System.out.println("Profile button clicked!");
+
 
         });
 

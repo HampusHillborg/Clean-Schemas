@@ -46,11 +46,14 @@ public class DietPreferencesView {
         frame.setResizable(false); // Disable frame resizing
 
         // Set a custom look and feel
+        /*
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+         */
 
         // Use a custom font for the frame
         Font customFont = new Font("Arial", Font.PLAIN, 12);
@@ -125,7 +128,7 @@ public class DietPreferencesView {
         submitButton.setFocusPainted(false);
         submitButton.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16));
         submitButton.setPreferredSize(new Dimension(150, 30));
-        submitButton.setOpaque(true); // Set button's opaque property to true
+        submitButton.setOpaque(true); // Set button's opaque property to truehamham
 
         // Customize the button font and size
         Font buttonFont = new Font("Arial", Font.BOLD, 12);
@@ -158,7 +161,6 @@ public class DietPreferencesView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Action to be performed when the submit button is clicked
-                System.out.println("Submit button clicked");
 
                 try {
                     boolean done = false;
@@ -185,11 +187,9 @@ public class DietPreferencesView {
 
                     if (choice == JOptionPane.YES_OPTION) {
                         // User clicked "Yes"
-                        System.out.println("User confirmed the diet choice");
                         frame.dispose();
                     } else {
                         // User clicked "No"
-                        System.out.println("User did not confirm the diet choice");
                         // Go back to the choice pane
                         frame.getContentPane().removeAll();
                         createDietPanel();

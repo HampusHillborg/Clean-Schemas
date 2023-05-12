@@ -91,12 +91,16 @@ public class MealsButton extends JFrame {
             }
             titledBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
             mealPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10), titledBorder));
-            GenerateMealButton generateMealButton = new GenerateMealButton(userProfile, foodDatabase, i);
+            GenerateMealButton generateMealButton = new GenerateMealButton(userProfile, foodDatabase, i+1);
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
             buttonPanel.add(generateMealButton);
             mealPanel.add(buttonPanel, BorderLayout.NORTH);
             JPanel mealFoodsPanel = new JPanel();
             mealPanel.add(mealFoodsPanel, BorderLayout.CENTER);
+            if(!(foodDatabase.getSavedMeal(userId, i+1) ==null)) {
+                JLabel selectedMealLabel = new JLabel("Last saved meal: " + foodDatabase.getSavedMeal(userId, i + 1));
+                mealFoodsPanel.add((selectedMealLabel));
+            }
             mealPanels.add(mealPanel);
             mealsPanel.add(mealPanel);
         }
@@ -154,6 +158,7 @@ public class MealsButton extends JFrame {
          */
         public GenerateMealButton(Profile userProfile, FoodDatabase foodDatabase, int i) {
             this.i = i;
+            Meal meal = null;
 
             setText("Generate Meal");
             setBackground(buttonColor);
@@ -163,6 +168,22 @@ public class MealsButton extends JFrame {
             setPreferredSize(new Dimension(150, 30));
             this.userProfile = userProfile;
             this.foodDatabase = foodDatabase;
+            if(!(foodDatabase.getSavedMeal(userId, i) == null)) {
+                if (i == 1) {
+                    meal = foodDatabase.getBreakfastFromName(foodDatabase.getSavedMeal(userId, i));
+                } else {
+                    meal = foodDatabase.getFoodFromName(foodDatabase.getSavedMeal(userId, i));
+                }
+                double portionGrams = ((userProfile.getTdee() / userProfile.getMealsPerDay()) / meal.getKcal() * 100);
+                double macrosModifier = (portionGrams / 100);
+                proteinLabel.setText("Protein: " + String.format("%.2f", meal.getProtein() * macrosModifier) + "g");
+                carbsLabel.setText("Carbs: " + String.format("%.2f", meal.getCarbs() * macrosModifier) + "g");
+                fatLabel.setText("Fat: " + String.format("%.2f", meal.getFat() * macrosModifier) + "g");
+                caloriesLabel.setText("Calories: " + String.format("%.2f", meal.getKcal() * macrosModifier) + " kcal");
+                gramsToEatLabel.setText("Portion size: " + String.format("%.2f", portionGrams) + "g");
+            }
+
+
 
 
             // add the nutrition Labels to the macrosPanel
@@ -171,6 +192,7 @@ public class MealsButton extends JFrame {
             macrosPanel.add(fatLabel);
             macrosPanel.add(caloriesLabel);
             macrosPanel.add(gramsToEatLabel);
+
 
 
 
@@ -183,7 +205,7 @@ public class MealsButton extends JFrame {
                     int fat = userProfile.getFat() / userProfile.getMealsPerDay();
                     ArrayList<Meal> matchingMeals;
 
-                    if(i == 0) {
+                    if(i == 1) {
                         matchingMeals = foodDatabase.findBreakfast(protein, carbs, tdee, fat, userProfile.getDietCategory());
                     }else{
                         matchingMeals = foodDatabase.findFood(protein, carbs, tdee, fat, userProfile.getDietCategory());
@@ -192,10 +214,13 @@ public class MealsButton extends JFrame {
 
 
 
+
+
                     if (randomMeal != null) {
-                        System.out.println("Selected meal: " + randomMeal.getName());
+                        //System.out.println("Selected meal: " + randomMeal.getName());
                         double portionGrams = ((userProfile.getTdee() / userProfile.getMealsPerDay()) / randomMeal.getKcal() * 100);
                         double macrosModifier = (portionGrams / 100);
+                        foodDatabase.updateMeals(userId, randomMeal.getName(), i);
 
                         // Update the labels with the nutrition information
                         mealLabel.setText("Selected meal: " + randomMeal.getName());
@@ -244,7 +269,6 @@ public class MealsButton extends JFrame {
             Meal randomMeal = matchingMeals.get(rand.nextInt(matchingMeals.size()));
             double grams = kcals / randomMeal.getKcal() * 100;
             randomMeal.setRecommendedGrams(String.valueOf(grams));
-            //System.out.println("HÃ¤r kommer den valda mealen");
             return randomMeal;
         }
     }
