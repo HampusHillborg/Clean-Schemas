@@ -10,12 +10,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
-
- The DisplayProfile class provides a GUI for the user to enter and update their profile information.
- The GUI contains fields for height, weight, age, sex, goal, activity level, carbohydrate intake, and number of meals.
- Upon submission, the user's input is used to create a Profile object which is then updated in the UserDatabase.
- */
 public class DisplayProfile extends JFrame {
 
     private Profile profile;
@@ -25,32 +19,35 @@ public class DisplayProfile extends JFrame {
     private JTextField ageField;
     private JComboBox<String> sexField;
     private JComboBox<String> goalField;
-
     private JComboBox<String> activityField;
-
     private JComboBox<String> carbField;
     private JComboBox<String> mealsField;
     private UserDatabase userDatabase;
 
-    /**
-     The DisplayProfile class provides a GUI for the user to enter and update their profile information.
-     The GUI contains fields for height, weight, age, sex, goal, activity level, carbohydrate intake, and number of meals.
-     Upon submission, the user's input is used to create a Profile object which is then updated in the UserDatabase.
-     @param userProfile The user's Profile object containing their current information.
-     @param userDatabase The UserDatabase containing the user's information.
-     */
-    public DisplayProfile(Profile userProfile, UserDatabase userDatabase) {
+    public DisplayProfile(Profile profile, UserDatabase userDatabase) {
         super("User Profile Form");
         this.userDatabase = userDatabase;
-        this.profile = userProfile;
-        // Create components
+        this.profile = profile;
+
+        initializeComponents();
+        createLayout();
+        setupSubmitButtonListener();
+
+        // Set window properties
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(500, 300);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    private void initializeComponents() {
         JLabel titleLabel = new JLabel("Enter Your Profile Information");
         JLabel heightLabel = new JLabel("Height (cm):");
         JLabel weightLabel = new JLabel("Weight (kg):");
         JLabel ageLabel = new JLabel("Age:");
         JLabel sexLabel = new JLabel("Sex:");
         JLabel goalLabel = new JLabel("Goal:");
-        JLabel activityLabel = new JLabel("ActivityLevel: ");
+        JLabel activityLabel = new JLabel("Activity Level: ");
         JLabel carbLabel = new JLabel("Carbohydrate Intake:");
         JLabel mealsLabel = new JLabel("Number of Meals:");
 
@@ -60,144 +57,84 @@ public class DisplayProfile extends JFrame {
         sexField = new JComboBox<>(new String[] { "Male", "Female" });
         goalField = new JComboBox<>(new String[] { "Weight Loss", "Maintenance", "Weight Gain" });
         activityField = new JComboBox<>(new String[] { "Sedentary", "Light Exercise(1-2/Week)",
-                "Moderate Exercise(3-5/Week)", "Heavy Exercise(6-7/Week)", "Athlete(2x/Day" });
+                "Moderate Exercise(3-5/Week)", "Heavy Exercise(6-7/Week)", "Athlete(2x/Day)" });
         carbField = new JComboBox<>(new String[] { "Low", "Medium", "High" });
         mealsField = new JComboBox<>(new String[] { "1", "2", "3", "4", "5" });
 
-        heightField.setText(Double.toString(userProfile.getHeight()));
-        weightField.setText(Double.toString(userProfile.getWeight()));
-        ageField.setText(Integer.toString(userProfile.getAge()));
-        sexField.setSelectedItem(userProfile.getSex());
-        goalField.setSelectedItem(userProfile.getGoal());
-        activityField.setSelectedItem(userProfile.getActivityValue());
-        carbField.setSelectedItem(userProfile.getCarbAmount());
-        mealsField.setSelectedItem(Integer.toString(userProfile.getMealsPerDay()));
+        heightField.setText(Double.toString(profile.getHeight()));
+        weightField.setText(Double.toString(profile.getWeight()));
+        ageField.setText(Integer.toString(profile.getAge()));
+        sexField.setSelectedItem(profile.getSex());
+        goalField.setSelectedItem(profile.getGoal());
+        activityField.setSelectedItem(profile.getActivityValue());
+        carbField.setSelectedItem(profile.getCarbAmount());
+        mealsField.setSelectedItem(Integer.toString(profile.getMealsPerDay()));
+    }
 
-        JButton submitButton = new JButton("Submit");
-
-        // Create layout and add components
+    private void createLayout() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(9, 5));
-        panel.add(heightLabel);
+        panel.setLayout(new GridLayout(9, 2));
+        panel.add(new JLabel("Height (cm):"));
         panel.add(heightField);
-        panel.add(weightLabel);
+        panel.add(new JLabel("Weight (kg):"));
         panel.add(weightField);
-        panel.add(ageLabel);
+        panel.add(new JLabel("Age:"));
         panel.add(ageField);
-        panel.add(sexLabel);
+        panel.add(new JLabel("Sex:"));
         panel.add(sexField);
-        panel.add(goalLabel);
+        panel.add(new JLabel("Goal:"));
         panel.add(goalField);
-        panel.add(activityLabel);
+        panel.add(new JLabel("Activity Level:"));
         panel.add(activityField);
-        panel.add(carbLabel);
+        panel.add(new JLabel("Carbohydrate Intake:"));
         panel.add(carbField);
-        panel.add(mealsLabel);
+        panel.add(new JLabel("Number of Meals:"));
         panel.add(mealsField);
-        panel.add(submitButton);
 
-        // Set window properties
         setLayout(new BorderLayout());
-        add(titleLabel, BorderLayout.NORTH);
+        add(new JLabel("Enter Your Profile Information"), BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 300);
-        setLocationRelativeTo(null);
-        setVisible(true);
+    }
 
-        // Add submit button listener
-        submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                // Get user input from fields
-                String activityValue = (String) activityField.getSelectedItem();
+    private void setupSubmitButtonListener() {
+        JButton submitButton = new JButton("Submit");
+        submitButton.setBackground(new Color(32, 98, 147));
+        submitButton.setForeground(Color.WHITE);
+        submitButton.setFocusPainted(false);
+        submitButton.setPreferredSize(new Dimension(100, 30));
+        submitButton.addActionListener(e -> {
+            try {
                 double height = Double.parseDouble(heightField.getText());
                 double weight = Double.parseDouble(weightField.getText());
                 int age = Integer.parseInt(ageField.getText());
                 String sex = (String) sexField.getSelectedItem();
                 String goal = (String) goalField.getSelectedItem();
+                String activityValue = (String) activityField.getSelectedItem();
                 String carbAmount = (String) carbField.getSelectedItem();
                 int mealsPerDay = Integer.parseInt((String) mealsField.getSelectedItem());
 
-                // Create Profile object with user input
                 profile.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
+
                 LoginController controller = new LoginController(userDatabase);
+                controller.updateProfile(profile);
 
-                controller.updateProfile(userProfile);
-
-                // Create and show ProfileDisplayGUI with user profile
-                ProfileDisplayGUI displayGUI = new ProfileDisplayGUI(userProfile);
+                ProfileDisplayGUI displayGUI = new ProfileDisplayGUI(profile);
                 dispose();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(DisplayProfile.this,
+                        "Invalid input! Please enter valid numerical values.",
+                        "Input Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(DisplayProfile.this, "An error occurred while updating the profile.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-    }
 
-    public JTextField getHeightField() {
-        return heightField;
-    }
-
-    public void setHeightField(String height) {
-        heightField.setText(height);
-    }
-
-    public JTextField getWeightField() {
-        return weightField;
-    }
-
-    public void setWeightField(String weight) {
-        weightField.setText(weight);
-    }
-
-    public JTextField getAgeField() {
-        return ageField;
-    }
-
-    public void setAgeField(String age) {
-        ageField.setText(age);
-    }
-
-    public JComboBox<String> getSexField() {
-        return sexField;
-    }
-
-    public void setSexField(JComboBox<String> sexField) {
-        this.sexField = sexField;
-    }
-
-    public JComboBox<String> getGoalField() {
-        return goalField;
-    }
-
-    public void setGoalField(JComboBox<String> goalField) {
-        this.goalField = goalField;
-    }
-
-    public JComboBox<String> getActivityField() {
-        return activityField;
-    }
-
-    public void setActivityField(JComboBox<String> activityField) {
-        this.activityField = activityField;
-    }
-
-    public JComboBox<String> getCarbField() {
-        return carbField;
-    }
-
-    public void setCarbField(JComboBox<String> carbField) {
-        this.carbField = carbField;
-    }
-
-    public JComboBox<String> getMealsField() {
-        return mealsField;
-    }
-
-    public void setMealsField(JComboBox<String> mealsField) {
-        this.mealsField = mealsField;
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(submitButton);
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
     public static void main(String[] args) {
-
     }
 }
