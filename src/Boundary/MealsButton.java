@@ -179,16 +179,17 @@ public class MealsButton extends JFrame {
 
                     if (randomMeal != null) {
                         System.out.println("Selected meal: " + randomMeal.getName());
-                        double portionGrams = (int)((userProfile.getTdee() / userProfile.getMealsPerDay()) / randomMeal.getKcal() * 100);
-                        int macrosModifier = (int) (portionGrams / 100);
+                        double portionGrams = ((userProfile.getTdee() / userProfile.getMealsPerDay()) / randomMeal.getKcal() * 100);
+                        double macrosModifier = (portionGrams / 100);
 
                         // Update the labels with the nutrition information
                         mealLabel.setText("Selected meal: " + randomMeal.getName());
-                        proteinLabel.setText("Protein: " + (randomMeal.getProtein() * macrosModifier) + "g");
-                        carbsLabel.setText("Carbs: " + (randomMeal.getCarbs() * macrosModifier)  + "g");
-                        fatLabel.setText("Fat: " + (randomMeal.getFat() * macrosModifier) + "g");
-                        caloriesLabel.setText("Calories: " + (randomMeal.getKcal() * macrosModifier) + " kcal");
-                        gramsToEatLabel.setText("Portion size: " + portionGrams + "g");
+                        proteinLabel.setText("Protein: " + String.format("%.2f", randomMeal.getProtein() * macrosModifier) + "g");
+                        carbsLabel.setText("Carbs: " + String.format("%.2f", randomMeal.getCarbs() * macrosModifier) + "g");
+                        fatLabel.setText("Fat: " + String.format("%.2f", randomMeal.getFat() * macrosModifier) + "g");
+                        caloriesLabel.setText("Calories: " + String.format("%.2f", randomMeal.getKcal() * macrosModifier) + " kcal");
+                        gramsToEatLabel.setText("Portion size: " + String.format("%.2f", portionGrams) + "g");
+
 
                         // Add the label to the meal panel
                         JPanel mealPanel = (JPanel) getParent().getParent();
