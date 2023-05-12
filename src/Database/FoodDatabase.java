@@ -231,9 +231,8 @@ public class FoodDatabase {
                 String foodCategory = rs.getString("category");
                 Meal matchingMeals = new Meal(id, name, carb, protein, fats, kcal, foodCategory);
                 matchingMeal.add(matchingMeals);
-                System.out.printf("%d\t%s\t%.2f\t%.2f\t%.2f\t%.2f\t%s\n",
-                        id, name, carb, protein, fats, kcal, foodCategory);
-                System.out.println("You need to eat this many grams: " + (int) (kcals / kcal * 100) + "g");
+
+                //System.out.println("You need to eat this many grams: " + (int) (kcals / kcal * 100) + "g");
 
             }
 

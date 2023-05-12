@@ -170,7 +170,6 @@ public class MealsButton extends JFrame {
             addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Action to be performed when "Generate Meal" button is clicked
-                    System.out.println("Generate Meal button clicked in meal panel ");
                     int tdee = userProfile.getTdee() / userProfile.getMealsPerDay();
                     int protein = userProfile.getProtein() / userProfile.getMealsPerDay();
                     int carbs = userProfile.getCarbs() / userProfile.getMealsPerDay();
@@ -180,7 +179,6 @@ public class MealsButton extends JFrame {
                     Meal randomMeal = chooseRandomMeal(matchingMeals, tdee);
 
                     if (randomMeal != null) {
-                        System.out.println("Selected meal: " + randomMeal.getName());
 
                         // Update the labels with the nutrition information
                         mealLabel.setText("Selected meal: " + randomMeal.getName());
@@ -223,7 +221,7 @@ public class MealsButton extends JFrame {
             Meal randomMeal = matchingMeals.get(rand.nextInt(matchingMeals.size()));
             double grams = kcals / randomMeal.getKcal() * 100;
             randomMeal.setRecommendedGrams(String.valueOf(grams));
-            System.out.println("HÃ¤r kommer den valda mealen");
+            //System.out.println("HÃ¤r kommer den valda mealen");
             return randomMeal;
         }
     }
