@@ -83,10 +83,15 @@ public class MealsButton extends JFrame {
         // Add the meal panels to the meals panel
         for (int i = 0; i < userProfile.getMealsPerDay(); i++) {
             JPanel mealPanel = new JPanel(new BorderLayout());
-            TitledBorder titledBorder = BorderFactory.createTitledBorder("Meal " + (i + 1));
+            TitledBorder titledBorder;
+            if(i == 0){
+                 titledBorder = BorderFactory.createTitledBorder("Breakfast");
+            }else {
+                 titledBorder = BorderFactory.createTitledBorder("Meal " + (i + 1));
+            }
             titledBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
             mealPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10), titledBorder));
-            GenerateMealButton generateMealButton = new GenerateMealButton(userProfile, foodDatabase);
+            GenerateMealButton generateMealButton = new GenerateMealButton(userProfile, foodDatabase, i);
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
             buttonPanel.add(generateMealButton);
             mealPanel.add(buttonPanel, BorderLayout.NORTH);
@@ -130,6 +135,7 @@ public class MealsButton extends JFrame {
 
         private Profile userProfile;
         private FoodDatabase foodDatabase;
+        private int i;
 
         JLabel proteinLabel = new JLabel("Protein:");
         JLabel carbsLabel = new JLabel("Carbs:");
@@ -140,12 +146,14 @@ public class MealsButton extends JFrame {
 
 
 
+
         /**
          * Constructs a GenerateMealButton object.
          * @param userProfile  a Profile object containing the user's information
          * @param foodDatabase a FoodDatabase object containing the database of available meals
          */
-        public GenerateMealButton(Profile userProfile, FoodDatabase foodDatabase) {
+        public GenerateMealButton(Profile userProfile, FoodDatabase foodDatabase, int i) {
+            this.i = i;
 
             setText("Generate Meal");
             setBackground(buttonColor);
@@ -173,9 +181,16 @@ public class MealsButton extends JFrame {
                     int protein = userProfile.getProtein() / userProfile.getMealsPerDay();
                     int carbs = userProfile.getCarbs() / userProfile.getMealsPerDay();
                     int fat = userProfile.getFat() / userProfile.getMealsPerDay();
+                    ArrayList<Meal> matchingMeals;
 
-                    ArrayList<Meal> matchingMeals = foodDatabase.findFood(protein, carbs, tdee, fat, userProfile.getDietCategory());
+                    if(i == 0) {
+                        matchingMeals = foodDatabase.findBreakfast(protein, carbs, tdee, fat, userProfile.getDietCategory());
+                    }else{
+                        matchingMeals = foodDatabase.findFood(protein, carbs, tdee, fat, userProfile.getDietCategory());
+                    }
                     Meal randomMeal = chooseRandomMeal(matchingMeals, tdee);
+
+
 
                     if (randomMeal != null) {
                         System.out.println("Selected meal: " + randomMeal.getName());
