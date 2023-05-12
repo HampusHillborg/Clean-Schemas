@@ -100,7 +100,7 @@ public class MealsButton extends JFrame {
         macrosPanel.setBorder(BorderFactory.createTitledBorder("Selected Meal Macros"));
         macrosPanel.setBackground(Color.LIGHT_GRAY);
         macrosPanel.setPreferredSize(new Dimension(300, 500));
-        macrosPanel.add(macrosLabel);
+        //macrosPanel.add(macrosLabel);
 
         // Create a split pane with the meals panel on the left and the macros panel on
         // the right
