@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 
+ *
  * The MealsButton class represents a GUI for displaying the user's meals and
  * macros. It extends JFrame and implements ActionListener.
  * The GUI displays a panel for each meal and a panel for the user's selected
@@ -62,7 +62,7 @@ public class MealsButton extends JFrame {
      * in a fixed-size panel. The number of meals displayed is determined
      * by the userProfile parameter. The method adds two buttons to each
      * meal panel: an "Add Meal" button and a "Generate Meal" button.
-     * 
+     *
      * @param userProfile the user profile containing the number of meals per day to
      * be displayed
      */
@@ -85,7 +85,7 @@ public class MealsButton extends JFrame {
             JPanel mealPanel = new JPanel(new BorderLayout());
             TitledBorder titledBorder = BorderFactory.createTitledBorder("Meal " + (i + 1));
             titledBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
-            mealPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10), titledBorder));
+            mealPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10), titledBorder));
             GenerateMealButton generateMealButton = new GenerateMealButton(userProfile, foodDatabase);
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
             buttonPanel.add(generateMealButton);
@@ -95,7 +95,7 @@ public class MealsButton extends JFrame {
             mealPanels.add(mealPanel);
             mealsPanel.add(mealPanel);
         }
-        
+
         // Create the macros panel
         macrosPanel.setBorder(BorderFactory.createTitledBorder("Selected Meal Macros"));
         macrosPanel.setBackground(Color.LIGHT_GRAY);
@@ -106,12 +106,12 @@ public class MealsButton extends JFrame {
         // the right
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mealsScrollPane, macrosPanel);
         splitPane.setDividerLocation(400);
-    
+
         // Add the split pane to the frame
         getContentPane().add(splitPane);
-    
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    
+
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -136,8 +136,7 @@ public class MealsButton extends JFrame {
         JLabel fatLabel = new JLabel("Fat:");
         JLabel caloriesLabel = new JLabel("Calories:");
         JLabel gramsToEatLabel = new JLabel("Portion size");
-
-        JLabel mealLabel = new JLabel("Selected meal:");
+        JLabel mealLabel = new JLabel();
 
 
 
@@ -164,10 +163,7 @@ public class MealsButton extends JFrame {
             macrosPanel.add(fatLabel);
             macrosPanel.add(caloriesLabel);
             macrosPanel.add(gramsToEatLabel);
-            
 
-            // add the mealLabel to the mealsPanel
-            mealsPanel.add(mealLabel);
 
 
             addActionListener(new ActionListener() {
@@ -196,7 +192,11 @@ public class MealsButton extends JFrame {
 
                         // Add the label to the meal panel
                         JPanel mealPanel = (JPanel) getParent().getParent();
-                        mealPanel.revalidate();
+                        JPanel mealFoodsPanel = (JPanel) mealPanel.getComponent(1);
+                        mealFoodsPanel.removeAll(); // Remove previous meal label if any
+                        mealFoodsPanel.add(mealLabel);
+                        mealFoodsPanel.revalidate();
+                        mealFoodsPanel.repaint();
 
                     } else {
                         System.out.println("No matching meals found.");
@@ -232,6 +232,5 @@ public class MealsButton extends JFrame {
             return randomMeal;
         }
     }
-
-    }
+ }
 
