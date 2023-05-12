@@ -127,7 +127,12 @@ public class LandingPage extends JFrame {
         setVisible(true);
     }
 
-    // Helper method to create a styled JButton
+    /**
+     Creates a styled JButton with the specified text.
+     @param text the text to be displayed on the button
+
+     @return the created JButton
+     */
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -146,7 +151,12 @@ public class LandingPage extends JFrame {
     }
 
 
-    // Helper method to create a styled JLabel
+    /**
+     Creates a styled JLabel with the specified text.
+     @param text the text to be displayed on the label
+
+     @return the created JLabel
+     */
     private JLabel createStyledLabel(String text) {
         JLabel label = new JLabel(text);
         label.setFont(label.getFont().deriveFont(Font.PLAIN));
