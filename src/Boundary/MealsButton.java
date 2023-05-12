@@ -135,6 +135,7 @@ public class MealsButton extends JFrame {
         JLabel carbsLabel = new JLabel("Carbs:");
         JLabel fatLabel = new JLabel("Fat:");
         JLabel caloriesLabel = new JLabel("Calories:");
+        JLabel gramsToEatLabel = new JLabel("Portion size");
 
         JLabel mealLabel = new JLabel("Selected meal:");
 
@@ -162,6 +163,8 @@ public class MealsButton extends JFrame {
             macrosPanel.add(carbsLabel);
             macrosPanel.add(fatLabel);
             macrosPanel.add(caloriesLabel);
+            macrosPanel.add(gramsToEatLabel);
+            
 
             // add the mealLabel to the mealsPanel
             mealsPanel.add(mealLabel);
@@ -179,13 +182,17 @@ public class MealsButton extends JFrame {
                     Meal randomMeal = chooseRandomMeal(matchingMeals, tdee);
 
                     if (randomMeal != null) {
+                        System.out.println("Selected meal: " + randomMeal.getName());
+                        double portionGrams = (int)((userProfile.getTdee() / userProfile.getMealsPerDay()) / randomMeal.getKcal() * 100);
+                        int macrosModifier = (int) (portionGrams / 100);
 
                         // Update the labels with the nutrition information
                         mealLabel.setText("Selected meal: " + randomMeal.getName());
-                        proteinLabel.setText("Protein: " + randomMeal.getProtein() + "g");
-                        carbsLabel.setText("Carbs: " + randomMeal.getCarbs() + "g");
-                        fatLabel.setText("Fat: " + randomMeal.getFat() + "g");
-                        caloriesLabel.setText("Calories: " + randomMeal.getKcal() + " kcal");
+                        proteinLabel.setText("Protein: " + (randomMeal.getProtein() * macrosModifier) + "g");
+                        carbsLabel.setText("Carbs: " + (randomMeal.getCarbs() * macrosModifier)  + "g");
+                        fatLabel.setText("Fat: " + (randomMeal.getFat() * macrosModifier) + "g");
+                        caloriesLabel.setText("Calories: " + (randomMeal.getKcal() * macrosModifier) + " kcal");
+                        gramsToEatLabel.setText("Portion size: " + portionGrams + "g");
 
                         // Add the label to the meal panel
                         JPanel mealPanel = (JPanel) getParent().getParent();
