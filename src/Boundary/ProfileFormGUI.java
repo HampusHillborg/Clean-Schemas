@@ -11,6 +11,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * This class represents the GUI for the user profile form, where users can input their profile information.
+ * The class extends the JFrame class and contains fields for user profile attributes such as height, weight, age,
+ * sex, goal, activity level, carbohydrate intake, and number of meals per day. It also contains a Submit button
+ * that allows the user to submit their profile information to the system.
+ * The class contains methods for initializing the GUI components, creating the layout, and setting up a listener
+ * for the Submit button. The listener reads the values of the profile attributes from the GUI components and
+ * creates a Profile object. It then submits the Profile object to the RegistrationController and displays the
+ * Profile information in a new window using the ProfileDisplayGUI class.
+ */
+
 public class ProfileFormGUI extends JFrame {
 
     private Profile profile;
@@ -24,6 +35,14 @@ public class ProfileFormGUI extends JFrame {
     private JComboBox<String> carbField;
     private JComboBox<String> mealsField;
     private UserDatabase userDatabase;
+
+    /**
+     * Constructs a new ProfileFormGUI object with the given Profile and UserDatabase objects.
+     * Initializes the components, creates the layout, and sets up a listener for the Submit button.
+     *
+     * @param profile The Profile object that will be submitted.
+     * @param userDatabase The UserDatabase object used to submit the Profile object.
+     */
 
     public ProfileFormGUI(Profile profile, UserDatabase userDatabase) {
         super("User Profile Form");
@@ -41,6 +60,10 @@ public class ProfileFormGUI extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Initializes the components of the GUI, including text fields and combo boxes for user input.
+     * Uses JLabels to describe each component for clarity.
+     */
     private void initializeComponents() {
         JLabel titleLabel = new JLabel("Enter Your Profile Information");
         JLabel heightLabel = new JLabel("Height (cm):");
@@ -63,6 +86,10 @@ public class ProfileFormGUI extends JFrame {
         mealsField = new JComboBox<>(new String[]{"1", "2", "3", "4", "5"});
     }
 
+    /**
+     * Creates the layout of the GUI, including the labels and fields for user input.
+     * Uses a JPanel with a GridLayout to arrange the components in a grid.
+     */
     private void createLayout() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(9, 2));
@@ -88,6 +115,17 @@ public class ProfileFormGUI extends JFrame {
         add(panel, BorderLayout.CENTER);
     }
 
+
+    /**
+     * Sets up the listener for the "Submit" button. Creates a new JButton object with the text "Submit",
+     * sets the button's alignment to the center of the component, background color to a shade of blue
+     * that works well on Mac, foreground color to white, and preferred size to 100x30. Adds an ActionListener
+     * to the button that attempts to parse the input from each field in the form, adds the values to the user's
+     * profile, and submits the profile to the database. If there is an error with the input or submission, displays
+     * an appropriate error message. Also adds a KeyListener to each text field that triggers the "Submit" button's
+     * action when the enter key is pressed. Adds the "Submit" button to a JPanel and adds the JPanel to the
+     * south section of the ProfileFormGUI.
+     */
     private void setupSubmitButtonListener() {
         JButton submitButton = new JButton("Submit");
 
