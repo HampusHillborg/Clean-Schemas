@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ProfileFormGUI extends JFrame {
 
@@ -132,6 +134,33 @@ public class ProfileFormGUI extends JFrame {
                 }
             }
         });
+
+
+        // Add a KeyListener to each text field
+        heightField.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+                    submitButton.doClick(); // trigger button press
+                }
+            }
+        });
+
+        weightField.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+                    submitButton.doClick(); // trigger button press
+                }
+            }
+        });
+
+        ageField.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+                    submitButton.doClick(); // trigger button press
+                }
+            }
+        });
+
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(submitButton);
