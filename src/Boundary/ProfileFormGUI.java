@@ -88,10 +88,19 @@ public class ProfileFormGUI extends JFrame {
 
     private void setupSubmitButtonListener() {
         JButton submitButton = new JButton("Submit");
-        submitButton.setBackground(new Color(32, 98, 147));
+
+        // Use a shade of blue that works well on Mac
+        Color macBlue = new Color(54, 144, 246); // Use a shade of blue that works well on Mac
+        submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        submitButton.setBackground(macBlue);
         submitButton.setForeground(Color.WHITE);
         submitButton.setFocusPainted(false);
         submitButton.setPreferredSize(new Dimension(100, 30));
+        submitButton.setOpaque(true);
+
+        // added to remove border
+        submitButton.setBorderPainted(false); // added to remove border
+
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
