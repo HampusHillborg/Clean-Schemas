@@ -12,6 +12,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * This class is responsible for displaying a form for a user to enter their profile information.
+ * It takes a Profile object and a UserDatabase object as parameters to initialize the form.
+ * It sets up the GUI components, layout, and submit button listener for the form.
+ * When the submit button is pressed, it updates the user's profile information in the database
+ * and displays the updated profile.
+ */
+
 public class DisplayProfile extends JFrame {
 
     private Profile profile;
@@ -26,6 +34,12 @@ public class DisplayProfile extends JFrame {
     private JComboBox<String> mealsField;
     private UserDatabase userDatabase;
 
+    /**
+     * Constructor for the DisplayProfile class.
+     *
+     * @param profile the user's profile information
+     * @param userDatabase the user database object
+     */
     public DisplayProfile(Profile profile, UserDatabase userDatabase) {
         super("User Profile Form");
         this.userDatabase = userDatabase;
@@ -42,6 +56,13 @@ public class DisplayProfile extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Initializes and sets the values for the components in the Profile Information window.
+     * Components include JLabels for Height, Weight, Age, Sex, Goal, Activity Level, Carbohydrate
+     * Intake, and Number of Meals, as well as corresponding JTextFields and JComboBoxes.
+     * The default values for the JTextFields and JComboBoxes are set based on the values stored
+     * in the profile object.
+     */
     private void initializeComponents() {
         JLabel titleLabel = new JLabel("Enter Your Profile Information");
         JLabel heightLabel = new JLabel("Height (cm):");
@@ -73,6 +94,12 @@ public class DisplayProfile extends JFrame {
         mealsField.setSelectedItem(Integer.toString(profile.getMealsPerDay()));
     }
 
+    /**
+     * Creates the layout for the profile information input panel.
+     * Adds components to a JPanel with a 9x2 GridLayout and sets their labels and fields.
+     * Sets the layout of the main panel to a BorderLayout and adds the GridLayout panel to the center.
+     * Adds a title label to the top of the main panel.
+     */
     private void createLayout() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(9, 2));
@@ -98,6 +125,13 @@ public class DisplayProfile extends JFrame {
         add(panel, BorderLayout.CENTER);
     }
 
+    /**
+     * Sets up the listener for the "Submit" button on the profile display GUI.
+     * This method adds a button to the bottom of the GUI and sets up a listener
+     * that validates user input and updates the user's profile when the button is clicked.
+     * If the user enters invalid input or an error occurs while updating the profile,
+     * an appropriate error message is displayed to the user.
+     */
     private void setupSubmitButtonListener() {
         JButton submitButton = new JButton("Submit");
 
