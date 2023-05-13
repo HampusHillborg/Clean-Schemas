@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class DisplayProfile extends JFrame {
 
@@ -139,10 +141,36 @@ public class DisplayProfile extends JFrame {
             }
         });
 
+        // Add a KeyListener to each text field
+        heightField.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+                    submitButton.doClick(); // trigger button press
+                }
+            }
+        });
+
+        weightField.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+                    submitButton.doClick(); // trigger button press
+                }
+            }
+        });
+
+        ageField.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+                    submitButton.doClick(); // trigger button press
+                }
+            }
+        });
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(submitButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }
+
 
     public static void main(String[] args) {
     }
