@@ -26,7 +26,7 @@ public class LandingPage extends JFrame {
     /**
      * Constructs a LandingPage object with a given Profile and UserDatabase.
      *
-     * @param profile      the user's profile information
+     * @param profile the user's profile information
      * @param userDatabase the database containing user information
      */
     public LandingPage(Profile profile, UserDatabase userDatabase) {
@@ -36,6 +36,16 @@ public class LandingPage extends JFrame {
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+
+        // Set background color to black
+        getContentPane().setBackground(Color.WHITE.brighter());
+
+
+        UIManager.put("Label.foreground", Color.BLACK);
+        UIManager.put("Button.foreground", Color.BLACK);
+        UIManager.put("Button.focus", Color.BLACK);
+        UIManager.put("Button.border", BorderFactory.createEmptyBorder());
+
 
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new GridLayout(5, 2, 20, 20));
@@ -48,6 +58,7 @@ public class LandingPage extends JFrame {
         JPanel logoutPanel = new JPanel();
         logoutPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         logoutPanel.add(logoutButton);
+        logoutPanel.setBackground(Color.WHITE.brighter());
         add(logoutPanel, BorderLayout.NORTH);
 
         JButton mealsButton = createStyledButton("Meals");
@@ -57,6 +68,7 @@ public class LandingPage extends JFrame {
         mealsLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         buttonsPanel.add(mealsButton);
         buttonsPanel.add(mealsLabel);
+        buttonsPanel.setBackground(Color.WHITE.brighter());
 
         JButton searchForFoods = createStyledButton("Search for foods");
         JLabel weeklyPlansLabel = createStyledLabel(
@@ -65,6 +77,7 @@ public class LandingPage extends JFrame {
         weeklyPlansLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         buttonsPanel.add(searchForFoods);
         buttonsPanel.add(weeklyPlansLabel);
+        buttonsPanel.setBackground(Color.WHITE.brighter());
 
         JButton chooseFoodsButton = createStyledButton("Choose Foods");
         JLabel chooseFoodsLabel = createStyledLabel(
@@ -73,6 +86,7 @@ public class LandingPage extends JFrame {
         chooseFoodsLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         buttonsPanel.add(chooseFoodsButton);
         buttonsPanel.add(chooseFoodsLabel);
+        buttonsPanel.setBackground(Color.WHITE.brighter());
 
         JButton profileButton = createStyledButton("Edit Profile");
         JLabel profileLabel = createStyledLabel(
@@ -81,6 +95,7 @@ public class LandingPage extends JFrame {
         profileLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         buttonsPanel.add(profileButton);
         buttonsPanel.add(profileLabel);
+        buttonsPanel.setBackground(Color.WHITE.brighter());
 
         JButton savedInfoButton = createStyledButton("Profilestatus");
         JLabel savedInfoLabel = createStyledLabel("<html><p style='width:150px;'>Show your personal info.</p></html>");
@@ -88,6 +103,7 @@ public class LandingPage extends JFrame {
         savedInfoLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         buttonsPanel.add(savedInfoButton);
         buttonsPanel.add(savedInfoLabel);
+        buttonsPanel.setBackground(Color.WHITE.brighter());
 
         add(buttonsPanel, BorderLayout.WEST);
 
