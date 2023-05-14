@@ -9,6 +9,7 @@ import src.Entity.Meal;
 import src.Entity.Profile;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -50,7 +51,7 @@ public class MealsButton extends JFrame {
 
     // private final JButton addMealButton = new JButton("Add Meal");
     // private final JButton generateMealButton = new JButton("Generate Meal");
-    private final JLabel macrosLabel = new JLabel("Selected Meal Macros:");
+    private final JLabel macrosLabel = new JLabel("Total Macros for the day:");
 
     private UserDatabaseOutput userDatabaseOutput;
 
@@ -122,16 +123,41 @@ public class MealsButton extends JFrame {
         macrosPanel.setBackground(Color.LIGHT_GRAY);
         macrosPanel.setPreferredSize(new Dimension(300, 500));
         macrosPanel.add(macrosLabel);
-        macrosPanel.add(totalCaloriesLabel);
         macrosPanel.add(totalProteinLabel);
         macrosPanel.add(totalCarbsLabel);
         macrosPanel.add(totalFatLabel);
-        // macrosPanel.add(macrosLabel);
+
+        // Create a JPanel to hold the total calories label
+        JPanel totalCaloriesPanel = new JPanel();
+        totalCaloriesPanel.setBackground(Color.LIGHT_GRAY);
+        totalCaloriesPanel.setPreferredSize(new Dimension(300, 50));
+        totalCaloriesPanel.add(totalCaloriesLabel);
+
+        // Create a vertical BoxLayout for the macros panel
+        BoxLayout macrosBoxLayout = new BoxLayout(macrosPanel, BoxLayout.Y_AXIS);
+        macrosPanel.setLayout(macrosBoxLayout);
+
+        // Add the total calories panel to the macros panel
+        macrosPanel.add(Box.createVerticalGlue());
+        macrosPanel.add(totalCaloriesPanel);
 
         // Create a split pane with the meals panel on the left and the macros panel on
         // the right
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mealsScrollPane, macrosPanel);
         splitPane.setDividerLocation(400);
+
+        // Add the split pane to the frame
+        getContentPane().add(splitPane);
+
+        // Create an empty border for the meals panel
+        Border mealsPanelBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        mealsPanel.setBorder(
+                BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), mealsPanelBorder));
+
+        // Create an empty border for the macros panel
+        Border macrosPanelBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        macrosPanel.setBorder(
+                BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), macrosPanelBorder));
 
         // Add the split pane to the frame
         getContentPane().add(splitPane);
@@ -221,6 +247,12 @@ public class MealsButton extends JFrame {
                     int fat = userProfile.getFat() / userProfile.getMealsPerDay();
                     ArrayList<Meal> matchingMeals;
 
+                    // Clear the existing total macros
+                    totalCalories = 0;
+                    totalProtein = 0;
+                    totalCarbs = 0;
+                    totalFat = 0;
+
                     if (i == 1) {
                         matchingMeals = foodDatabase.findBreakfast(protein, carbs, tdee, fat,
                                 userProfile.getDietCategory());
@@ -273,7 +305,6 @@ public class MealsButton extends JFrame {
                 }
             });
             macrosPanel.add(Box.createRigidArea(new Dimension(0, 20))); // add some space before totalCaloriesLabel
-            macrosPanel.add(totalCaloriesLabel);
         }
     }
 
