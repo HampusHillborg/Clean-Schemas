@@ -50,6 +50,9 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
+        // Set the background color
+        mainPanel.setBackground(Color.WHITE);
+
         JLabel usernameLabel = new JLabel("Email:");
         usernameField = new JTextField(20);
 
@@ -63,6 +66,10 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         loginButton.setOpaque(true);
 
         JPanel formPanel = new JPanel(new GridBagLayout());
+
+        // Set the background color
+        formPanel.setBackground(Color.WHITE);
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -84,13 +91,14 @@ public class LoginViewerGUI extends JFrame implements ActionListener, KeyListene
         mainPanel.add(formPanel);
         mainPanel.add(createButtonPanel());
 
-        add(mainPanel);
-
+        // Set the main panel as the content pane
+        setContentPane(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
 
     /**
      * Creates a customized JButton with the given text, background color, and foreground color.
