@@ -401,6 +401,16 @@ public class FoodDatabase {
         return matchingMeal;
     }
 
+    /**
+     * returns a meal that fits the users meal plan with a 3% accuracy
+     * @param proteins
+     * @param carbs
+     * @param kcals
+     * @param fat
+     * @param category
+     * @return
+     */
+
     public ArrayList<Meal> findBreakfast(double proteins, double carbs, double kcals, double fat, String category) {
         double proteinRatio = proteins / kcals;
         double carbRatio = carbs / kcals;
@@ -470,6 +480,11 @@ public class FoodDatabase {
         return matchingMeal;
     }
 
+    /**
+     * Creates a Meal from a food name
+     * @param foodName
+     * @return
+     */
     public Meal getFoodFromName(String foodName) {
         Meal meal = null;
         String sql = "SELECT * FROM food WHERE name = ?";
@@ -493,6 +508,11 @@ public class FoodDatabase {
         return meal;
     }
 
+    /**
+     * Creates a Meal from a food name
+     * @param foodName
+     * @return
+     */
     public Meal getBreakfastFromName(String foodName) {
         Meal meal = null;
         String sql = "SELECT * FROM breakfast WHERE name = ?";
