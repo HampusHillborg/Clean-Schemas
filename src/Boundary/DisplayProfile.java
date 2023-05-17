@@ -123,11 +123,9 @@ public class DisplayProfile extends JFrame {
     }
 
     /**
-     * Sets up the listener for the "Submit" button on the profile display GUI.
-     * This method adds a button to the bottom of the GUI and sets up a listener
-     * that validates user input and updates the user's profile when the button is clicked.
-     * If the user enters invalid input or an error occurs while updating the profile,
-     * an appropriate error message is displayed to the user.
+     * Sets up the listener for the submit button in the graphical user interface.
+     * Configures the appearance and behavior of the submit button and adds it to the GUI.
+     * Also adds a KeyListener to each relevant text field to enable submission by pressing the Enter key.
      */
     private void setupSubmitButtonListener() {
         JButton submitButton = new JButton("Submit");
@@ -143,7 +141,7 @@ public class DisplayProfile extends JFrame {
         submitButton.setOpaque(true);
 
         // added to remove border
-        submitButton.setBorderPainted(false); // added to remove border
+        submitButton.setBorderPainted(false);
         submitButton.addActionListener(e -> handleSubmission());
 
         // Add a KeyListener to each text field
@@ -156,6 +154,12 @@ public class DisplayProfile extends JFrame {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Handles the submission of user input values.
+     * Parses the input fields, updates the profile with the values,
+     * and performs necessary operations to update the profile in the system.
+     * If any errors occur during parsing or updating the profile, an appropriate error message is displayed.
+     */
     private void handleSubmission() {
         try {
             double height = parseDoubleField(heightField);
@@ -181,6 +185,14 @@ public class DisplayProfile extends JFrame {
         }
     }
 
+    /**
+     * Parses the text from the given text field into a double value.
+     * Throws a NumberFormatException if the field is empty or contains non-numeric characters.
+     *
+     * @param field the JTextField to parse the value from
+     * @return the parsed double value from the field
+     * @throws NumberFormatException if the field is empty or contains non-numeric characters
+     */
     private double parseDoubleField(JTextField field) throws NumberFormatException {
         String text = field.getText();
         if (text.isEmpty()) {
@@ -189,6 +201,14 @@ public class DisplayProfile extends JFrame {
         return Double.parseDouble(text);
     }
 
+    /**
+     * Parses the text from the given text field into an integer value.
+     * Throws a NumberFormatException if the field is empty or contains non-numeric characters.
+     *
+     * @param field the JTextField to parse the value from
+     * @return the parsed integer value from the field
+     * @throws NumberFormatException if the field is empty or contains non-numeric characters
+     */
     private int parseIntegerField(JTextField field) throws NumberFormatException {
         String text = field.getText();
         if (text.isEmpty()) {
@@ -197,6 +217,12 @@ public class DisplayProfile extends JFrame {
         return Integer.parseInt(text);
     }
 
+    /**
+     * Creates a KeyListener that triggers the submit button click when the Enter key is pressed.
+     *
+     * @param submitButton the JButton to be triggered when the Enter key is pressed
+     * @return a KeyListener that listens for the Enter key and triggers the submit button click
+     */
     private KeyListener createKeyListener(JButton submitButton) {
         return new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
@@ -207,6 +233,11 @@ public class DisplayProfile extends JFrame {
         };
     }
 
+    /**
+     * Displays an error dialog with the given message.
+     *
+     * @param message the error message to be shown in the dialog
+     */
     private void showErrorDialog(String message) {
         JOptionPane.showMessageDialog(DisplayProfile.this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
