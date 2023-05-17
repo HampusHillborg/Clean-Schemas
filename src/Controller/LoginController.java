@@ -14,13 +14,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * This class serves as the controller for the login functionality of the application. It handles the
- *  interaction between the LoginViewerGUI view and the UserDatabase model, as well as the calculation
- *  and manipulation of user profiles and their associated macronutrient values.
+ * This class serves as the controller for the login functionality of the application.
+ * It handles the interaction between the LoginViewerGUI view and the UserDatabase model,
+ * as well as the calculation and manipulation of user profiles and their associated macronutrient values.
  */
 public class LoginController {
 
-    private ConnectToDatabase connect = new ConnectToDatabase();
+    private ConnectToDatabase connect;
     private Connection conn;
     private UserDatabase userDatabase;
     private String username;
@@ -34,6 +34,17 @@ public class LoginController {
     private int bmr;
 
     /**
+     * Constructs a new LoginController object with the given UserDatabase.
+     *
+     * @param userDatabase the UserDatabase to use for this controller.
+     */
+    public LoginController(UserDatabase userDatabase) {
+        this.userDatabase = userDatabase;
+        databaseOutput = new UserDatabaseOutput(userDatabase.getConnection());
+        macroControl = new MacronutrientControl();
+    }
+
+    /**
      * Returns the UserDatabase object associated with this controller.
      *
      * @return the UserDatabase object associated with this controller.
@@ -42,7 +53,6 @@ public class LoginController {
         return userDatabase;
     }
 
-
     /**
      * Returns the UserDatabaseOutput object associated with this controller.
      *
@@ -50,18 +60,6 @@ public class LoginController {
      */
     public UserDatabaseOutput getDatabaseOutput() {
         return databaseOutput;
-    }
-
-    /**
-     * Constructs a new LoginController object with the given UserDatabase.
-     *
-     * @param userDatabase the UserDatabase to use for this controller.
-     */
-    public LoginController(UserDatabase userDatabase) {
-        // Initialize database connection
-        this.userDatabase = userDatabase;
-        databaseOutput = new UserDatabaseOutput(userDatabase.getConnection());
-        this.macroControl = new MacronutrientControl();
     }
 
     /**
@@ -82,7 +80,7 @@ public class LoginController {
     /**
      * Validates the user's login credentials against the user database.
      *
-     * @param email the user's email address.
+     * @param email    the user's email address.
      * @param password the user's password.
      * @return true if the credentials are valid, false otherwise.
      */
@@ -109,10 +107,10 @@ public class LoginController {
         String carbAmount = databaseOutput.getCarbs(userId);
         int mealsPerDay = databaseOutput.getMealsPerDay(userId);
         int tdee = databaseOutput.getTdee(userId);
-        int fat= databaseOutput.getFett(userId);//
-        int carbs= databaseOutput.getKolhydrater(userId);
-        int protein= databaseOutput.getProtein(userId);// get TDEE from database
-        this.loggedInUser = new Profile(username, password);
+        int fat = databaseOutput.getFett(userId); //
+        int carbs = databaseOutput.getKolhydrater(userId);
+        int protein = databaseOutput.getProtein(userId); // get TDEE from database
+        loggedInUser = new Profile(username, password);
         loggedInUser.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
         loggedInUser.setTdee(tdee); // set TDEE in the user's profile
         loggedInUser.setProtein(protein);
@@ -122,9 +120,8 @@ public class LoginController {
         return loggedInUser;
     }
 
-
     /**
-     *This method starts the xmlUpdater thread
+     * This method starts the xmlUpdater thread.
      */
     public void loadXML() {
         XmlUpdater xmlUpdater = new XmlUpdater();
@@ -132,12 +129,11 @@ public class LoginController {
     }
 
     /**
-     * This method updates the user profile by saving the user input to the database and calculating BMR, TDEE, fat, carbohydrates, and protein
-     *@param userProfile - The user profile object containing the user's input
+     * This method updates the user profile by saving the user input to the database and calculating BMR, TDEE, fat, carbohydrates, and protein.
+     *
+     * @param userProfile - The user profile object containing the user's input.
      */
     public void updateProfile(Profile userProfile) {
-        // Save user input to database
-
         try {
             int userId = userDatabase.getUserId(userProfile.getEmail());
             userDatabase.addSex(userId, userProfile.getSex());
@@ -149,37 +145,22 @@ public class LoginController {
             userDatabase.addMealsPerDay(userId, userProfile.getMealsPerDay());
             userDatabase.addAge(userId, userProfile.getAge());
             // Calculate BMR and TDEE
-            bmr = macroControl.calculateBmr(userProfile.getWeight(), userProfile.getHeight(), userProfile.getAge(),
-                    userProfile.getSex());
+            bmr = macroControl.calculateBmr(userProfile.getWeight(), userProfile.getHeight(), userProfile.getAge(), userProfile.getSex());
             userProfile.setBmr(bmr);
             macroControl.setActivityLevel(userProfile.getActivityValue()); // set activityLevel
             tdee = macroControl.calculateTdee(bmr, userProfile.getActivityValue());
             tdee = macroControl.adjustTdeeForGoal(tdee, userProfile.getGoal());
             userProfile.setTdee(tdee);
-            // Calculate fat, carbohydrates, and protein
-
-
-
-            // Update userProfile object with the new BMR and TDEE values
-            userProfile.setBmr(bmr);
-            userProfile.setTdee(tdee);
-
-
-
             // Save BMR and TDEE to database
-            userId = userDatabase.getUserId(userProfile.getEmail());
             userDatabase.addBmr(userId, bmr);
             userDatabase.addTdee(userId, tdee);
-
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * A class that runs as a thread, calling the updateXmlDocument in the NutritionAPI class
+     * A class that runs as a thread, calling the updateXmlDocument in the NutritionAPI class.
      */
     private class XmlUpdater extends Thread {
         private NutritionAPI api = new NutritionAPI();
@@ -188,14 +169,9 @@ public class LoginController {
         public void run() {
             try {
                 api.updateXmlDocument();
-            } catch (ParserConfigurationException e) {
-                throw new RuntimeException(e);
-            } catch (SAXException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
+            } catch (ParserConfigurationException | SAXException | IOException e) {
                 throw new RuntimeException(e);
             }
         }
     }
-
 }

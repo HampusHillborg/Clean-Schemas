@@ -536,6 +536,74 @@ public class FoodDatabase {
         return meal;
     }
 
+    public ArrayList<String[]> getRecipe(String name) {
+        int id = getFoodId(name);
+        ArrayList<String[]> recipe = new ArrayList<>();
+
+        String sql = "SELECT ingredient, amount_grams, amount_ml, amount_tbsp, amount_st FROM recipes WHERE food_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String ingredient = rs.getString("ingredient");
+                    String amount = null;
+                    String label = null;
+
+                    if (rs.getObject("amount_grams") != null) {
+                        amount = rs.getBigDecimal("amount_grams").toString();
+                        label = " grams";
+                    } else if (rs.getObject("amount_ml") != null) {
+                        amount = rs.getBigDecimal("amount_ml").toString();
+                        label = " ml";
+                    } else if (rs.getObject("amount_tbsp") != null) {
+                        amount = rs.getBigDecimal("amount_tbsp").toString();
+                        label = " tbsp";
+                    } else if (rs.getObject("amount_st") != null) {
+                        amount = rs.getBigDecimal("amount_st").toString();
+                        label = " st";
+                    }
+
+                    if (ingredient != null && amount != null) {
+                        String[] ingredientEntry = {ingredient, amount, label};
+                        recipe.add(ingredientEntry);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return recipe;
+    }
+
+
+    public int getFoodId(String name){
+        String sql = "SELECT * FROM food WHERE name = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, name);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        FoodDatabase foodDatabase = new FoodDatabase(new UserDatabase());
+        ArrayList<String[]> recipe = foodDatabase.getRecipe("Vegetarian Stir Fry");
+
+        System.out.println("Recipe for Vegetarian Stir Fry:");
+        for (String[] ingredientEntry : recipe) {
+            String ingredient = ingredientEntry[0];
+            String amount = ingredientEntry[1];
+            System.out.println(ingredient + ": " + amount);
+        }
+    }
+
 
 
 

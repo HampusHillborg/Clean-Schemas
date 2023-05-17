@@ -102,8 +102,10 @@ public class MealsButton extends JFrame {
             mealPanel.setBorder(
                     BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10), titledBorder));
             GenerateMealButton generateMealButton = new GenerateMealButton(userProfile, foodDatabase, i + 1);
+            GenerateRecipe generateRecipe = new GenerateRecipe(userProfile, foodDatabase, i + 1);
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
             buttonPanel.add(generateMealButton);
+            buttonPanel.add(generateRecipe);
             mealPanel.add(buttonPanel, BorderLayout.NORTH);
             JPanel mealFoodsPanel = new JPanel();
             mealPanel.add(mealFoodsPanel, BorderLayout.CENTER);
@@ -176,6 +178,78 @@ public class MealsButton extends JFrame {
      * It contains a Profile object and a FoodDatabase object used to generate the
      * meal.
      */
+
+    private class GenerateRecipe extends JButton {
+
+        private final Color buttonColor = new Color(59, 89, 152);
+
+        private Profile userProfile;
+        private FoodDatabase foodDatabase;
+        private int i;
+        private JFrame recipeFrame;
+        private JLabel recipeLabel;
+        private JLabel recipeName;
+        double macrosModifier;
+
+
+        public GenerateRecipe(Profile userProfile, FoodDatabase foodDatabase, int i) {
+            this.i = i;
+            Meal meal = null;
+
+            setText("Generate Recipe");
+            setBackground(buttonColor);
+            setForeground(Color.WHITE);
+            setFocusPainted(false);
+            setBorder(BorderFactory.createLineBorder(buttonColor, 2));
+            setPreferredSize(new Dimension(150, 30));
+            this.userProfile = userProfile;
+            this.foodDatabase = foodDatabase;
+            if (!(foodDatabase.getSavedMeal(userId, i) == null)) {
+                if (i == 1) {
+                    meal = foodDatabase.getBreakfastFromName(foodDatabase.getSavedMeal(userId, i));
+                } else {
+                    meal = foodDatabase.getFoodFromName(foodDatabase.getSavedMeal(userId, i));
+                }
+                double portionGrams = ((userProfile.getTdee() / userProfile.getMealsPerDay()) / meal.getKcal() * 100);
+                macrosModifier = (portionGrams / 100);
+            }
+
+            addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ArrayList<String[]> recipe = foodDatabase.getRecipe(foodDatabase.getSavedMeal(userId, i));
+
+                    StringBuilder recipeText = new StringBuilder();
+                    for (String[] ingredientEntry : recipe) {
+                        String ingredient = ingredientEntry[0];
+                        double amount = Double.valueOf(ingredientEntry[1]) * macrosModifier;
+                        String label = ingredientEntry[2];
+                        recipeText.append(ingredient).append(": ").append(String.format("%.1f",amount)).append(label).append("<br>");
+                    }
+
+                    if (recipeText.length() > 0) {
+                        recipeFrame = new JFrame("Recipe");
+                        recipeName = new JLabel("Recipe for " + foodDatabase.getSavedMeal(userId, i));
+                        recipeLabel = new JLabel("<html>" + recipeText.toString() + "</html>");
+
+                        recipeFrame.getContentPane().setLayout(new FlowLayout());
+                        recipeFrame.getContentPane().add(recipeName);
+                        recipeFrame.getContentPane().add(recipeLabel);
+
+                        recipeFrame.setSize(400, 200);
+                        recipeFrame.setLocationRelativeTo(null);
+                        recipeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        recipeFrame.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No recipe found for this meal.", "Recipe Not Found", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            });
+
+
+        }
+    }
+
     private class GenerateMealButton extends JButton {
 
         private int totalCalories = 0;
