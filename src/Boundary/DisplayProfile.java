@@ -7,10 +7,7 @@ import src.Entity.Profile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 /**
  * This class is responsible for displaying a form for a user to enter their profile information.
@@ -37,7 +34,7 @@ public class DisplayProfile extends JFrame {
     /**
      * Constructor for the DisplayProfile class.
      *
-     * @param profile the user's profile information
+     * @param profile      the user's profile information
      * @param userDatabase the user database object
      */
     public DisplayProfile(Profile profile, UserDatabase userDatabase) {
@@ -77,12 +74,12 @@ public class DisplayProfile extends JFrame {
         heightField = new JTextField();
         weightField = new JTextField();
         ageField = new JTextField();
-        sexField = new JComboBox<>(new String[] { "Male", "Female" });
-        goalField = new JComboBox<>(new String[] { "Weight Loss", "Maintenance", "Weight Gain" });
-        activityField = new JComboBox<>(new String[] { "Sedentary", "Light Exercise(1-2/Week)",
-                "Moderate Exercise(3-5/Week)", "Heavy Exercise(6-7/Week)", "Athlete(2x/Day)" });
-        carbField = new JComboBox<>(new String[] { "Low", "Medium", "High" });
-        mealsField = new JComboBox<>(new String[] { "1", "2", "3", "4", "5" });
+        sexField = new JComboBox<>(new String[]{"Male", "Female"});
+        goalField = new JComboBox<>(new String[]{"Weight Loss", "Maintenance", "Weight Gain"});
+        activityField = new JComboBox<>(new String[]{"Sedentary", "Light Exercise(1-2/Week)",
+                "Moderate Exercise(3-5/Week)", "Heavy Exercise(6-7/Week)", "Athlete(2x/Day)"});
+        carbField = new JComboBox<>(new String[]{"Low", "Medium", "High"});
+        mealsField = new JComboBox<>(new String[]{"1", "2", "3", "4", "5"});
 
         heightField.setText(Double.toString(profile.getHeight()));
         weightField.setText(Double.toString(profile.getWeight()));
@@ -147,63 +144,74 @@ public class DisplayProfile extends JFrame {
 
         // added to remove border
         submitButton.setBorderPainted(false); // added to remove border
-        submitButton.addActionListener(e -> {
-            try {
-                double height = Double.parseDouble(heightField.getText());
-                double weight = Double.parseDouble(weightField.getText());
-                int age = Integer.parseInt(ageField.getText());
-                String sex = (String) sexField.getSelectedItem();
-                String goal = (String) goalField.getSelectedItem();
-                String activityValue = (String) activityField.getSelectedItem();
-                String carbAmount = (String) carbField.getSelectedItem();
-                int mealsPerDay = Integer.parseInt((String) mealsField.getSelectedItem());
-
-                profile.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
-
-                LoginController controller = new LoginController(userDatabase);
-                controller.updateProfile(profile);
-
-                ProfileDisplayGUI displayGUI = new ProfileDisplayGUI(profile);
-                dispose();
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(DisplayProfile.this,
-                        "Invalid input! Please enter valid numerical values.",
-                        "Input Error", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(DisplayProfile.this, "An error occurred while updating the profile.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
+        submitButton.addActionListener(e -> handleSubmission());
 
         // Add a KeyListener to each text field
-        heightField.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-                    submitButton.doClick(); // trigger button press
-                }
-            }
-        });
-
-        weightField.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-                    submitButton.doClick(); // trigger button press
-                }
-            }
-        });
-
-        ageField.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-                    submitButton.doClick(); // trigger button press
-                }
-            }
-        });
+        heightField.addKeyListener(createKeyListener(submitButton));
+        weightField.addKeyListener(createKeyListener(submitButton));
+        ageField.addKeyListener(createKeyListener(submitButton));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(submitButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }
+
+    private void handleSubmission() {
+        try {
+            double height = parseDoubleField(heightField);
+            double weight = parseDoubleField(weightField);
+            int age = parseIntegerField(ageField);
+            String sex = (String) sexField.getSelectedItem();
+            String goal = (String) goalField.getSelectedItem();
+            String activityValue = (String) activityField.getSelectedItem();
+            String carbAmount = (String) carbField.getSelectedItem();
+            int mealsPerDay = Integer.parseInt((String) mealsField.getSelectedItem());
+
+            profile.addToProfile(height, weight, age, sex, goal, activityValue, carbAmount, mealsPerDay);
+
+            LoginController controller = new LoginController(userDatabase);
+            controller.updateProfile(profile);
+
+            ProfileDisplayGUI displayGUI = new ProfileDisplayGUI(profile);
+            dispose();
+        } catch (NumberFormatException ex) {
+            showErrorDialog("Invalid input! Please enter valid numerical values.");
+        } catch (Exception ex) {
+            showErrorDialog("An error occurred while updating the profile.");
+        }
+    }
+
+    private double parseDoubleField(JTextField field) throws NumberFormatException {
+        String text = field.getText();
+        if (text.isEmpty()) {
+            throw new NumberFormatException("Input field is empty.");
+        }
+        return Double.parseDouble(text);
+    }
+
+    private int parseIntegerField(JTextField field) throws NumberFormatException {
+        String text = field.getText();
+        if (text.isEmpty()) {
+            throw new NumberFormatException("Input field is empty.");
+        }
+        return Integer.parseInt(text);
+    }
+
+    private KeyListener createKeyListener(JButton submitButton) {
+        return new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    submitButton.doClick(); // trigger button press
+                }
+            }
+        };
+    }
+
+    private void showErrorDialog(String message) {
+        JOptionPane.showMessageDialog(DisplayProfile.this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+
 
 
     public static void main(String[] args) {
