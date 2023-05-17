@@ -350,6 +350,11 @@ public class UserDatabaseOutput {
         return activityValue;
     }
 
+    /**
+     * Returns the Tdee of a given user
+     * @param userId
+     * @return
+     */
     public int getTdee(int userId) {
         PreparedStatement stmt = null;
         int tdee = 0;
@@ -378,6 +383,11 @@ public class UserDatabaseOutput {
         return tdee;
     }
 
+    /**
+     * Returns the fat of a given user
+     * @param userId
+     * @return
+     */
     public int getFett(int userId) {
         PreparedStatement stmt = null;
         int fett = 0;
@@ -405,6 +415,12 @@ public class UserDatabaseOutput {
 
         return fett;
     }
+
+    /**
+     * Returns the carbs of a given user
+     * @param userId
+     * @return
+     */
     public int getKolhydrater(int userId) {
         PreparedStatement stmt = null;
         int Kolhydrater = 0;
@@ -432,6 +448,12 @@ public class UserDatabaseOutput {
 
         return Kolhydrater;
     }
+
+    /**
+     * Returns the protein of a given user
+     * @param userId
+     * @return
+     */
     public int getProtein(int userId) {
         PreparedStatement stmt = null;
         int protein = 0;
