@@ -21,6 +21,10 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import src.Database.UserDatabase;
 import src.Entity.Profile;
 
+/**
+ * The DietPreferencesView class represents the graphical user interface for the Diet Preferences window.
+ * It allows the user to select their diet preferences and save them to a user's profile.
+ */
 public class DietPreferencesView {
     private JFrame frame;
     private ArrayList<JCheckBox> dietCheckboxes;
@@ -38,6 +42,9 @@ public class DietPreferencesView {
         addComponentsToFrame();
     }
 
+    /**
+     * Creates and configures the main frame for the Diet Preferences window.
+     */
     private void createFrame() {
         frame = new JFrame("Diet Preferences");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -80,12 +87,18 @@ public class DietPreferencesView {
                 BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10), titledBorder));
     }
 
+    /**
+     * Creates the main panel and sets it as the content pane of the main frame.
+     */
     private void createMainPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         frame.setContentPane(mainPanel);
     }
 
+    /**
+     * Creates the diet panel with checkboxes for selecting diet preferences and adds it to the main frame.
+     */
     private void createDietPanel() {
         JPanel dietPanel = new JPanel(new GridLayout(4, 2, 5, 5));
         dietPanel.setBorder(BorderFactory.createTitledBorder("Select your diet preferences"));
@@ -118,6 +131,10 @@ public class DietPreferencesView {
         frame.getContentPane().add(dietPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * Create a submit button with an actionlistener that
+     * saves the diet category to a user
+     */
     private void createSubmitButton() {
         Color buttonColor = new Color(32, 98, 147); // Custom button color
         Color panelBackgroundColor = Color.WHITE; // Custom panel background color
@@ -211,6 +228,10 @@ public class DietPreferencesView {
         frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
     }
 
+
+    /**
+     * Method that adds the components to the frame
+     */
     private void addComponentsToFrame() {
         frame.pack();
         frame.setVisible(true);
