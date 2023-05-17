@@ -309,6 +309,13 @@ public class UserDatabase {
         return rowsUpdated == 1;
     }
 
+    /**
+     * Saves the carbs to a user in the database
+     * @param userId
+     * @param kolhydrater
+     * @return
+     * @throws SQLException
+     */
     public boolean addKolhydrater(int userId, int kolhydrater) throws SQLException {
         String sql = "UPDATE user_data SET kolhydrater = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -318,6 +325,14 @@ public class UserDatabase {
         stmt.close();
         return rowsUpdated == 1;
     }
+
+    /**
+     * Saves the fat to a user in the database
+     * @param userId
+     * @param fett
+     * @return
+     * @throws SQLException
+     */
     public boolean addFett(int userId, int fett) throws SQLException {
         String sql = "UPDATE user_data SET fett = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -327,6 +342,14 @@ public class UserDatabase {
         stmt.close();
         return rowsUpdated == 1;
     }
+
+    /**
+     * Saves the protein to a user in the database
+     * @param userId
+     * @param protein
+     * @return
+     * @throws SQLException
+     */
     public boolean addProtein(int userId, int protein) throws SQLException {
         String sql = "UPDATE user_data SET protein = ? WHERE user_id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
