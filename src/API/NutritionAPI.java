@@ -66,6 +66,11 @@ public class NutritionAPI {
         }
     }
 
+    /**
+     * Method that returns true if the date from timestamp is today
+     * @param timestamp
+     * @return boolean
+     */
     private boolean isToday(long timestamp) {
         LocalDate today = LocalDate.now();
         Instant instant = Instant.ofEpochMilli(timestamp);
