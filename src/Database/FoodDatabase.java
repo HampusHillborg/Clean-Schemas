@@ -15,6 +15,16 @@ public class FoodDatabase {
         conn = userDatabase.getConnection();
     }
 
+    /**
+     * Method to save food in the foods table
+     *
+     * @param name
+     * @param carbs
+     * @param protein
+     * @param fat
+     * @param kcal
+     * @return
+     */
     public boolean saveFood(String name, String carbs, String protein, String fat, String kcal) {
         try {
             String sql = "INSERT INTO foods (name, carbs, protein, fat, kcal) VALUES (?, ?, ?, ?, ?)";
@@ -33,6 +43,13 @@ public class FoodDatabase {
         }
     }
 
+    /**
+     * Method to update the user_foods table with meal a meal
+     *
+     * @param userId
+     * @param foodName
+     * @param mealNumber
+     */
     public void updateMeal(int userId, String foodName, int mealNumber) {
         try {
             String sql = "UPDATE user_foods SET meal" + mealNumber + " = ? WHERE user_id = ?";
@@ -45,6 +62,7 @@ public class FoodDatabase {
             System.out.println("Error updating meal " + mealNumber + ": " + e.getMessage());
         }
     }
+
 
     public void updateMeals(int userId, String foodName, int mealNumber) {
         if (mealNumber >= 1 && mealNumber <= 5) {
@@ -80,6 +98,17 @@ public class FoodDatabase {
         return foodName;
     }
 
+    /**
+     * Returns a list of meals that match the given nutritional requirements and food category.
+     *
+     * @param proteins the amount of proteins in grams desired for each meal
+     * @param carbs the amount of carbohydrates in grams desired for each meal
+     * @param kcals the number of calories desired for each meal
+     * @param fat the amount of fat in grams desired for each meal
+     * @param category the food category desired, or "normal" for any category
+     *
+     * @return a list of Meal objects that match the nutritional requirements and food category
+     */
     public ArrayList<Meal> findFood(double proteins, double carbs, double kcals, double fat, String category) {
         double proteinRatio = proteins / kcals;
         double carbRatio = carbs / kcals;
@@ -141,6 +170,15 @@ public class FoodDatabase {
         return matchingMeals;
     }
 
+    /**
+     * returns a meal that fits the users meal plan with a 3% accuracy
+     * @param proteins
+     * @param carbs
+     * @param kcals
+     * @param fat
+     * @param category
+     * @return
+     */
     public ArrayList<Meal> findBreakfast(double proteins, double carbs, double kcals, double fat, String category) {
         double proteinRatio = proteins / kcals;
         double carbRatio = carbs / kcals;
@@ -202,6 +240,11 @@ public class FoodDatabase {
         return matchingMeals;
     }
 
+    /**
+     * Creates a Meal from a food name
+     * @param foodName
+     * @return
+     */
     public Meal getFoodFromName(String foodName) {
         Meal meal = null;
         String sql = "SELECT * FROM food WHERE name = ?";
@@ -221,6 +264,11 @@ public class FoodDatabase {
         return meal;
     }
 
+    /**
+     * Creates a Meal from a food name
+     * @param foodName
+     * @return
+     */
     public Meal getBreakfastFromName(String foodName) {
         Meal meal = null;
         String sql = "SELECT * FROM breakfast WHERE name = ?";
@@ -240,6 +288,11 @@ public class FoodDatabase {
         return meal;
     }
 
+    /**
+     * Returns an array of ingredients
+     * @param name
+     * @return
+     */
     public ArrayList<String[]> getRecipe(String name) {
         int id = getFoodId(name);
         ArrayList<String[]> recipe = new ArrayList<>();
@@ -280,6 +333,11 @@ public class FoodDatabase {
         return recipe;
     }
 
+    /**
+     * Returns the food id from a food name
+     * @param name
+     * @return
+     */
     public int getFoodId(String name) {
         String sql = "SELECT * FROM food WHERE name = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -294,6 +352,7 @@ public class FoodDatabase {
         }
         return 0;
     }
+
 
     private double parseDoubleValue(String value) {
         return Double.parseDouble(value.replace(",", "."));
