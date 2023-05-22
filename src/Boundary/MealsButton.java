@@ -272,7 +272,7 @@ public class MealsButton extends JFrame {
          * 
          * @param userProfile  a Profile object containing the user's information
          * @param foodDatabase a FoodDatabase object containing the database of
-         *                     available meals
+         * available meals
          */
         public GenerateMealButton(Profile userProfile, FoodDatabase foodDatabase, int i) {
             this.i = i;
@@ -314,6 +314,12 @@ public class MealsButton extends JFrame {
             macrosPanel.add(Box.createRigidArea(new Dimension(0, 20))); // add some space before totalCaloriesLabel
         }
 
+        /**
+         * Updates the labels with the nutrition information based on the provided meal and user profile.
+         *
+         * @param meal The meal object containing nutritional information.
+         * @param userProfile The user profile object containing user-specific information.
+         */
         private void updateLabels(Meal meal, Profile userProfile) {
             double portionGrams = ((userProfile.getTdee() / userProfile.getMealsPerDay()) / meal.getKcal() * 100);
             double macrosModifier = (portionGrams / 100);
@@ -324,6 +330,11 @@ public class MealsButton extends JFrame {
             gramsToEatLabel.setText("Portion size: " + String.format("%.2f", portionGrams) + "g");
         }
 
+        /**
+         * Performs the action when the "Generate Meal" button is clicked. It generates a random meal based on the user's profile,
+         * updates the labels with the nutrition information of the selected meal, calculates the total macros, and updates the meal panel.
+         * If no matching meals are found, it prints a message indicating the absence of matching meals.
+         */
         private void generateMealAction() {
             int tdee = userProfile.getTdee() / userProfile.getMealsPerDay();
             int protein = userProfile.getProtein() / userProfile.getMealsPerDay();
