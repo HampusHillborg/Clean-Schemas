@@ -5,7 +5,6 @@ import src.Controller.MacronutrientControl;
 import java.sql.*;
 
 public class UserDatabase {
-
     Connection conn;
     MacronutrientControl macronutrientControl;
     private ConnectToDatabase connection = new ConnectToDatabase();
@@ -36,7 +35,8 @@ public class UserDatabase {
 
     /**
      * Validates login credentials for a given email and password combination.
-     * @param email the email of the user trying to log in.
+     *
+     * @param email    the email of the user trying to log in.
      * @param password the password of the user trying to log in.
      * @return true if the login credentials are valid, false otherwise.
      * The method queries the database to count the number of rows that match the email and password,
@@ -62,8 +62,7 @@ public class UserDatabase {
 
     /**
      * Creates a new user with the given email, first name, last name, age, sex, and
-     * password
-     * in the database. Also creates a corresponding row in the user_data table.
+     * password in the database. Also creates a corresponding row in the user_data table.
      * Returns true if the operation was successful, false otherwise.
      */
     public boolean createUser(String email, int age, String sex, String password) throws SQLException {
@@ -107,10 +106,11 @@ public class UserDatabase {
     }
 
     /**
-     Retrieves the user ID of a given email address from the "users" table in the database.
-     @param email The email address of the user.
-     @return The user ID associated with the given email address. Returns -1 if the email address is not found.
-     @throws RuntimeException if an error occurs while executing the SQL query.
+     * Retrieves the user ID of a given email address from the "users" table in the database.
+     *
+     * @param email The email address of the user.
+     * @return The user ID associated with the given email address. Returns -1 if the email address is not found.
+     * @throws RuntimeException if an error occurs while executing the SQL query.
      */
     public int getUserId(String email) {
         try {
@@ -146,6 +146,7 @@ public class UserDatabase {
 
     /**
      * Adds the sex to the user_data table
+     *
      * @param userId
      * @param sex
      * @return
@@ -163,6 +164,7 @@ public class UserDatabase {
 
     /**
      * Adds the age to the user_data table
+     *
      * @param userId
      * @param age
      * @return
@@ -180,13 +182,14 @@ public class UserDatabase {
 
     /**
      * Adds a category to the user_data table
+     *
      * @param userId
      * @param category
      * @return
      * @throws SQLException
      */
     public boolean addCategory(int userId, String category) throws SQLException {
-        if(category != null) {
+        if (category != null) {
             category.toLowerCase();
             if (category.equals("gluten-free")) {
                 category = "glutenFree";
@@ -276,11 +279,12 @@ public class UserDatabase {
     }
 
     /**
-     Updates the BMR (Basal Metabolic Rate) value of a given user in the user_data table of the database.
-     @param userId the id of the user whose BMR needs to be updated
-     @param bmr the new BMR value to be set for the user
-     @return true if the update is successful, false otherwise
-     @throws SQLException if a database access error occurs or this method is called on a closed connection
+     * Updates the BMR (Basal Metabolic Rate) value of a given user in the user_data table of the database.
+     *
+     * @param userId the id of the user whose BMR needs to be updated
+     * @param bmr    the new BMR value to be set for the user
+     * @return true if the update is successful, false otherwise
+     * @throws SQLException if a database access error occurs or this method is called on a closed connection
      */
     public boolean addBmr(int userId, int bmr) throws SQLException {
         String sql = "UPDATE user_data SET bmr = ? WHERE user_id = ?";
@@ -293,11 +297,12 @@ public class UserDatabase {
     }
 
     /**
-     Updates the tdee (Total Daily Energy Expenditure) value of a given user in the user_data table of the database.
-     @param userId the id of the user whose BMR needs to be updated
-     @param tdee the new BMR value to be set for the user
-     @return true if the update is successful, false otherwise
-     @throws SQLException if a database access error occurs or this method is called on a closed connection
+     * Updates the tdee (Total Daily Energy Expenditure) value of a given user in the user_data table of the database.
+     *
+     * @param userId the id of the user whose BMR needs to be updated
+     * @param tdee   the new BMR value to be set for the user
+     * @return true if the update is successful, false otherwise
+     * @throws SQLException if a database access error occurs or this method is called on a closed connection
      */
     public boolean addTdee(int userId, int tdee) throws SQLException {
         String sql = "UPDATE user_data SET tdee = ? WHERE user_id = ?";
@@ -311,6 +316,7 @@ public class UserDatabase {
 
     /**
      * Saves the carbs to a user in the database
+     *
      * @param userId
      * @param kolhydrater
      * @return
@@ -328,6 +334,7 @@ public class UserDatabase {
 
     /**
      * Saves the fat to a user in the database
+     *
      * @param userId
      * @param fett
      * @return
@@ -345,6 +352,7 @@ public class UserDatabase {
 
     /**
      * Saves the protein to a user in the database
+     *
      * @param userId
      * @param protein
      * @return
