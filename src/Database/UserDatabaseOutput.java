@@ -8,7 +8,6 @@ import java.sql.SQLException;
 public class UserDatabaseOutput {
 
     private final Connection conn;
-    private ConnectToDatabase connection = new ConnectToDatabase();
 
     public UserDatabaseOutput(Connection conn) {
         this.conn = conn;
@@ -42,33 +41,20 @@ public class UserDatabaseOutput {
      * @return
      */
     public String getPassword(int userId) {
-        PreparedStatement stmt = null;
         String password = null;
-
-        try {
-            String sql = "SELECT password FROM users WHERE id = ?";
-            stmt = conn.prepareStatement(sql);
+        String sql = "SELECT password FROM users WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                password = rs.getString("password");
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    password = rs.getString("password");
+                }
             }
-
-            // Clean-up environment
-            rs.close();
-            stmt.close();
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
         return password;
     }
-
-
 
     /**
      * Returns the current weight of a given user
@@ -76,26 +62,19 @@ public class UserDatabaseOutput {
      * @param userId
      * @return
      */
-
     public Double getCurrentWeight(int userId) {
         Double currentWeight = null;
-
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT current_weight FROM user_data WHERE user_id = ?")) {
+        String sql = "SELECT current_weight FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     currentWeight = rs.getDouble("current_weight");
                 }
             }
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
-
         return currentWeight;
     }
 
@@ -106,25 +85,18 @@ public class UserDatabaseOutput {
      * @return
      */
     public Double getHeight(int userId) {
-        String sql = "SELECT height FROM user_data WHERE user_id = ?";
         Double height = null;
-
+        String sql = "SELECT height FROM user_data WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     height = rs.getDouble("height");
                 }
             }
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
-
         return height;
     }
 
@@ -135,30 +107,18 @@ public class UserDatabaseOutput {
      * @return
      */
     public String getGoal(int userId) {
-        PreparedStatement stmt = null;
         String goal = null;
-
-        try {
-            String sql = "SELECT goal FROM user_data WHERE user_id = ?";
-            stmt = conn.prepareStatement(sql);
+        String sql = "SELECT goal FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                goal = rs.getString("goal");
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    goal = rs.getString("goal");
+                }
             }
-
-            // Clean-up environment
-            rs.close();
-            stmt.close();
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
-
         return goal;
     }
 
@@ -168,30 +128,18 @@ public class UserDatabaseOutput {
      * @return
      */
     public String getCategory(int userId) {
-        PreparedStatement stmt = null;
         String category = null;
-
-        try {
-            String sql = "SELECT category FROM user_data WHERE user_id = ?";
-            stmt = conn.prepareStatement(sql);
+        String sql = "SELECT category FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                category = rs.getString("category");
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    category = rs.getString("category");
+                }
             }
-
-            // Clean-up environment
-            rs.close();
-            stmt.close();
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
-
         return category;
     }
 
@@ -203,7 +151,8 @@ public class UserDatabaseOutput {
      */
     public String getSex(int userId) {
         String sex = null;
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT sex FROM user_data WHERE user_id = ?")) {
+        String sql = "SELECT sex FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -212,8 +161,6 @@ public class UserDatabaseOutput {
             }
         } catch (SQLException se) {
             se.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return sex;
     }
@@ -225,28 +172,17 @@ public class UserDatabaseOutput {
      * @return
      */
     public int getAge(int userId) {
-        PreparedStatement stmt = null;
         int age = 0;
-
-        try {
-            String sql = "SELECT age FROM user_data WHERE user_id = ?";
-            stmt = conn.prepareStatement(sql);
+        String sql = "SELECT age FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                age = rs.getInt("age");
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    age = rs.getInt("age");
+                }
             }
-
-            // Clean-up environment
-            rs.close();
-            stmt.close();
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
         return age;
     }
@@ -258,28 +194,17 @@ public class UserDatabaseOutput {
      * @return
      */
     public int getMealsPerDay(int userId) {
-        PreparedStatement stmt = null;
         int mealsPerDay = 0;
-
-        try {
-            String sql = "SELECT meals_per_day FROM user_data WHERE user_id = ?";
-            stmt = conn.prepareStatement(sql);
+        String sql = "SELECT meals_per_day FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                mealsPerDay = rs.getInt("meals_per_day");
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    mealsPerDay = rs.getInt("meals_per_day");
+                }
             }
-
-            // Clean-up environment
-            rs.close();
-            stmt.close();
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
         return mealsPerDay;
     }
@@ -291,28 +216,17 @@ public class UserDatabaseOutput {
      * @return
      */
     public String getCarbs(int userId) {
-        PreparedStatement stmt = null;
         String carbs = null;
-
-        try {
-            String sql = "SELECT carbs FROM user_data WHERE user_id = ?";
-            stmt = conn.prepareStatement(sql);
+        String sql = "SELECT carbs FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                carbs = rs.getString("carbs");
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    carbs = rs.getString("carbs");
+                }
             }
-
-            // Clean-up environment
-            rs.close();
-            stmt.close();
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
         return carbs;
     }
@@ -324,169 +238,110 @@ public class UserDatabaseOutput {
      * @return
      */
     public String getActivityValue(int userId) {
-        PreparedStatement stmt = null;
         String activityValue = null;
-
-        try {
-            String sql = "SELECT activityValue FROM user_data WHERE user_id = ?";
-            stmt = conn.prepareStatement(sql);
+        String sql = "SELECT activityValue FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                activityValue = rs.getString("activityValue");
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    activityValue = rs.getString("activityValue");
+                }
             }
-
-            // Clean-up environment
-            rs.close();
-            stmt.close();
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
         return activityValue;
     }
 
     /**
      * Returns the Tdee of a given user
+     *
      * @param userId
      * @return
      */
     public int getTdee(int userId) {
-        PreparedStatement stmt = null;
         int tdee = 0;
-
-        try {
-            String sql = "SELECT tdee FROM user_data WHERE user_id = ?";
-            stmt = conn.prepareStatement(sql);
+        String sql = "SELECT tdee FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                tdee = rs.getInt("tdee");
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    tdee = rs.getInt("tdee");
+                }
             }
-
-            // Clean-up environment
-            rs.close();
-            stmt.close();
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
-
         return tdee;
     }
 
     /**
      * Returns the fat of a given user
+     *
      * @param userId
      * @return
      */
     public int getFett(int userId) {
-        PreparedStatement stmt = null;
         int fett = 0;
-
-        try {
-            String sql = "SELECT fett FROM  user_data  WHERE user_id = ?";
-            stmt = conn.prepareStatement(sql);
+        String sql = "SELECT fett FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                fett = rs.getInt("fett");
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    fett = rs.getInt("fett");
+                }
             }
-
-            // Clean-up environment
-            rs.close();
-            stmt.close();
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
-
         return fett;
     }
 
     /**
      * Returns the carbs of a given user
+     *
      * @param userId
      * @return
      */
     public int getKolhydrater(int userId) {
-        PreparedStatement stmt = null;
         int Kolhydrater = 0;
-
-        try {
-            String sql = "SELECT kolhydrater FROM  user_data  WHERE user_id = ?";
-            stmt = conn.prepareStatement(sql);
+        String sql = "SELECT kolhydrater FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                Kolhydrater = rs.getInt("kolhydrater");
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Kolhydrater = rs.getInt("kolhydrater");
+                }
             }
-
-            // Clean-up environment
-            rs.close();
-            stmt.close();
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
-
         return Kolhydrater;
     }
 
     /**
      * Returns the protein of a given user
+     *
      * @param userId
      * @return
      */
     public int getProtein(int userId) {
-        PreparedStatement stmt = null;
         int protein = 0;
-
-        try {
-            String sql = "SELECT protein FROM  user_data  WHERE user_id = ?";
-            stmt = conn.prepareStatement(sql);
+        String sql = "SELECT protein FROM user_data WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                protein = rs.getInt("protein");
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    protein = rs.getInt("protein");
+                }
             }
-
-            // Clean-up environment
-            rs.close();
-            stmt.close();
         } catch (SQLException se) {
-            // Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            // Handle other errors
-            e.printStackTrace();
         }
-
         return protein;
     }
-
-
-
 
     public static void main(String[] args) {
 
     }
-
 }
