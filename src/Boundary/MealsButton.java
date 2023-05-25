@@ -272,7 +272,7 @@ public class MealsButton extends JFrame {
          * 
          * @param userProfile  a Profile object containing the user's information
          * @param foodDatabase a FoodDatabase object containing the database of
-         *                     available meals
+         * available meals
          */
         public GenerateMealButton(Profile userProfile, FoodDatabase foodDatabase, int i) {
             this.i = i;
@@ -292,16 +292,9 @@ public class MealsButton extends JFrame {
                 } else {
                     meal = foodDatabase.getFoodFromName(foodDatabase.getSavedMeal(userId, i));
                 }
-                double portionGrams = ((userProfile.getTdee() / userProfile.getMealsPerDay()) / meal.getKcal() * 100);
-                double macrosModifier = (portionGrams / 100);
-                proteinLabel.setText("Protein: " + String.format("%.2f", meal.getProtein() * macrosModifier) + "g");
-                carbsLabel.setText("Carbs: " + String.format("%.2f", meal.getCarbs() * macrosModifier) + "g");
-                fatLabel.setText("Fat: " + String.format("%.2f", meal.getFat() * macrosModifier) + "g");
-                caloriesLabel.setText("Calories: " + String.format("%.2f", meal.getKcal() * macrosModifier) + " kcal");
-                gramsToEatLabel.setText("Portion size: " + String.format("%.2f", portionGrams) + "g");
+                updateLabels(meal, userProfile);
             }
 
-            // add the nutrition Labels to the macrosPanel
             macrosPanel.add(proteinLabel);
             macrosPanel.add(carbsLabel);
             macrosPanel.add(fatLabel);
@@ -314,72 +307,86 @@ public class MealsButton extends JFrame {
 
             addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    // Action to be performed when "Generate Meal" button is clicked
-                    int tdee = userProfile.getTdee() / userProfile.getMealsPerDay();
-                    int protein = userProfile.getProtein() / userProfile.getMealsPerDay();
-                    int carbs = userProfile.getCarbs() / userProfile.getMealsPerDay();
-                    int fat = userProfile.getFat() / userProfile.getMealsPerDay();
-                    ArrayList<Meal> matchingMeals;
-
-                    // Clear the existing total macros
-                    totalCalories = 0;
-                    totalProtein = 0;
-                    totalCarbs = 0;
-                    totalFat = 0;
-
-                    if (i == 1) {
-                        matchingMeals = foodDatabase.findBreakfast(protein, carbs, tdee, fat,
-                                userProfile.getDietCategory());
-                    } else {
-                        matchingMeals = foodDatabase.findFood(protein, carbs, tdee, fat, userProfile.getDietCategory());
-                    }
-                    Meal randomMeal = chooseRandomMeal(matchingMeals, tdee);
-
-                    if (randomMeal != null) {
-                        // System.out.println("Selected meal: " + randomMeal.getName());
-                        double portionGrams = ((userProfile.getTdee() / userProfile.getMealsPerDay())
-                                / randomMeal.getKcal() * 100);
-                        double macrosModifier = (portionGrams / 100);
-                        foodDatabase.updateMeals(userId, randomMeal.getName(), i);
-
-                        // Update the labels with the nutrition information
-                        mealLabel.setText("Selected meal: " + randomMeal.getName());
-                        proteinLabel.setText(
-                                "Protein: " + String.format("%.2f", randomMeal.getProtein() * macrosModifier) + "g");
-                        carbsLabel.setText(
-                                "Carbs: " + String.format("%.2f", randomMeal.getCarbs() * macrosModifier) + "g");
-                        fatLabel.setText("Fat: " + String.format("%.2f", randomMeal.getFat() * macrosModifier) + "g");
-                        caloriesLabel.setText(
-                                "Calories: " + String.format("%.2f", randomMeal.getKcal() * macrosModifier) + " kcal");
-                        gramsToEatLabel.setText("Portion size: " + String.format("%.2f", portionGrams) + "g");
-
-                        totalCalories += (int) (randomMeal.getKcal() * macrosModifier);
-                        totalProtein += (int) (randomMeal.getProtein() * macrosModifier);
-                        totalCarbs += (int) (randomMeal.getCarbs() * macrosModifier);
-                        totalFat += (int) (randomMeal.getFat() * macrosModifier);
-
-                        // Update the total macro labels
-                        totalCaloriesLabel.setText("Total Calories: " + totalCalories);
-                        totalProteinLabel.setText("Total Protein: " + totalProtein + "g");
-                        totalCarbsLabel.setText("Total Carbs: " + totalCarbs + "g");
-                        totalFatLabel.setText("Total Fat: " + totalFat + "g");
-
-                        // Add the label to the meal panel
-                        JPanel mealPanel = (JPanel) getParent().getParent();
-                        JPanel mealFoodsPanel = (JPanel) mealPanel.getComponent(1);
-                        mealFoodsPanel.removeAll(); // Remove previous meal label if any
-                        mealFoodsPanel.add(mealLabel);
-                        mealFoodsPanel.revalidate();
-                        mealFoodsPanel.repaint();
-
-                    } else {
-                        System.out.println("No matching meals found.");
-                    }
-
+                    generateMealAction();
                 }
             });
+
             macrosPanel.add(Box.createRigidArea(new Dimension(0, 20))); // add some space before totalCaloriesLabel
         }
+
+        /**
+         * Updates the labels with the nutrition information based on the provided meal and user profile.
+         *
+         * @param meal The meal object containing nutritional information.
+         * @param userProfile The user profile object containing user-specific information.
+         */
+        private void updateLabels(Meal meal, Profile userProfile) {
+            double portionGrams = ((userProfile.getTdee() / userProfile.getMealsPerDay()) / meal.getKcal() * 100);
+            double macrosModifier = (portionGrams / 100);
+            proteinLabel.setText("Protein: " + String.format("%.2f", meal.getProtein() * macrosModifier) + "g");
+            carbsLabel.setText("Carbs: " + String.format("%.2f", meal.getCarbs() * macrosModifier) + "g");
+            fatLabel.setText("Fat: " + String.format("%.2f", meal.getFat() * macrosModifier) + "g");
+            caloriesLabel.setText("Calories: " + String.format("%.2f", meal.getKcal() * macrosModifier) + " kcal");
+            gramsToEatLabel.setText("Portion size: " + String.format("%.2f", portionGrams) + "g");
+        }
+
+        /**
+         * Performs the action when the "Generate Meal" button is clicked. It generates a random meal based on the user's profile,
+         * updates the labels with the nutrition information of the selected meal, calculates the total macros, and updates the meal panel.
+         * If no matching meals are found, it prints a message indicating the absence of matching meals.
+         */
+        private void generateMealAction() {
+            int tdee = userProfile.getTdee() / userProfile.getMealsPerDay();
+            int protein = userProfile.getProtein() / userProfile.getMealsPerDay();
+            int carbs = userProfile.getCarbs() / userProfile.getMealsPerDay();
+            int fat = userProfile.getFat() / userProfile.getMealsPerDay();
+            ArrayList<Meal> matchingMeals;
+
+            totalCalories = 0;
+            totalProtein = 0;
+            totalCarbs = 0;
+            totalFat = 0;
+
+            if (i == 1) {
+                matchingMeals = foodDatabase.findBreakfast(protein, carbs, tdee, fat, userProfile.getDietCategory());
+            } else {
+                matchingMeals = foodDatabase.findFood(protein, carbs, tdee, fat, userProfile.getDietCategory());
+            }
+            Meal randomMeal = chooseRandomMeal(matchingMeals, tdee);
+
+            if (randomMeal != null) {
+                double portionGrams = ((userProfile.getTdee() / userProfile.getMealsPerDay()) / randomMeal.getKcal() * 100);
+                double macrosModifier = (portionGrams / 100);
+                foodDatabase.updateMeals(userId, randomMeal.getName(), i);
+
+                mealLabel.setText("Selected meal: " + randomMeal.getName());
+                proteinLabel.setText("Protein: " + String.format("%.2f", randomMeal.getProtein() * macrosModifier) + "g");
+                carbsLabel.setText("Carbs: " + String.format("%.2f", randomMeal.getCarbs() * macrosModifier) + "g");
+                fatLabel.setText("Fat: " + String.format("%.2f", randomMeal.getFat() * macrosModifier) + "g");
+                caloriesLabel.setText("Calories: " + String.format("%.2f", randomMeal.getKcal() * macrosModifier) + " kcal");
+                gramsToEatLabel.setText("Portion size: " + String.format("%.2f", portionGrams) + "g");
+
+                totalCalories += (int) (randomMeal.getKcal() * macrosModifier);
+                totalProtein += (int) (randomMeal.getProtein() * macrosModifier);
+                totalCarbs += (int) (randomMeal.getCarbs() * macrosModifier);
+                totalFat += (int) (randomMeal.getFat() * macrosModifier);
+
+                totalCaloriesLabel.setText("Total Calories: " + totalCalories);
+                totalProteinLabel.setText("Total Protein: " + totalProtein + "g");
+                totalCarbsLabel.setText("Total Carbs: " + totalCarbs + "g");
+                totalFatLabel.setText("Total Fat: " + totalFat + "g");
+
+                JPanel mealPanel = (JPanel) getParent().getParent();
+                JPanel mealFoodsPanel = (JPanel) mealPanel.getComponent(1);
+                mealFoodsPanel.removeAll();
+                mealFoodsPanel.add(mealLabel);
+                mealFoodsPanel.revalidate();
+                mealFoodsPanel.repaint();
+            } else {
+                System.out.println("No matching meals found.");
+            }
+        }
+
     }
 
     /**
@@ -388,7 +395,7 @@ public class MealsButton extends JFrame {
      * Calculates the recommended grams of the meal based on the calorie count and
      * sets it on the chosen meal.
      * Returns the chosen meal or null if the list is empty.
-     * 
+     *
      * @param matchingMeals the list of meals to choose from
      * @param kcals         the calorie count to match
      *
