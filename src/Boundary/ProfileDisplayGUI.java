@@ -27,14 +27,14 @@ public class ProfileDisplayGUI extends JFrame {
         super("User Profile");
 
         // Initialize labels with user input
-        heightLabel = createLabel("Höjd (cm): " + userProfile.getHeight());
-        weightLabel = createLabel("Vikt (kg): " + userProfile.getWeight());
-        ageLabel = createLabel("Ålder: " + userProfile.getAge());
-        sexLabel = createLabel("Kön: " + userProfile.getSex());
-        goalLabel = createLabel("Mål: " + userProfile.getGoal());
-        carbLabel = createLabel("Kolhydratintag: " + userProfile.getCarbAmount());
-        mealsLabel = createLabel("Antal måltider: " + userProfile.getMealsPerDay());
-        tdeeLabel = createLabel("Du behöver detta antal kalorier: " + userProfile.getTdee() + " Kcals");
+        heightLabel = createLabel("Height (cm): " + userProfile.getHeight());
+        weightLabel = createLabel("Weight (kg): " + userProfile.getWeight());
+        ageLabel = createLabel("Age: " + userProfile.getAge());
+        sexLabel = createLabel("Sex: " + userProfile.getSex());
+        goalLabel = createLabel("Goal: " + userProfile.getGoal());
+        carbLabel = createLabel("Carbohydrate Intake: " + userProfile.getCarbAmount());
+        mealsLabel = createLabel("Number of Meals: " + userProfile.getMealsPerDay());
+        tdeeLabel = createLabel("You need this amount of Kcals: " + userProfile.getTdee() + " Kcals");
 
         // Create panel and set layout
         JPanel panel = new JPanel(new GridBagLayout());
