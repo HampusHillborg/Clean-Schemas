@@ -23,6 +23,9 @@ import src.Entity.Food;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class that handles the livsmedelsverket API
+ */
 public class NutritionAPI {
 
     private String url = "http://www7.slv.se/apilivsmedel/LivsmedelService.svc/Livsmedel/Naringsvarde/";

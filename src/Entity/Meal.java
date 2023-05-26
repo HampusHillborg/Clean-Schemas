@@ -1,5 +1,9 @@
 package src.Entity;
 
+/**
+ * Class that represents a Meal
+ * and is used to store data of a Meal
+ */
 public class Meal {
     private int id;
     private String name;
