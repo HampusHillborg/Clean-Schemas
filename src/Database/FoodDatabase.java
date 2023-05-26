@@ -7,6 +7,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Class that handles requests sent to
+ * the database related to food
+ */
 public class FoodDatabase {
 
     private Connection conn;

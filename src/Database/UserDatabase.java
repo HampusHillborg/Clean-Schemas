@@ -4,6 +4,10 @@ import src.Controller.MacronutrientControl;
 
 import java.sql.*;
 
+/**
+ * Class that handles the database inputs
+ * that relates to the user database
+ */
 public class UserDatabase {
     Connection conn;
     MacronutrientControl macronutrientControl;
