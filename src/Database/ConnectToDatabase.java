@@ -4,6 +4,9 @@ package src.Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/**
+ * Class that handles the connection to the database
+ */
 public class ConnectToDatabase {
 
     private LogData logData = new LogData();

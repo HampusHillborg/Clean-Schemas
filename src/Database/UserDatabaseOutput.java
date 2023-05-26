@@ -5,6 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class that handles the database outputs
+ * that relates to the user database
+ */
 public class UserDatabaseOutput {
 
     private final Connection conn;
