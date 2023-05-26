@@ -8,10 +8,19 @@ import java.awt.event.ActionListener;
 import src.API.NutritionAPI;
 import src.Entity.Food;
 
+/**
+ * This class represents a GUI window for searching for foods.
+ * It extends the JFrame class and implements the ActionListener interface.
+ * The ActionListener interface is used to handle events from the search button.
+ */
 public class SearchForFoods extends JFrame implements ActionListener {
 
     private JTextField foodNameField;
     private JButton searchButton;
+    /**
+     * Constructs a new instance of the SearchForFoods class.
+     * It sets up the GUI components and initializes the window properties.
+     */
 
     public SearchForFoods() {
         super("Search for Foods");
@@ -49,7 +58,12 @@ public class SearchForFoods extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-
+    /**
+     * Handles the actionPerformed event from the search button.
+     * It retrieves the food name from the text field, calls the searchForFood method in the NutritionAPI class,
+     * and displays the search result in a JOptionPane message dialog.
+     * @param e the ActionEvent object representing the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == searchButton) {
