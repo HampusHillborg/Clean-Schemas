@@ -76,7 +76,7 @@ public class MealsButton extends JFrame {
         userId = userDatabase.getUserId(userProfile.getEmail());
         setTitle("Meals GUI");
         setSize(WIDTH, HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         setupMealsPanel(userProfile);
         setupMacrosPanel(userProfile);
@@ -247,10 +247,10 @@ public class MealsButton extends JFrame {
         private FoodDatabase foodDatabase;
         private int mealIndex;
     
-        private int totalCalories = 0;
-        private int totalProtein = 0;
-        private int totalCarbs = 0;
-        private int totalFat = 0;
+        private double totalCalories = 0;
+        private double totalProtein = 0;
+        private double totalCarbs = 0;
+        private double totalFat = 0;
     
         private JLabel proteinLabel = new JLabel("Protein:");
         private JLabel carbsLabel = new JLabel("Carbs:");
@@ -331,29 +331,7 @@ public class MealsButton extends JFrame {
                 double portionGrams = ((userProfile.getTdee() / userProfile.getMealsPerDay()) / randomMeal.getKcal()
                         * 100);
                 double macrosModifier = (portionGrams / 100);
-    
-                // Retrieve previous meal's values
-                previousCalories = 0;
-                previousProtein = 0;
-                previousCarbs = 0;
-                previousFat = 0;
-                if (mealIndex != 1 && foodDatabase.getSavedMeal(userId, mealIndex) != null) {
-                    Meal previousMeal = foodDatabase.getFoodFromName(foodDatabase.getSavedMeal(userId, mealIndex));
-                    double previousPortionGrams = ((userProfile.getTdee() / userProfile.getMealsPerDay())
-                            / previousMeal.getKcal() * 100);
-                    double previousMacrosModifier = (previousPortionGrams / 100);
-                    previousCalories = (int) previousMeal.getKcal();
-                    previousProtein = (int) (previousMeal.getProtein() * previousMacrosModifier);
-                    previousCarbs = (int) (previousMeal.getCarbs() * previousMacrosModifier);
-                    previousFat = (int) (previousMeal.getFat() * previousMacrosModifier);
-                }
-    
-                // Reset total values for the specific meal
-                totalCalories -= previousCalories;
-                totalProtein -= previousProtein;
-                totalCarbs -= previousCarbs;
-                totalFat -= previousFat;
-    
+
                 foodDatabase.updateMeals(userId, randomMeal.getName(), mealIndex);
     
                 mealLabel.setText("Selected meal: " + randomMeal.getName());
@@ -362,17 +340,35 @@ public class MealsButton extends JFrame {
                 fatLabel.setText("Fat: " + String.format("%.2f", randomMeal.getFat() * macrosModifier) + "g");
                 caloriesLabel.setText("Calories: " + String.format("%.2f", randomMeal.getKcal() * macrosModifier) + " kcal");
                 gramsToEatLabel.setText("Portion size: " + String.format("%.2f", portionGrams) + "g");
-    
-                totalCalories += randomMeal.getKcal();
-                totalProtein += (int) (randomMeal.getProtein() * macrosModifier);
-                totalCarbs += (int) (randomMeal.getCarbs() * macrosModifier);
-                totalFat += (int) (randomMeal.getFat() * macrosModifier);
-    
+
+                String savedMeal;
+                Meal meal;
+                totalCalories = 0;
+                totalFat = 0;
+                totalCarbs = 0;
+                totalProtein = 0;
+
+                for (int i = 0; i < userProfile.getMealsPerDay(); i++) {
+                    savedMeal = foodDatabase.getSavedMeal(userId, i + 1);
+                    if (i == 0) {
+                        meal = foodDatabase.getBreakfastFromName(savedMeal);
+                    } else {
+                        meal = foodDatabase.getFoodFromName(savedMeal);
+                    }
+                    macrosModifier = (userProfile.getTdee() / userProfile.getMealsPerDay()) / meal.getKcal();
+                    totalCarbs += meal.getCarbs() * macrosModifier;
+                    totalFat += meal.getFat() * macrosModifier;
+                    totalProtein += meal.getProtein() * macrosModifier;
+                    totalCalories += meal.getKcal() * macrosModifier;
+
+                }
+
                 // Update the total labels
-                totalCaloriesLabel.setText("Total Calories: " + totalCalories);
-                totalProteinLabel.setText("Total Protein: " + totalProtein + "g");
-                totalCarbsLabel.setText("Total Carbs: " + totalCarbs + "g");
-                totalFatLabel.setText("Total Fat: " + totalFat + "g");
+                totalCaloriesLabel.setText("Total Calories: " + String.format("%.2f", totalCalories) + " kcal");
+                totalProteinLabel.setText("Total Protein: " + String.format("%.2f",totalProtein) + "g");
+                totalCarbsLabel.setText("Total Carbs: " + String.format("%.2f",totalCarbs) + "g");
+                totalFatLabel.setText("Total Fat: " + String.format("%.2f",totalFat) + "g");
+
     
                 JPanel mealPanel = (JPanel) getParent().getParent();
                 JPanel mealFoodsPanel = (JPanel) mealPanel.getComponent(1);
