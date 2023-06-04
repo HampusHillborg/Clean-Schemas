@@ -64,11 +64,11 @@ public class LandingPage extends JFrame {
         add(buttonsPanel, BorderLayout.CENTER);
 
         addButtonWithLabel(buttonsPanel, "Meals",
-                "<html><p style='width:150px;'>Heres where you see the meals for the day. You can either choose which foods you want to eat for a certain meal or you can let us generate a meal for you!</p></html>");
+                "<html><p style='width:150px;'>Heres where you can generate meals based on your daily needs!</p></html>");
         addButtonWithLabel(buttonsPanel, "Search for foods",
                 "<html><p style='width:150px;'>Here you can search for a food to see how much protein, carbs, fat and calories it contains per 100 grams</p></html>");
-        addButtonWithLabel(buttonsPanel, "Choose Foods",
-                "<html><p style='width:150px;'>Here you will have the options to add foods to a favourite list or dislike list so that we can generate better suited meals for you.</p></html>");
+        addButtonWithLabel(buttonsPanel, "Choose Diet",
+                "<html><p style='width:150px;'>Here you will have the option to add a diet preference so that we can generate better suited meals for you.</p></html>");
         addButtonWithLabel(buttonsPanel, "Edit Profile",
                 "<html><p style='width:150px;'>Set up your personal info so that we can calculate your needs and make personalized mealplans.</p></html>");
         addButtonWithLabel(buttonsPanel, "Profilestatus",
