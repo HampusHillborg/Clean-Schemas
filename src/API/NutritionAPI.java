@@ -29,6 +29,7 @@ import java.time.format.DateTimeFormatter;
 public class NutritionAPI {
 
     private String url = "http://www7.slv.se/apilivsmedel/LivsmedelService.svc/Livsmedel/Naringsvarde/";
+    private String projectDir = "Files/livsmedelsverket";
 
 
 
@@ -52,8 +53,7 @@ public class NutritionAPI {
         System.out.println("Updating file...");
 
         // Create a new file at the specified path
-        String projectDir = new File("").getAbsolutePath();
-        File xmlFile = new File(projectDir + "/Files/livsmedelsverket");
+        File xmlFile = new File(projectDir);
 
 
         // Check if the file already exists and was last modified today
@@ -95,13 +95,12 @@ public class NutritionAPI {
     public Document getXmlDocument() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        String projectDir = new File("").getAbsolutePath();
 
         File xmlFile;
         try {
-            xmlFile = new File(projectDir + "/Files/livsmedelsverket");
+            xmlFile = new File(projectDir);
         }catch (Exception e){
-            xmlFile = new File(projectDir + "/Files/livsmedelsverket");
+            xmlFile = new File(projectDir);
         }
         return builder.parse(xmlFile);
     }
