@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"src.API"},{"l":"src.Boundary"},{"l":"src.Controller"},{"l":"src.Database"},{"l":"src.Entity"},{"l":"src.Unused"}];updateSearchResults();

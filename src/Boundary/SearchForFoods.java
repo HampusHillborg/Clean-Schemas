@@ -21,7 +21,6 @@ public class SearchForFoods extends JFrame implements ActionListener {
      * Constructs a new instance of the SearchForFoods class.
      * It sets up the GUI components and initializes the window properties.
      */
-
     public SearchForFoods() {
         super("Search for Foods");
 
